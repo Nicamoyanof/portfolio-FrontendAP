@@ -1,0 +1,109 @@
+.sectionEducation {
+  background: #fff;
+  padding: 1.5625rem 0;
+}
+article {
+  background: #121212;
+  margin: 0.625rem;
+  padding: 0.9375rem 0.3125rem;
+}
+h3 {
+  text-align: center;
+  font-weight: 800;
+  margin-bottom: 3.125rem;
+  font-size: 1.75rem;
+}
+.containerTitleEducation {
+  display: flex;
+  justify-content: space-between;
+}
+h4 {
+  color: #ff0081;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+ul {
+  list-style: none;
+}
+li {
+  color: #fff;
+}
+.imgLogoDesktop {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sectionEducation {
+    padding: 2.5rem 2rem;
+  }
+  article {
+    margin: 3rem 1.5625rem;
+    padding: 1.5rem 0.3125rem;
+    position: relative;
+    box-shadow: 0 0 15px #000;
+  }
+  h4 {
+    text-align: start;
+    margin-left: 20px;
+    margin-bottom: 17px;
+  }
+  li {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .imgLogoDesktop {
+    display: block;
+    position: absolute;
+    width: 150px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    right: 50px;
+  }
+}
+@media (min-width: 1024px) {
+  .sectionEducation {
+    padding: 4rem 2rem;
+  }
+  h3{
+    font-size: 30px;
+  }
+  .imgLogoDesktop {
+    width: 200px;
+  }
+  h4{
+    font-size: 25px;
+  }
+  li{
+    font-size: 22px;
+  }
+}
+@media (min-width: 1250px) {
+  .containerSectionEdu{
+    background: #fff;
+  }
+  .sectionEducation {
+    padding: 6rem 2rem;
+    max-width: 1250px;
+    margin: auto;
+  }
+  h3{
+    font-size: 38px;
+    margin-bottom: 3.75rem;
+  }
+  .imgLogoDesktop {
+    width: 250px;
+  }
+  h4{
+    font-size: 28px;
+  }
+  ul{
+    padding-left: 3.125rem
+  }
+  li{
+    font-size: 24px;
+  }
+  article {
+    margin: 5rem 1.5625rem;
+  }
+}

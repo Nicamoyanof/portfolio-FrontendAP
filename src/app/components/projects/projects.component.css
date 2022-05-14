@@ -1,0 +1,105 @@
+section {
+  background: #242424;
+  padding: 1.5625rem;
+}
+h3 {
+  color: #baff43;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 3.125rem;
+  font-size: 1.75rem;
+}
+article {
+  width: 100%;
+  box-shadow: 0 0 10px #000;
+  border-radius: 10px;
+  margin-bottom: 3rem;
+}
+figure > img {
+  width: 100%;
+}
+figcaption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0;
+  padding: 5px 0;
+  width: 100%;
+}
+li > img {
+  width: 25px;
+}
+h4 {
+  color: #fff;
+  padding: 7px 0;
+  margin: 0;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: linear-gradient(319deg, rgb(63 0 155) 34%, rgb(110 0 101) 63%);
+  border-radius: 10px 10px 0 0;
+}
+button {
+  padding: 7px 15px;
+  margin: 10px auto;
+  border-radius: 50px;
+  border: none;
+  display: flex;
+  align-items: center;
+  border: 1px solid transparent;
+  font-weight: 600;
+  background: none;
+  border: 1px solid #baff43;
+  color: #baff43;
+}
+button:hover {
+  color: #242424;
+  background: #baff43;
+}
+button > fa-icon {
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+@media (min-width: 768px) {
+  .containerItemsProject {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 50px;
+    grid-row-gap: 50px;
+  }
+}
+@media (min-width: 1024px) {
+  section {
+    padding: 4rem 2rem;
+  }
+  h3 {
+    font-size: 30px;
+  }
+  .containerItemsProject {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1250px) {
+  .containerSectionProject {
+    background: #242424;
+  }
+  section {
+    padding: 6rem 2rem;
+    max-width: 1250px;
+    margin: auto;
+  }
+  h3 {
+    font-size: 38px;
+    margin-bottom: 60px;
+  }
+  .containerItemsProject {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

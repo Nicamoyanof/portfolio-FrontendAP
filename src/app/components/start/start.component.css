@@ -1,0 +1,156 @@
+.bannerStart {
+  width: 100vw;
+}
+.bannerStartDesktop{
+  display: none;
+}
+.imgProfileDesktop{
+  display: none;
+}
+.imgProfile {
+  width: 9.375rem;
+  height: 9.375rem;
+  border-radius: 9.375rem;
+  position: absolute;
+  top: -4.6875rem;
+  right: 0;
+  left: 0;
+  margin: auto;
+  border: 7px solid rgb(52, 5, 120) ;
+}
+article {
+  position: relative;
+  padding-top: 6.25rem;
+}
+.containerShortData > h2,
+.containerShortData > p {
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+}
+.txtTitle {
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.75rem;
+  font-family: 'Montserrat', sans-serif;
+}
+.txtTitle > span {
+  background: rgb(52, 5, 120);
+  background: linear-gradient(
+    319deg,
+    rgb(100, 9, 226) 29%,
+    rgba(143, 46, 163, 1) 63%
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+.containerDataStart>p{
+  padding: 1.5625rem;
+  color: #bbb;
+}
+.containerDataStart>p>span{
+  padding-right: .54125rem;
+}
+@media (min-width:767px) {
+
+  .bannerStartDesktop{
+    display: block;
+    width: 100vw;
+  }
+  .bannerStart{
+    display: none;
+  }
+  .imgProfile{
+    display: none;
+  }
+  .imgProfileDesktop {
+    display: block;
+    width: 9.375rem;
+    height: 9.375rem;
+    border-radius: 9.375rem;
+    position: absolute;
+    top: -4.6875rem;
+    left: 3.125rem;
+    margin: auto;
+    border: 7px solid rgb(52, 5, 120) ;
+  }
+  article{
+    padding-top: 4.6875rem;
+  }
+  .containerInfoStart{
+    display: flex;
+    padding: 20px;
+  }
+  .containerShortData{
+    margin-right: .9375rem;
+  }
+  .containerShortData>h2{
+    font-size: 20px;
+  }
+}
+@media (min-width:1024px) {
+  .bannerStartDesktop{
+    max-height: 576px;
+    object-fit: cover;
+  }
+  .containerInfoStart{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .imgProfileDesktop {
+    left:6rem;
+  }
+  .containerInfoStart>p{
+    font-size: 17px;
+  }
+  .containerShortData>h2{
+    font-size: 25px;
+  }
+  .containerShortData>p{
+    font-size: 18px;
+  }
+  .txtTitle{
+    font-size: 30px;
+    text-align: start;
+    margin-left: 10px;
+  }
+}
+@media (min-width:1250px) {
+
+  article{
+    max-width: 1250px;
+    margin: auto;
+    margin-bottom:2rem;
+  }
+  .imgProfileDesktop {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 9.375rem;
+    position: absolute;
+    top: -5.2rem;
+    left:9rem;
+  }
+  .containerInfoStart{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .containerInfoStart>p{
+    font-size: 21px;
+  }
+  .containerShortData>h2{
+    font-size: 28px;
+    margin-top: 4px;
+  }
+  .containerShortData>p{
+    font-size: 19px;
+  }
+  .txtTitle{
+    font-size: 38px;
+    margin-top: -10px;
+  }
+
+}

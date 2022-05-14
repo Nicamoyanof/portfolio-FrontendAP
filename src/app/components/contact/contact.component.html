@@ -1,0 +1,74 @@
+<section class="mainSectionContact">
+  <h3>CONTACTATE</h3>
+  <section>
+    <h4>Mis redes <span> sociales</span></h4>
+    <span class="iconSocial">
+      <figure class="containerSocial">
+        <a class="logoSocial" href="mailto:nicamoyanofunes98@gmail.com"
+          ><fa-icon [icon]="faAt"></fa-icon
+            ></a>
+
+        <div class="boxContainer boxMail">
+          <div class="triangleBox"></div>
+          <figcaption>
+            <a href="mailto:nicamoyanofunes98@gmail.com"> Mi Email</a>
+          </figcaption>
+        </div>
+      </figure>
+      <figure class="containerSocial">
+        <a
+          class="logoSocial"
+          href="https://www.linkedin.com/in/nicamoyano/"
+          target="_blank"
+          ><fa-icon [icon]="faLinkedin"></fa-icon
+            ></a>
+
+        <div class="boxContainer boxLn">
+          <figcaption>
+            <a
+              href="https://www.linkedin.com/in/nicamoyano/"
+              target="_blank"
+              >nicamoyano</a
+            >
+          </figcaption>
+          <div class="triangleBox"></div>
+        </div>
+      </figure>
+      <figure class="containerSocial">
+        <a
+          class="logoSocial"
+          href="https://github.com/Nicamoyanof"
+          target="_blank"
+          ><fa-icon [icon]="faGithub"></fa-icon
+            ></a>
+        <div class="boxContainer boxGit">
+          <figcaption>
+            <a href="https://github.com/Nicamoyanof" target="_blank"
+              >nicamoyanof</a
+            >
+          </figcaption>
+          <div class="triangleBox"></div>
+        </div>
+      </figure>
+    </span>
+  </section>
+  <form class="contact-form" (submit)="sendEmail($event)">
+    <label>Nombre</label>
+    <input type="text" name="user_name" placeholder="Nombre" />
+    <label>Email</label>
+    <input type="email" name="user_email" placeholder="Email" />
+    <label>Mensaje</label>
+    <textarea name="message" placeholder="Mensaje"></textarea>
+    <input class="btnSubmit" type="submit" value="ENVIAR" />
+    <span class="containerSpiner">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Enviando mensaje...</p>
+    </span>
+    <span class="containerMsgSend"> <span> ✔ </span> Mensaje enviado!! </span>
+    <span class="containerMsgError">
+      <span> ❌ </span> Error al enviar el mensaje.
+    </span>
+  </form>
+</section>

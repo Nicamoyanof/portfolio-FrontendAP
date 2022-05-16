@@ -1,0 +1,68 @@
+<div class="containerSectionEdu">
+  <section class="sectionEducation">
+    <h3>EDUCACION</h3>
+    <article>
+      <h4>TECNICATURA EN PROGRAMACION</h4>
+      <ul>
+        <li>- UTN FRC</li>
+        <li>- (2022 - )</li>
+      </ul>
+      <img class="imgLogoDesktop" src="../../../assets/img/utn.png" alt="" />
+    </article>
+    <article>
+      <h4>Argentina Programa</h4>
+      <ul>
+        <li>- INTI</li>
+        <li>- 2022</li>
+      </ul>
+      <img
+        class="imgLogoDesktop"
+        src="../../../assets/img/argprog.png"
+        alt=""
+      />
+    </article>
+  </section>
+
+  <div class="containerEditEducation">
+    <span (click)="activeModalEdu()">
+      <fa-icon [icon]="faPlusEdu"></fa-icon>
+      <p>Crear Educacion</p>
+    </span>
+    <span>
+      <fa-icon [icon]="faCheckEdu"></fa-icon>
+      <p>Agregar Educacion</p>
+    </span>
+  </div>
+  <article class="windowsModalStartEdu">
+    <h2>AGREGAR ESTUDIO</h2>
+    <span class="closeModal" (click)="activeModalEdu()">X</span>
+    <form action="" [formGroup]="formData">
+      <label for="">
+        Nombre
+        <input formControlName="nombre" type="text" />
+      </label>
+      <label for="">
+        Titulo
+        <input formControlName="titulo" type="text" />
+      </label>
+      <label for="">
+        Año inicio
+        <input type="text" formControlName="anioInicio" />
+      </label>
+      <label for="">
+        Año final
+        <input type="text" formControlName="anioFinal" />
+      </label>
+      <label for="">
+        Logo
+        <input type="text" formControlName="Logo" />
+      </label>
+      <input
+        (click)="agregarEducacion()"
+        type="button"
+        class="btnSubmit"
+        value="EDITAR"
+      />
+    </form>
+  </article>
+</div>

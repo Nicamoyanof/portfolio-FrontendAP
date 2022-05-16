@@ -1,0 +1,137 @@
+<section>
+    <h3>HABILIDADES</h3>
+    <div class="containFigSkills">
+      <figure>
+          <div class="bg">
+              <div class="circle-right">
+                  <div class="mask-right" style="transform: rotate(180deg);"></div></div>
+              <div class="circle-left">
+                  <div class="mask-left" style="transform: rotate(130deg);"></div>
+              </div>
+              <div  class="imgProgress" >
+                  <img src="../../../assets/img/html-5.png" alt="" />
+              </div>
+          </div>
+        <figcaption>HTML5</figcaption>
+      </figure>
+      <figure>
+          <div class="bg">
+              <div class="circle-right">
+                  <div class="mask-right" style="transform: rotate(180deg);"></div></div>
+              <div class="circle-left">
+                  <div class="mask-left" style="transform: rotate(120deg);"></div>
+              </div>
+              <div  class="imgProgress" >
+                  <img src="../../../assets/img/css3.svg" alt="" />
+              </div>
+          </div>
+        <figcaption> CSS3</figcaption>
+      </figure><figure>
+          <div class="bg">
+              <div class="circle-right">
+                  <div class="mask-right" style="transform: rotate(180deg);"></div></div>
+              <div class="circle-left">
+                  <div class="mask-left" style="transform: rotate(100deg);"></div>
+              </div>
+              <div  class="imgProgress" >
+                  <img src="../../../assets/img/js.png" alt="" />
+              </div>
+          </div>
+        <figcaption>JavaScript</figcaption>
+      </figure>
+      <figure>
+          <div class="bg">
+              <div class="circle-right">
+                  <div class="mask-right" style="transform: rotate(180deg);"></div></div>
+              <div class="circle-left">
+                  <div class="mask-left" style="transform: rotate(90deg);"></div>
+              </div>
+              <div  class="imgProgress" >
+                  <img src="../../../assets/img/react.png" alt="" />
+              </div>
+          </div>
+        <figcaption>React</figcaption>
+      </figure>
+  
+      <figure>
+          <div class="bg">
+              <div class="circle-right">
+                  <div class="mask-right" style="transform: rotate(180deg);"></div></div>
+              <div class="circle-left">
+                  <div class="mask-left" style="transform: rotate(90deg);"></div>
+              </div>
+              <div  class="imgProgress" >
+                  <img src="../../../assets/img/angular.png" alt="" />
+              </div>
+          </div>
+        <figcaption>Angular</figcaption>
+      </figure><figure>
+          <div class="bg">
+              <div class="circle-right">
+                  <div class="mask-right" style="transform: rotate(180deg);"></div></div>
+              <div class="circle-left">
+                  <div class="mask-left" style="transform: rotate(30deg);"></div>
+              </div>
+              <div  class="imgProgress" >
+                  <img src="../../../assets/img/Java-logo.png" alt="" />
+              </div>
+          </div>
+        <figcaption>JAVA</figcaption>
+      </figure>
+      <figure>
+          <div class="bg">
+              <div class="circle-right">
+                  <div class="mask-right" style="transform: rotate(180deg);"></div></div>
+              <div class="circle-left">
+                  <div class="mask-left" style="transform: rotate(40deg);"></div>
+              </div>
+              <div  class="imgProgress" >
+                  <img src="../../../assets/img/spring-boot-logo.png" alt="" />
+              </div>
+          </div>
+        <figcaption>SpringBoot</figcaption>
+      </figure>
+      <figure>
+          <div class="bg">
+              <div class="circle-right">
+                  <div class="mask-right" style="transform: rotate(180deg);"></div></div>
+              <div class="circle-left">
+                  <div class="mask-left" style="transform: rotate(70deg);"></div>
+              </div>
+              <div  class="imgProgress" >
+                  <img src="../../../assets/img/MySQL-Logo.png" alt="" />
+              </div>
+          </div>
+        <figcaption>MySQL</figcaption>
+      </figure>
+      <div class="addHabilidad" (click)="activeModalSkill()">
+          <fa-icon [icon]="faPlus"></fa-icon>
+      </div>
+  
+    </div>
+    <article class="windowsModalStartSkill">
+        <h2>AGREGAR habilidad</h2>
+        <span class="closeModal" (click)="activeModalSkill()">X</span>
+        <form action="" [formGroup]="formData">
+          <label for="">
+            Nombre
+            <input formControlName="nombre" type="text" />
+          </label>
+          <label for="">
+            Imagen
+            <input formControlName="logo" type="text" />
+          </label>
+          <label for="">
+            Porcentaje de conocimiento
+            <input type="text" formControlName="porcentaje" />
+          </label>
+          <input
+            (click)="agregarSkill()"
+            type="button"
+            class="btnSubmit"
+            value="EDITAR"
+          />
+        </form>
+      </article>
+  </section>
+  

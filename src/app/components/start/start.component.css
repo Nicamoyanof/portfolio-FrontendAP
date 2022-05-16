@@ -24,6 +24,7 @@ article {
 }
 .containerShortData > h2,
 .containerShortData > p {
+  position: relative;
   color: #fff;
   font-family: 'Montserrat', sans-serif;
   text-align: center;
@@ -52,6 +53,20 @@ article {
 }
 .containerDataStart>p>span{
   padding-right: .54125rem;
+}
+.editarInfo{
+  font-size: 14px;
+  width: 27px;
+  height: 27px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 20px;
+  background: rgb(45, 151, 3);
+  position: absolute;
+  top: -10px;
+  right: 10px;
 }
 @media (min-width:767px) {
 

@@ -1,4 +1,5 @@
-<nav>
+<header>
+  <nav>
     <h1>NICANOR</h1>
     <span class="dropMenu">
       <ul>
@@ -7,7 +8,10 @@
         <li>SKILS</li>
         <li>PROYECTOS</li>
         <li>CONTACTO</li>
-        </ul>
+      </ul>
+      <a routerLink="login" *ngIf="usuario ; else elseSession">CERRAR SESION</a>
+      <ng-template #elseSession><a routerLink="login">INICIAR SESION</a></ng-template>
     </span>
-    <fa-icon [icon]="faBars" (click)="activeMenu()"></fa-icon>
-</nav>
+    <fa-icon  [icon]="faBars" (click)="activeMenu()"></fa-icon>
+  </nav>
+</header>

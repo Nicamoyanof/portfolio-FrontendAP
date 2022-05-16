@@ -82,8 +82,6 @@ h4 > span {
 }
 form {
   background: #baff43;
-}
-form {
   display: flex;
   flex-direction: column;
   padding: 15px 5px;

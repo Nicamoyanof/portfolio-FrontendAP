@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faSliders } from '@fortawesome/free-solid-svg-icons';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +10,12 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 export class HeaderComponent implements OnInit {
 
   faBars = faBars
+  usuario:boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.getUser();
   }
 
   activeMenu(){
@@ -24,6 +27,14 @@ export class HeaderComponent implements OnInit {
       else{
         dropMenu.className+=' active'
       }
+    }
+  }
+
+  getUser(){
+    let isLoged = localStorage.getItem('auth_token');
+    
+    if(isLoged){
+      this.usuario = true;
     }
   }
 

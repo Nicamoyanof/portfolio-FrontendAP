@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Educacion } from '../models/educacion';
-import { PersonaEducacion } from '../models/personas';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +24,13 @@ export class EducacionService {
           })
           
   }
+
+
+  public getEducaciones(): Observable<Educacion[]> {
+    return this.http.get<Educacion[]>(this.url+'/educaciones');
+  }
   
+  
+
+
 }

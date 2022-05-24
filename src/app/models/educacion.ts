@@ -1,7 +1,12 @@
 export class Educacion{
-    'nombre':string;
-    'titulo':string;
-    'anioInicio':string;
-    'anioFinal':string;
+    'nombreInstituto':string;
+    'tituloInstituto':string;
     'logo':string;
+}
+
+export class EducacionAgregar{
+    'personas':any;
+    'educaciones':any;
+    'anioInicio':any;
+    'anioFinal':any;
 }

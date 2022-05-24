@@ -8,9 +8,16 @@ export class Persona{
     'pais':string;
     'descripcion':string;
     'imgPerfil':string;
+    'imgBanner':string;
+    'imgBannerM':string;
+    'logo':string;
+    'email':string;
+    'linkedin':string;
+    'github':string;
 }
 
-export class PersonaEducacion{
+export class PersonaHabilidad{
     'persona':number;
-    'isntituto':number
+    'habilidad':number;
+    'porcentaje':number;
 }

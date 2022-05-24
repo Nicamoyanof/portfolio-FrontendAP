@@ -16,7 +16,10 @@ export class SkillService {
           .subscribe((resp:any)=>{
             console.log('agregado')
           })
-          
+  }
+
+  getAllSkill(){
+    return this.http.get(this.url+'/habilidades')
   }
 
 }

@@ -1,26 +1,14 @@
 <div class="containerSectionEdu">
   <section class="sectionEducation">
     <h3>EDUCACION</h3>
-    <article>
-      <h4>TECNICATURA EN PROGRAMACION</h4>
+    <article *ngFor="let estudio of listaEstudiosPersonas">
+      <h4>{{estudio.educacionesByIdInstituto.tituloInstituto}}</h4>
       <ul>
-        <li>- UTN FRC</li>
-        <li>- (2022 - )</li>
+        <li>- {{estudio.educacionesByIdInstituto.nombreInstituto}}</li>
+        <li>- {{estudio.anioInicio}} {{estudio.anioFinal==0||estudio.anioFinal==estudio.anioInicio?"":(" - " + estudio.anioFinal)}}</li>
       </ul>
-      <img class="imgLogoDesktop" src="../../../assets/img/utn.png" alt="" />
-    </article>
-    <article>
-      <h4>Argentina Programa</h4>
-      <ul>
-        <li>- INTI</li>
-        <li>- 2022</li>
-      </ul>
-      <img
-        class="imgLogoDesktop"
-        src="../../../assets/img/argprog.png"
-        alt=""
-      />
-    </article>
+      <img class="imgLogoDesktop" src={{estudio.educacionesByIdInstituto.logo}} alt="" />
+    </article>    
   </section>
 
   <div class="containerEditEducation">
@@ -28,7 +16,7 @@
       <fa-icon [icon]="faPlusEdu"></fa-icon>
       <p>Crear Educacion</p>
     </span>
-    <span>
+    <span (click)="activeModalEduAgregar()">
       <fa-icon [icon]="faCheckEdu"></fa-icon>
       <p>Agregar Educacion</p>
     </span>
@@ -45,24 +33,62 @@
         Titulo
         <input formControlName="titulo" type="text" />
       </label>
-      <label for="">
-        Año inicio
-        <input type="text" formControlName="anioInicio" />
-      </label>
-      <label for="">
-        Año final
-        <input type="text" formControlName="anioFinal" />
-      </label>
-      <label for="">
-        Logo
-        <input type="text" formControlName="Logo" />
-      </label>
+      <div>
+        <label for="imgLogoEducacion">
+          Logo
+          <fa-icon
+            *ngIf="imgUrlLogo == ''; else imgUrlLogoElse"
+            [icon]="faPlusEdu"
+          ></fa-icon>
+          <ng-template #imgUrlLogoElse>
+            <img class="imgUrlLogo" [src]="imgUrlLogo" alt="" />
+          </ng-template>
+        </label>
+        <input
+          (change)="mostrarImagen($event)"
+          type="file"
+          formControlName="logo"
+          name="imgLogoEducacion"
+          id="imgLogoEducacion"
+          hidden
+        />
+      </div>
+
       <input
         (click)="agregarEducacion()"
         type="button"
         class="btnSubmit"
         value="EDITAR"
       />
+    </form>
+  </article>
+
+  <article class="windowsModalStartEduAgregar">
+    <h2>AGREGAR ESTUDIO</h2>
+    <span class="closeModal" (click)="activeModalEduAgregar()">X</span>
+    <form action="" [formGroup]="formDataAgregar">
+      <label for="">
+        SELECCIONAR CARRERA
+        <select formControlName="instituto" (change)="selectValor($event.target)">
+          <ng-container *ngIf="listaEdu != null">
+            <option
+            *ngFor="let educacion of listaEdu"
+              [value]="educacion.idInstituto"
+            >
+              {{ educacion.nombreInstituto + " - " + educacion.tituloInstituto }}
+            </option>
+          </ng-container>
+        </select>
+      </label>
+      <label for="">
+        Año inicio
+        <input formControlName="anioInicio" type="text" />
+      </label>
+      <label for="">
+        Año final
+        <input formControlName="anioFinal" type="text" />
+      </label>
+      <input (click)="unirPersonaEdu()"  type="button" class="btnSubmit" value="EDITAR" />
     </form>
   </article>
 </div>

@@ -1,211 +1,268 @@
-section{
-    padding: 1.5625rem;
+section {
+  padding: 1.5625rem;
 }
-h3{
-    color: #BAFF43;
-    text-align: center;
-    font-weight: 700;
-    margin-bottom: 3.125rem;
-    font-size: 1.75rem;
-}
-
-.imgProgress>img{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 100%;
-}
-figure>span{
-    background: #fff;
-    width:10rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10rem;
-    border-radius: 9.375rem;
-    border: 8px solid #5496;
-
+h3 {
+  color: #baff43;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 3.125rem;
+  font-size: 1.75rem;
 }
 
-figcaption{
-    color: #999;
-    display: block;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 700;
+.imgProgress > img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 100%;
 }
-.bg{
-    width: 200px;
-    height: 200px;
-    border-radius: 100%;
-    position: relative;
-    margin: 20px auto;
-}
-.circle-right, .circle-left, .mask-right, .mask-left{
-    width: 200px;
-    height: 200px;
-    border-radius: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.circle-right, .circle-left{
-    background: linear-gradient(90deg,#e880ff 30%,#2a75ff 70%);
-}
-.mask-right, .mask-left{
-    background: #fff;
-}
-.circle-right, .mask-right{
-    clip: rect(0,200px,200px,100px);
-}
-.circle-left, .mask-left{
-    clip: rect(0,100px,200px,0);
-}
-.imgProgress{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 180px;
-    height: 180px;
-    padding: 15px;
-    border-radius: 100%;
-    background: #000;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    overflow: hidden;
-}
-.addHabilidad{
-    justify-self: center;
-    align-self: center;
-    width:150px;
-    height: 150px;
-    border: 2px solid #fff;
-    border-radius: 500px;
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-    align-items: center;
-}
-.addHabilidad>fa-icon{
-    font-size: 50px;
-    color: #fff;
+figure > span {
+  background: #fff;
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10rem;
+  border-radius: 9.375rem;
+  border: 8px solid #5496;
 }
 
-.addHabilidad:hover{
-    transform: scale(1.2);
+figcaption {
+  color: #999;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
 }
-.windowsModalStartSkill {
-    display: none;
-    background: #baff43;
-    max-width: 700px;
-    padding: 15px 10px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    transform: translateY(40%);
-    z-index: 500;
-  }
-  .windowsModalStartSkill.active,
-  .backgroundModalClose.active {
-    display: block;
-  }
-  .closeModal {
-    font-weight: 700;
-    font-size: 25px;
-    position: absolute;
-    top: -17px;
-    right: -10px;
-    background: #222;
-    width: 40px;
-    height: 40px;
-    border-radius: 30px;
-    color: #baff43;
-    text-align: center;
-    cursor: pointer;
-  }
-  .windowsModalStartSkill > h2 {
-    font-weight: 700;
-    font-size: 22px;
-    text-transform: uppercase;
-    text-align: center;
-  }
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  label {
-    font-weight: 600;
-    margin-top: 0.9375rem;
-    display: flex;
-    flex-direction: column;
-  }
-  input,
-  textarea {
-    padding: 0.3125rem;
-    border: none;
-    background: #222;
-    color: #fff;
-  }
-  /* textarea {
+.bg {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  position: relative;
+  margin: 20px auto;
+}
+.circle-right,
+.circle-left,
+.mask-right,
+.mask-left {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.circle-right,
+.circle-left {
+  background: linear-gradient(90deg, #e880ff 30%, #2a75ff 70%);
+}
+.mask-right,
+.mask-left {
+  background: #fff;
+}
+.circle-right,
+.mask-right {
+  clip: rect(0, 200px, 200px, 100px);
+}
+.circle-left,
+.mask-left {
+  clip: rect(0, 100px, 200px, 0);
+}
+.imgProgress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+  padding: 15px;
+  border-radius: 100%;
+  background: #000;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  overflow: hidden;
+}
+.addHabilidad {
+  justify-self: center;
+  align-self: center;
+  width: 150px;
+  height: 150px;
+  border: 2px solid #fff;
+  border-radius: 500px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  align-items: center;
+}
+.addHabilidad > fa-icon {
+  font-size: 50px;
+  color: #fff;
+}
+
+.addHabilidad:hover {
+  transform: scale(1.2);
+}
+.windowsModalStartSkill, .windowsModalStartCrearSkill {
+  display: none;
+  background: #baff43;
+  max-width: 700px;
+  padding: 15px 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(40%);
+  z-index: 500;
+  margin: auto;
+}
+.windowsModalStartSkill.active,
+.backgroundModalClose.active,
+.windowsModalStartCrearSkill.active {
+  display: block;
+}
+.closeModal {
+  font-weight: 700;
+  font-size: 25px;
+  position: absolute;
+  top: -17px;
+  right: -10px;
+  background: #222;
+  width: 40px;
+  height: 40px;
+  border-radius: 30px;
+  color: #baff43;
+  text-align: center;
+  cursor: pointer;
+}
+.windowsModalStartSkill > h2 ,.windowsModalStartCrearSkill>h2{
+  font-weight: 700;
+  font-size: 22px;
+  text-transform: uppercase;
+  text-align: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+label {
+  font-weight: 600;
+  margin-top: 0.9375rem;
+  display: flex;
+  flex-direction: column;
+}
+input,
+textarea,
+select {
+  padding: 0.3125rem;
+  border: none;
+  background: #222;
+  color: #fff;
+}
+textarea {
       min-width: 258px;
       max-width: 258px;
       min-height: 58px;
       max-height: 58px;
-    } */
-  input::placeholder,
-  textarea::placeholder {
-    color: #aaa;
-  }
-  input:focus,
-  textarea:focus {
-    outline: none;
-  }
-  .btnSubmit {
-    margin-top: 25px;
-    font-weight: 600;
-    color: #baff43;
-    padding: 10px 0;
-  }
-
-@media (min-width:768px) {
-    
-    section{
-        padding: 2.5rem 2rem;
     }
-    .containFigSkills{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-row-gap: 2.5rem;
-    }
-
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  color: #aaa;
 }
-@media (min-width:1024px) {
-    section{
-        padding: 4rem 2rem;
-    }
-    h3{
-        font-size: 30px;
-    }
-    .containFigSkills{
-        grid-template-columns: repeat(3, 1fr);
-    }
 
+form>div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-@media (min-width:1024px) {
-    section{
-        padding: 6rem 2rem;
-        max-width: 1250px;
-        margin: auto;
-    }
-    h3{
-        font-size: 38px;
-        margin-bottom:60px ;
-    }
-    .containFigSkills{
-        grid-template-columns: repeat(3, 1fr);
-    }
+form>div>label{
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  cursor: pointer;
+  width: 50%;
+}
 
+form>div>label>fa-icon{
+  width: 50px;
+  height: 50px;
+  font-size: 25px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid;
+}
+label>img{
+  max-width: 100%;
+}
+.imgUrlPerfil{
+  max-width: 160px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+#logo{
+  display: none;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+.btnSubmit {
+  margin-top: 25px;
+  font-weight: 600;
+  color: #baff43;
+  padding: 10px 0;
+}
+
+.crearHabilidad {
+  display: flex;
+  color: #fff;
+  justify-content: center;
+  margin: 80px 0 0 0;
+  font-size: 24px;
+  cursor: pointer;
+}
+.crearHabilidad>fa-icon{
+    margin-right: 15px;
+}
+.crearHabilidad:hover{
+    transform: scale(1.2);
+}
+@media (min-width: 768px) {
+  section {
+    padding: 2.5rem 2rem;
+  }
+  .containFigSkills {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: 2.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  section {
+    padding: 4rem 2rem;
+  }
+  h3 {
+    font-size: 30px;
+  }
+  .containFigSkills {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  section {
+    padding: 6rem 2rem;
+    max-width: 1250px;
+    margin: auto;
+  }
+  h3 {
+    font-size: 38px;
+    margin-bottom: 60px;
+  }
+  .containFigSkills {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

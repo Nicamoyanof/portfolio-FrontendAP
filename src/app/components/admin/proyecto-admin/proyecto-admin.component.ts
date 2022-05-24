@@ -6,6 +6,7 @@ import { faCheck, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Proyecto } from 'src/app/models/proyecto';
 import { PersonasService } from 'src/app/service/personas.service';
 import { ProyectoService } from 'src/app/service/proyecto.service';
+import { SkillService } from 'src/app/service/skill.service';
 
 @Component({
   selector: 'app-proyecto-admin',
@@ -18,12 +19,17 @@ export class ProyectoAdminComponent implements OnInit {
   faPlus = faPlus;
   faCheck = faCheck;
   formData: FormGroup;
+  listSkills:any[];
+  arraySelectedSkill:any[]=[]
+
+
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private personaService: PersonasService,
-    private proyectoService:ProyectoService
+    private proyectoService:ProyectoService,
+    private habilidadesService:SkillService
   ) {
     this.formData = this.fb.group({
       nombre: ['', []],
@@ -33,6 +39,7 @@ export class ProyectoAdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.habilidadesService.getAllSkill().subscribe((res:any[])=>this.listSkills=res)
   }
 
   activeModalProyecto(){
@@ -57,5 +64,10 @@ export class ProyectoAdminComponent implements OnInit {
     this.proyectoService.agregarProyecto(proyecto);
   }
 
+  selectValor(event:any){
+    this.arraySelectedSkill.push( this.listSkills[event.value])
+    console.log(this.arraySelectedSkill)
+   
+  }
 
 }

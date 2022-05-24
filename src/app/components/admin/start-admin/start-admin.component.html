@@ -1,62 +1,116 @@
 <div class="containerStart">
-    <img class="bannerStart" src="../../../assets/img/DESARROLLADOR FULL STACK (1).png" alt="">
-    <img class="bannerStartDesktop" src="../../../assets/img/DESARROLLADOR FULL STACK.png" alt="">
-    <article>
-        <span (click)="activeModal()" class="editarInfo" *ngIf="adminEdit"> <fa-icon [icon]="faPen"></fa-icon></span> 
-        <img class="imgProfile"  src="../../../assets/img/Diseño sin título.png" alt="">
-        <img class="imgProfileDesktop"  src="../../../assets/img/Diseño sin título.png" alt="">
-        <div class="containerInfoStart">
-            <section class="containerShortData">
-                <h2>NICANOR MOYANO FUNES </h2>
-                <p>
-                    Córdoba, Argentina.
-                </p>
-            </section>
-            <section class="containerDataStart">
-                <h1 class="txtTitle">DESARROLLADOR <span> FULL STACK Jr</span>.</h1>
-                <p>
-                   <span> 👦 </span>  ¡Hola! Soy Nica, un aficionado por la programacion. <br> <br>
-                    <span> 📕 </span>   Estudio Programacion en la UTN y participe del bootcamp Argentina Programa <br> <br>
-                    <span> 💻 </span>   Soy una persona dispuesta a aprender nuevas tecnologias y  afianzar mis conocimientos
-                </p>
-            </section>
-        </div>
-    </article>
+  <img class="bannerStart" src={{personaLoged.imgBannerM}} alt="" />
+  <img class="bannerStartDesktop" src={{personaLoged.imgBanner}} alt="" />
+  <article>
+    <span (click)="activeModal()" class="editarInfo" *ngIf="adminEdit">
+      <fa-icon [icon]="faPen"></fa-icon>
+    </span>
+    <img class="imgProfile" src={{personaLoged.imgPerfil}} alt="" />
+    <img class="imgProfileDesktop" src={{personaLoged.imgPerfil}} alt="" />
+    <div class="containerInfoStart">
+      <section class="containerShortData">
+        <h2>{{personaLoged.nombre + ", " + personaLoged.apellido}}</h2>
+        <p>{{personaLoged.ciudad + ", " + personaLoged.pais}}.</p>
+      </section>
+      <section class="containerDataStart">
+        <h1 class="txtTitle">{{arrPersonaProfesion[0]}} <span> {{arrPersonaProfesion[1]}}</span>{{arrPersonaProfesion[2]}}</h1>
+        <p class="containerDescriptionStart">
+      </section>
+    </div>
+  </article>
 </div>
 
 <div class="backgroundModalClose" (click)="activeModal()"></div>
 <article class="windowsModalStart">
-    <h2>Editar info personal</h2>
-    <span class="closeModal" (click)="activeModal()">X</span>
-    <form action="" [formGroup]="formData">
-        <label for="">
-            Nombre
-            <input formControlName="nombre" type="text">
-        </label>
-        <label for="">
-            Apellido
-            <input  formControlName="apellido" type="text">
-        </label>
-        <label for="">
-            Profesion
-            <input type="text"  formControlName="profesion">
-        </label>
-        <label for="">
-            Ciudad
-            <input type="text"  formControlName="ciudad">
-        </label>
-        <label for="">
-            Pais
-            <input type="text"  formControlName="pais">
-        </label>
-        <label for="">
-            Descripcion
-            <textarea type="text"  formControlName="descripcion"> </textarea>
+  <h2>Editar info personal</h2>
+  <span class="closeModal" (click)="activeModal()">X</span>
+  <form action="" [formGroup]="formData">
+    <div>
+      <label for="">
+        Nombre
+        <input formControlName="nombre" type="text" />
+      </label>
+      <label for="">
+        Apellido
+        <input formControlName="apellido" type="text" />
+      </label>
+    </div>
 
+    <label for="">
+      Profesion
+      <input type="text" formControlName="profesion" />
+    </label>
+    <div>
+      <label for="">
+        Ciudad
+        <input type="text" formControlName="ciudad" />
+      </label>
+      <label for="">
+        Pais
+        <input type="text" formControlName="pais" />
+      </label>
+    </div>
+
+    <label for="">
+      Descripcion
+      <textarea type="text" formControlName="descripcion"> </textarea>
+    </label>
+    <div>
+      <label for="imgPerfilInput">
+        Imagen Perfil
+        <fa-icon *ngIf="imgUrlPerfil == ''; else imgPerfil" [icon]="faPlus"></fa-icon>
+        <ng-template #imgPerfil>
+          <img class="imgUrlPerfil" [src]="imgUrlPerfil" alt="" />
+        </ng-template>
+      </label>
+      <input (change)="mostrarImagen($event, 'perfil')" id="imgPerfilInput" type="file" formControlName="imgPerfil"
+        name="imgPerfilInput" hidden />
+      <label for="imgBannerDesktopInput">
+        Imagen Banner Escitorio
+        <fa-icon *ngIf="imgUrlBannerD == ''; else imgBannerD" [icon]="faPlus"></fa-icon>
+        <ng-template #imgBannerD>
+          <img class="imgUrlBannerD" [src]="imgUrlBannerD" alt="" />
+        </ng-template>
+      </label>
+
+      <input (change)="mostrarImagen($event, 'bannerDes')" type="file" formControlName="imgBannerD"
+        name="imgBannerDesktopInput" id="imgBannerDesktopInput" hidden />
+      <label for="imgBannerMobileInput">
+        Imagen Banner Celular
+        <fa-icon *ngIf="imgUrlBannerM == ''; else imgBannerM" [icon]="faPlus"></fa-icon>
+        <ng-template #imgBannerM>
+          <img class="imgUrlBannerM" [src]="imgUrlBannerM" alt="" />
+        </ng-template>
+      </label>
+      <input (change)="mostrarImagen($event, 'bannerM')" type="file" formControlName="imgBannerM"
+        name="imgBannerMobileInput" id="imgBannerMobileInput" hidden />
+
+
+        <label for="imgLogo">
+          Imagen Logo
+          <fa-icon *ngIf="imgUrlLogo == ''; else imgUrlLogoElse" [icon]="faPlus"></fa-icon>
+          <ng-template #imgUrlLogoElse>
+            <img class="imgUrlLogo" [src]="imgUrlLogo" alt="" />
+          </ng-template>
         </label>
-        <label for="">
-            <input type="file" formControlName="imgPerfil" name="" id="">
-        </label>
-    </form>
-    <button (click)="datosPersonales()" class="btnSubmit">ENVIAR</button>
+        <input (change)="mostrarImagen($event, 'logo')" type="file" formControlName="logo"
+          name="imgLogo" id="imgLogo" hidden />
+
+    </div>
+    <label for="">
+      Email
+      <input type="text" formControlName="email" />
+    </label>
+    <div>
+      <label for="">
+        Linkedin
+        <input type="text" formControlName="linkedin" />
+      </label>
+      <label for="">
+        Github
+        <input type="text" formControlName="github" />
+      </label>
+    </div>
+  </form>
+  <button (click)="datosPersonales()" class="btnSubmit">ENVIAR</button>
 </article>

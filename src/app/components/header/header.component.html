@@ -1,13 +1,13 @@
 <header>
   <nav>
-    <h1>NICANOR</h1>
+    <img class="logoNavBar" src="../../../assets/img/NICA (2).png" alt="">
     <span class="dropMenu">
       <ul>
-        <li>INICIO</li>
-        <li>EDUCACION</li>
-        <li>SKILS</li>
-        <li>PROYECTOS</li>
-        <li>CONTACTO</li>
+        <li> <a href="#inicio"> INICIO</a></li>
+        <li> <a href="#educacion"> EDUCACION</a></li>
+        <li> <a href="#skills">SKILLS</a> </li>
+        <li> <a href="#proyectos">PROYECTOS</a> </li>
+        <li> <a href="#contacto">CONTACTO</a> </li>
       </ul>
       <a routerLink="login" *ngIf="usuario ; else elseSession">CERRAR SESION</a>
       <ng-template #elseSession><a routerLink="login">INICIAR SESION</a></ng-template>

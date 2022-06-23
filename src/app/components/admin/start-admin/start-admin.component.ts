@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { async } from '@firebase/util';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
+import jwtDecode from 'jwt-decode';
 import { Persona } from 'src/app/models/personas';
 import { FireStorageService } from 'src/app/service/fire-storage.service';
 import { PersonasService } from 'src/app/service/personas.service';
@@ -32,6 +33,8 @@ export class StartAdminComponent implements OnInit {
 
   formData: FormGroup;
 
+  userLogged:any = jwtDecode(localStorage.getItem('auth_token'));
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -58,7 +61,7 @@ export class StartAdminComponent implements OnInit {
     console.log(this.router.url);
     this.isAdminEdit();
     
-    this.personaService.getPersona(2).subscribe((res:any)=>{
+    this.personaService.getPersona(this.userLogged.user).subscribe((res:any)=>{
       this.personaLoged=res;
       this.arrPersonaProfesion = this.personaLoged.profesion.split("/");
      document.querySelector('.containerDescriptionStart').innerHTML=this.personaLoged.descripcion;
@@ -112,7 +115,7 @@ export class StartAdminComponent implements OnInit {
       github: this.formData.value.github,
     };
 
-    this.personaService.agregarPersona(datosPersona);
+    this.personaService.agregarPersona(this.userLogged.user, datosPersona);
   }
 
   mostrarImagen(event: any, destino: string) {

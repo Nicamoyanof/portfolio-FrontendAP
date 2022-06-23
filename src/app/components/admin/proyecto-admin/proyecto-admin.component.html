@@ -2,73 +2,16 @@
     <section>
         <h3>MIS PROYECTOS</h3>
         <div class="containerItemsProject">
-            <article>
-                <h4>Pelis-Api</h4>
+            <article *ngFor="let proyecto of listaProyectosFinal">
+                <h4>{{proyecto.nombre}}</h4>
                 <figure>
-                    <img src="../../../assets/img/peli-api.bmp" alt="">
+                    <img src={{proyecto.imgProyecto}} alt="">
                     <figcaption>
                         <ul>
-                            <li><img src="../../../assets/img/react.png" alt=""> </li>
-                            <li><img src="../../../assets/img/nextjs.png" alt=""></li>
-                            <li><img src="../../../assets/img/tailwind-css.svg" alt=""></li>
+                            <li *ngFor="let habilidad of proyecto.habilidades"><img src={{habilidad.logo}} alt=""> </li>
                         </ul>
-                        <button> GitHub <fa-icon [icon]="github"></fa-icon> </button>
-                    </figcaption>
-                </figure>
-            </article>
-            <article>
-                <h4>Pelis-Api</h4>
-                <figure>
-                    <img src="../../../assets/img/peli-api.bmp" alt="">
-                    <figcaption>
-                        <ul>
-                            <li><img src="../../../assets/img/react.png" alt=""> </li>
-                            <li><img src="../../../assets/img/nextjs.png" alt=""></li>
-                            <li><img src="../../../assets/img/tailwind-css.svg" alt=""></li>
-                        </ul>
-                        <button> GitHub <fa-icon [icon]="github"></fa-icon> </button>
-                    </figcaption>
-                </figure>
-            </article>
-            <article>
-                <h4>Pelis-Api</h4>
-                <figure>
-                    <img src="../../../assets/img/peli-api.bmp" alt="">
-                    <figcaption>
-                        <ul>
-                            <li><img src="../../../assets/img/react.png" alt=""> </li>
-                            <li><img src="../../../assets/img/nextjs.png" alt=""></li>
-                            <li><img src="../../../assets/img/tailwind-css.svg" alt=""></li>
-                        </ul>
-                        <button> GitHub <fa-icon [icon]="github"></fa-icon> </button>
-                    </figcaption>
-                </figure>
-            </article>
-            <article>
-                <h4>Pelis-Api</h4>
-                <figure>
-                    <img src="../../../assets/img/peli-api.bmp" alt="">
-                    <figcaption>
-                        <ul>
-                            <li><img src="../../../assets/img/react.png" alt=""> </li>
-                            <li><img src="../../../assets/img/nextjs.png" alt=""></li>
-                            <li><img src="../../../assets/img/tailwind-css.svg" alt=""></li>
-                        </ul>
-                        <button> GitHub <fa-icon [icon]="github"></fa-icon> </button>
-                    </figcaption>
-                </figure>
-            </article>
-            <article>
-                <h4>Pelis-Api</h4>
-                <figure>
-                    <img src="../../../assets/img/peli-api.bmp" alt="">
-                    <figcaption>
-                        <ul>
-                            <li><img src="../../../assets/img/react.png" alt=""> </li>
-                            <li><img src="../../../assets/img/nextjs.png" alt=""></li>
-                            <li><img src="../../../assets/img/tailwind-css.svg" alt=""></li>
-                        </ul>
-                        <button> GitHub <fa-icon [icon]="github"></fa-icon> </button>
+                        <a href={{proyecto.linkGithub}} target="_blank"> <button> GitHub <fa-icon [icon]="github"></fa-icon> </button></a>
+
                     </figcaption>
                 </figure>
             </article>
@@ -90,17 +33,17 @@
             <input formControlName="nombre" type="text" />
           </label>
           <div>
-            <label for="logo">
+            <label for="imgProyecto">
               Imagen
               <fa-icon
-                *ngIf="imgUrlPerfil == ''; else imgPerfil"
+                *ngIf="imgUrlProyectoSubir==''; else imgUrlProyectoElse"
                 [icon]="faPlus"
               ></fa-icon>
-              <ng-template #imgPerfil>
-                <img class="imgUrlPerfil" [src]="imgUrlPerfil" alt="" />
+              <ng-template #imgUrlProyectoElse>
+                <img class="imgUrlProyectoSubir" [src]="imgUrlProyectoSubir" alt="" />
               </ng-template>
             </label>
-            <input (change)="mostrarImagen( $event ,'logo')" formControlName="logo" type="file" id="logo" />
+            <input (change)="mostrarImagenProyecto( $event ,'logo')" formControlName="logo" type="file" id="imgProyecto" />
           </div>
           <label for="">
               Seleccionar Habilidades

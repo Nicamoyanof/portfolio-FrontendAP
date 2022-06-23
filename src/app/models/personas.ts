@@ -21,3 +21,7 @@ export class PersonaHabilidad{
     'habilidad':number;
     'porcentaje':number;
 }
+export class PersonaProyecto{
+    'persona':number;
+    'proyecto':number;
+}

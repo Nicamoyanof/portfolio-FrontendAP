@@ -12,9 +12,6 @@ import jwt_decode from 'jwt-decode';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-
-
-
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -25,8 +22,8 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     let isLoged = localStorage.getItem('auth_token');
 
-    var decoded = jwt_decode(isLoged?isLoged:'');
-    console.log(decoded)
+    var decoded = jwt_decode(isLoged ? isLoged : '');
+    console.log(decoded);
 
     if (isLoged) {
       return true;

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { EducacionAgregar } from '../models/educacion';
-import { Persona, PersonaHabilidad } from '../models/personas';
+import { Persona, PersonaHabilidad, PersonaProyecto } from '../models/personas';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,8 @@ export class PersonasService {
     private router:Router) { 
   }
 
-  agregarPersona(persona:Persona){
-    this.http.post(this.url+'/persona', persona, {  responseType: 'text' })
+  agregarPersona(id:number,persona:Persona){
+    this.http.put(this.url+ `/persona/${id}` ,  persona, {  responseType: 'text' })
           .subscribe((resp:any)=>{
             console.log('agregado')
           })
@@ -51,6 +51,18 @@ export class PersonasService {
   }
   getHabilidadesPersona(id:number){
     return this.http.get(this.url+`/persona/${id}/habilidades`)
+  }
+
+  //AGREGAR PROYECTO A LA PERSONA
+  agregarProyecto(perPro: PersonaProyecto){
+    this.http.post(this.url+'/persona/proyecto', perPro, {  responseType: 'text' })
+    .subscribe((resp:any)=>{
+      console.log('agregado')
+    })
+  } 
+  
+  getPersonaProyectos(id:number){
+    return this.http.get(this.url+`/persona/${id}/proyectos`)
   }
 
 }

@@ -3,3 +3,14 @@ export class Proyecto{
     'imgProyecto':string;
     'linkGithub':string;
 }
+export class ProyectoHabilidad{
+    'proyectos':number;
+    'habilidades':number;
+}
+
+export class ProyectoCompleto{
+    'nombre':string;
+    'imgProyecto':string;
+    'linkGithub':string;
+    'habilidades': any[];
+}

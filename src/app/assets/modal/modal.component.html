@@ -1,0 +1,14 @@
+<div class="windowModal">
+  <article class="modalPrueba">
+    <span class="closeModal" (click)="activeModal()">X</span>
+    <main>
+      <app-start-modal *ngIf="valorModal=='start' else crear"></app-start-modal>
+      <ng-template #crear>
+          <app-education-modal></app-education-modal>
+      </ng-template>
+    </main>
+     <button  class="btnSubmit">ENVIAR</button>
+  </article>
+</div>
+
+<div class="backgroundModalClose" (click)="activeModal()"></div>

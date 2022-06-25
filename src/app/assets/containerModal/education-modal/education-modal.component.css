@@ -1,0 +1,62 @@
+h2 {
+  font-weight: 700;
+  font-size: 22px;
+  text-transform: uppercase;
+  text-align: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+form > div > label {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+}
+label > img {
+  max-width: 100%;
+}
+
+form > div > label > fa-icon {
+  width: 50px;
+  height: 50px;
+  font-size: 25px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid;
+}
+label {
+  font-weight: 600;
+  margin-top: 0.9375rem;
+  display: flex;
+  flex-direction: column;
+}
+input,
+textarea,
+select {
+  padding: 0.3125rem;
+  border: none;
+  background: #222;
+  color: #fff;
+}
+/* textarea {
+    min-width: 258px;
+    max-width: 258px;
+    min-height: 58px;
+    max-height: 58px;
+  } */
+input::placeholder,
+select,
+textarea::placeholder {
+  color: #aaa;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}

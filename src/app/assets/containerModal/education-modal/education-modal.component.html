@@ -1,0 +1,31 @@
+<h2>AGREGAR ESTUDIO</h2>
+    <form action="" [formGroup]="formData">
+      <label for="">
+        Nombre
+        <input formControlName="nombre" type="text" />
+      </label>
+      <label for="">
+        Titulo
+        <input formControlName="titulo" type="text" />
+      </label>
+      <div>
+        <label for="imgLogoEducacion">
+          Logo
+          <fa-icon
+            *ngIf="imgUrlLogo == ''; else imgUrlLogoElse"
+            [icon]="faPlusEdu"
+          ></fa-icon>
+          <ng-template #imgUrlLogoElse>
+            <img class="imgUrlLogo" [src]="imgUrlLogo" alt="" />
+          </ng-template>
+        </label>
+        <input
+          (change)="mostrarImagen($event)"
+          type="file"
+          formControlName="logo"
+          name="imgLogoEducacion"
+          id="imgLogoEducacion"
+          hidden
+        />
+      </div>
+    </form>

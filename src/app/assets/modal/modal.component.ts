@@ -8,42 +8,32 @@ import { FireStorageService } from 'src/app/service/fire-storage.service';
 import { ModalService } from 'src/app/service/modal.service';
 import { PersonasService } from 'src/app/service/personas.service';
 
+
 @Component({
-  selector: 'app-education-admin',
-  templateUrl: './education-admin.component.html',
-  styleUrls: ['./education-admin.component.css'],
+  selector: 'app-modal',
+  templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.css']
 })
-export class EducationAdminComponent implements OnInit {
+export class ModalComponent implements OnInit {
+  valorModal:string;
   faPlusEdu = faPlus;
   faCheckEdu = faCheck;
+  formData: FormGroup;
+  formDataAgregar: FormGroup;
   imgUrlLogo: string = '';
   linkImgLogo: string;
   listaEdu: any;
   selectedOption: any;
   listaEstudiosPersonas: any[];
 
-  constructor(
-    private modalService:ModalService,
-    private personaService: PersonasService,
-    private educacionService: EducacionService,
-    private db: FireStorageService
-  ) {  }
+  constructor( private modalService:ModalService) {}
 
-  async ngOnInit() {
-    this.educacionService
-      .getEducaciones()
-      .subscribe((resp) => (this.listaEdu = resp));
-
-    this.personaService
-      .getEstudiosPersona(2)
-      .subscribe((res: any[]) => console.log( res));
-    this.personaService
-      .getEstudiosPersona(2)
-      .subscribe((res: any[]) => (this.listaEstudiosPersonas = res));
+  ngOnInit() {
+    this.modalService.tipoModal.subscribe(valor=>{this.valorModal=valor})
   }
 
-  activeModal(tipoModal) {
-    this.modalService.abrirModal(tipoModal);
+  activeModal() {
+    console.log(this.valorModal)
     let windowsModalStart =
       document.querySelector<HTMLElement>('.windowModal');
     let backgroundModalClose = document.querySelector<HTMLElement>(
@@ -60,10 +50,4 @@ export class EducationAdminComponent implements OnInit {
     }
   }
 
-
-
-
-  selectValor(event: any) {
-    this.selectedOption = event.value;
-  }
 }

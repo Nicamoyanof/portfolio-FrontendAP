@@ -12,60 +12,19 @@
   </section>
 
   <div class="containerEditEducation">
-    <span (click)="activeModalEdu()">
+    <span (click)="activeModal('crearEducacion')">
       <fa-icon [icon]="faPlusEdu"></fa-icon>
       <p>Crear Educacion</p>
     </span>
-    <span (click)="activeModalEduAgregar()">
+    <span (click)="activeModal('agregarEducacion')">
       <fa-icon [icon]="faCheckEdu"></fa-icon>
       <p>Agregar Educacion</p>
     </span>
   </div>
-  <article class="windowsModalStartEdu">
-    <h2>AGREGAR ESTUDIO</h2>
-    <span class="closeModal" (click)="activeModalEdu()">X</span>
-    <form action="" [formGroup]="formData">
-      <label for="">
-        Nombre
-        <input formControlName="nombre" type="text" />
-      </label>
-      <label for="">
-        Titulo
-        <input formControlName="titulo" type="text" />
-      </label>
-      <div>
-        <label for="imgLogoEducacion">
-          Logo
-          <fa-icon
-            *ngIf="imgUrlLogo == ''; else imgUrlLogoElse"
-            [icon]="faPlusEdu"
-          ></fa-icon>
-          <ng-template #imgUrlLogoElse>
-            <img class="imgUrlLogo" [src]="imgUrlLogo" alt="" />
-          </ng-template>
-        </label>
-        <input
-          (change)="mostrarImagen($event)"
-          type="file"
-          formControlName="logo"
-          name="imgLogoEducacion"
-          id="imgLogoEducacion"
-          hidden
-        />
-      </div>
 
-      <input
-        (click)="agregarEducacion()"
-        type="button"
-        class="btnSubmit"
-        value="EDITAR"
-      />
-    </form>
-  </article>
-
-  <article class="windowsModalStartEduAgregar">
+  <!-- <article class="windowsModalStartEduAgregar">
     <h2>AGREGAR ESTUDIO</h2>
-    <span class="closeModal" (click)="activeModalEduAgregar()">X</span>
+    <span class="closeModal" (click)="activeModal('agregarEducacion')">X</span>
     <form action="" [formGroup]="formDataAgregar">
       <label for="">
         SELECCIONAR CARRERA
@@ -90,5 +49,5 @@
       </label>
       <input (click)="unirPersonaEdu()"  type="button" class="btnSubmit" value="EDITAR" />
     </form>
-  </article>
+  </article> -->
 </div>

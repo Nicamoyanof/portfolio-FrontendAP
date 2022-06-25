@@ -6,12 +6,9 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-// import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/compat/storage';
 import {
   provideAnalytics,
   getAnalytics,
-  ScreenTrackingService,
-  UserTrackingService,
 } from '@angular/fire/analytics';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
@@ -37,6 +34,11 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { EducationAdminComponent } from './components/admin/education-admin/education-admin.component';
 import { ProyectoAdminComponent } from './components/admin/proyecto-admin/proyecto-admin.component';
 import { SkillsAdminComponent } from './components/admin/skills-admin/skills-admin.component';
+import { ModalComponent } from './assets/modal/modal.component';
+import { SkillModalComponent } from './assets/containerModal/skill-modal/skill-modal.component';
+import { ProjectsModalComponent } from './assets/containerModal/projects-modal/projects-modal.component';
+import { EducationModalComponent } from './assets/containerModal/education-modal/education-modal.component';
+import { StartModalComponent } from './assets/containerModal/start-modal/start-modal.component';
 
 
 
@@ -58,6 +60,11 @@ import { SkillsAdminComponent } from './components/admin/skills-admin/skills-adm
     EducationAdminComponent,
     ProyectoAdminComponent,
     SkillsAdminComponent,
+    ModalComponent,
+    SkillModalComponent,
+    ProjectsModalComponent,
+    EducationModalComponent,
+    StartModalComponent,
   ],
   imports: [
     BrowserModule,

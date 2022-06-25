@@ -1,0 +1,205 @@
+  .windowModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 500;    
+  }
+  .modalPrueba{
+    background: #baff43;
+    max-width: 700px;
+    padding: 15px 10px;
+    max-height: 100vh;
+    margin: 10px;
+  }
+  main{
+    margin-bottom: 60px;
+  }
+  .backgroundModalClose{  
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 499;
+    backdrop-filter: blur(5px);
+  }
+  .windowModal.active, .backgroundModalClose.active, .windowModalAgregar.active{
+    display: block;
+  }
+  .closeModal{
+    font-weight: 700;
+    font-size: 25px;
+    position: absolute;
+    z-index: 1000;
+    top: -17px;
+    right: -10px;
+    background: #222;
+    width: 40px;
+    height: 40px;
+    border-radius:30px ;
+    color: #baff43;
+    text-align: center;
+    cursor: pointer;
+  }
+  .windowModal>h2 , .windowModalAgregar>h2{
+    font-weight: 700;
+    font-size: 22px;
+    text-transform: uppercase;
+    text-align: center;
+    
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  form>div>label{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+  }
+  label>img{
+    max-width: 100%;
+  }
+  
+  form>div>label>fa-icon{
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid;
+  }
+  label {
+    font-weight: 600;
+    margin-top: 0.9375rem;
+    display: flex;
+    flex-direction: column;
+  }
+  input,
+  textarea,
+  select {
+    padding: 0.3125rem;
+    border: none;
+    background: #222;
+    color: #fff;
+  }
+  /* textarea {
+    min-width: 258px;
+    max-width: 258px;
+    min-height: 58px;
+    max-height: 58px;
+  } */
+  input::placeholder,
+  select,
+  textarea::placeholder {
+    color: #aaa;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+  }
+  .btnSubmit {
+    position: absolute;
+    bottom: 15px;
+    right: 0;
+    left: 0;
+    margin: auto;
+    font-weight: 600;
+    color: #baff43;
+    padding: 10px 0;
+    width: 90%;
+    background: #222;
+    border: none;
+  }
+  @media (min-width: 768px) {
+    .windowModal, .windowModalAgregar{
+      max-width: 500px;
+      height: 100%;
+      max-height: 700px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+    article {
+      margin: 3rem 1.5625rem;
+      padding: 1.5rem 0.3125rem;
+      position: relative;
+      box-shadow: 0 0 15px #000;
+    }
+    h4 {
+      text-align: start;
+      margin-left: 20px;
+      margin-bottom: 17px;
+    }
+    li {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .imgLogoDesktop {
+      display: block;
+      position: absolute;
+      width: 150px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      right: 50px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .sectionEducation {
+      padding: 4rem 2rem;
+    }
+    h3 {
+      font-size: 30px;
+    }
+    .imgLogoDesktop {
+      width: 200px;
+    }
+    h4 {
+      font-size: 25px;
+    }
+    li {
+      font-size: 22px;
+    }
+  }
+  @media (min-width: 1250px) {
+    .containerSectionEdu {
+      background: #fff;
+    }
+    .sectionEducation {
+      padding: 6rem 2rem;
+      max-width: 1250px;
+      margin: auto;
+    }
+    h3 {
+      font-size: 38px;
+      margin-bottom: 3.75rem;
+    }
+    .imgLogoDesktop {
+      width: 250px;
+    }
+    h4 {
+      font-size: 28px;
+    }
+    ul {
+      padding-left: 3.125rem;
+    }
+    li {
+      font-size: 24px;
+    }
+    article {
+      margin: 5rem 1.5625rem;
+    }
+  }
+  

@@ -1,6 +1,7 @@
 import { Byte } from "@angular/compiler/src/util";
 
 export class Persona{
+    'usuariosByIdUsuario':number;
     'nombre':string;
     'apellido':string;
     'profesion':string;

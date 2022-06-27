@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Educacion } from '../models/educacion';
@@ -8,6 +8,8 @@ import { Educacion } from '../models/educacion';
   providedIn: 'root'
 })
 export class EducacionService {
+
+  educacionesEmitter = new EventEmitter();
 
   url = "http://localhost:8080/api"
 
@@ -18,16 +20,12 @@ export class EducacionService {
   }
 
   agregarEducacion(educacion:Educacion){
-    this.http.post(this.url+'/educacion', educacion, {  responseType: 'text' })
-          .subscribe((resp:any)=>{
-            console.log('agregado')
-          })
-          
+    return this.http.post(this.url+'/educacion', educacion, {  responseType: 'text' })
   }
 
 
-  public getEducaciones(): Observable<Educacion[]> {
-    return this.http.get<Educacion[]>(this.url+'/educaciones');
+  public getEducaciones() {
+    this.http.get<Educacion[]>(this.url+'/educaciones').subscribe(valor=>this.educacionesEmitter.emit(valor))
   }
   
   

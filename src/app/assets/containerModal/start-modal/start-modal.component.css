@@ -39,7 +39,7 @@ form > div {
 form > div > label {
   display: flex;
   flex-direction: column;
-  justify-self: center;
+  justify-content: center;
   align-items: center;
   cursor: pointer;
   width: 100%;
@@ -174,12 +174,17 @@ textarea:focus {
   display: flex;
   align-items: center;
   margin-top: 10px;
+  
 }
-.containerSpinner>p{
+p{
   text-align: center;
   margin: auto 0 auto 10px;
   font-weight: 500;
 }
+.spinner-border.disabled{
+  display: none;
+}
+
 @media (min-width: 400px) {
   form {
     height: 500px;

@@ -38,7 +38,7 @@ li {
   justify-content: center;
 }
 
-.containerEditEducation>span{
+.containerEditEducation > span {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,12 +46,12 @@ li {
   margin: 25px;
   cursor: pointer;
 }
-.containerEditEducation>span>p{
+.containerEditEducation > span > p {
   font-size: 25px;
   display: block;
 }
 
-.containerEditEducation>span>fa-icon{
+.containerEditEducation > span > fa-icon {
   border: 2px solid;
   display: flex;
   justify-content: center;
@@ -61,10 +61,11 @@ li {
   height: 40px;
   font-size: 25px;
 }
-.containerEditEducation>span:hover{
+.containerEditEducation > span:hover {
   transform: scale(1.2);
 }
-.windowsModalStartEdu , .windowsModalStartEduAgregar {
+.windowsModalStartEdu,
+.windowsModalStartEduAgregar {
   display: none;
   background: #baff43;
   max-width: 700px;
@@ -76,10 +77,12 @@ li {
   right: 0;
   z-index: 500;
 }
-.windowsModalStartEdu.active, .backgroundModalClose.active, .windowsModalStartEduAgregar.active{
+.windowsModalStartEdu.active,
+.backgroundModalClose.active,
+.windowsModalStartEduAgregar.active {
   display: block;
 }
-.closeModal{
+.closeModal {
   font-weight: 700;
   font-size: 25px;
   position: absolute;
@@ -88,23 +91,23 @@ li {
   background: #222;
   width: 40px;
   height: 40px;
-  border-radius:30px ;
+  border-radius: 30px;
   color: #baff43;
   text-align: center;
   cursor: pointer;
 }
-.windowsModalStartEdu>h2 , .windowsModalStartEduAgregar>h2{
+.windowsModalStartEdu > h2,
+.windowsModalStartEduAgregar > h2 {
   font-weight: 700;
   font-size: 22px;
   text-transform: uppercase;
   text-align: center;
-  
 }
 form {
   display: flex;
   flex-direction: column;
 }
-form>div>label{
+form > div > label {
   display: flex;
   flex-direction: column;
   justify-self: center;
@@ -112,11 +115,11 @@ form>div>label{
   cursor: pointer;
   width: 100%;
 }
-label>img{
+label > img {
   max-width: 100%;
 }
 
-form>div>label>fa-icon{
+form > div > label > fa-icon {
   width: 50px;
   height: 50px;
   font-size: 25px;
@@ -162,8 +165,47 @@ textarea:focus {
   color: #baff43;
   padding: 10px 0;
 }
+.eliminarEstudio {
+  color: #fff;
+  font-size: 18px;
+  width: 30px;
+  height: 30px;
+  background: rgb(245, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  cursor: pointer;
+}
+.eliminarEstudio:hover{
+  background: rgb(255, 255, 255);
+  color: rgb(245, 0, 0);
+}
+.editarEstudio {
+  color: #fff;
+  font-size: 18px;
+  width: 30px;
+  height: 30px;
+  background: rgb(0, 97, 224);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  position: absolute;
+  top: -5px;
+  right: 30px;
+  cursor: pointer;
+}
+.editarEstudio:hover{
+  background: rgb(255, 255, 255);
+  color:  rgb(0, 97, 224);
+}
 @media (min-width: 768px) {
-  .windowsModalStartEdu, .windowsModalStartEduAgregar{
+  .windowsModalStartEdu,
+  .windowsModalStartEduAgregar {
     max-width: 500px;
     max-height: 500px;
     top: 0;

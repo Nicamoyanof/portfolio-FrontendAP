@@ -11,6 +11,7 @@ export class PersonasService {
 
 
   personaEmitter = new EventEmitter();
+  estudiosPersonaEmitter = new EventEmitter();
 
   url = "http://localhost:8080/api"
 
@@ -25,10 +26,7 @@ export class PersonasService {
   }
 
   educacionPersona(personaEducacion:EducacionAgregar){
-    this.http.post(this.url+'/persona/estudio', personaEducacion, {  responseType: 'json' })
-          .subscribe((resp:any)=>{
-            console.log('agregado')
-          })
+    return this.http.post(this.url+'/persona/estudio', personaEducacion, {  responseType: 'json' })
   }
 
   getPersona(id:Number){
@@ -36,7 +34,12 @@ export class PersonasService {
   }
 
   getEstudiosPersona(id:Number){
-    return this.http.get(this.url+`/persona/${id}/estudios`)
+    this.http.get(this.url+`/persona/${id}/estudios`).subscribe(valor=>{
+      this.estudiosPersonaEmitter.emit(valor);
+    })
+  }
+  eliminarEstudioPersona(id:number){
+    return this.http.delete(this.url+`/persona/estudio/${id}`)    
   }
 
 

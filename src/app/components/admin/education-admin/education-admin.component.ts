@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faCheck, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck,
+  faPen,
+  faPlus,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
+import jwtDecode from 'jwt-decode';
 import { Educacion, EducacionAgregar } from 'src/app/models/educacion';
 import { EducacionService } from 'src/app/service/educacion.service';
 import { FireStorageService } from 'src/app/service/fire-storage.service';
@@ -16,35 +22,31 @@ import { PersonasService } from 'src/app/service/personas.service';
 export class EducationAdminComponent implements OnInit {
   faPlusEdu = faPlus;
   faCheckEdu = faCheck;
+  faPen = faPen;
+  faTrash = faTrash;
   imgUrlLogo: string = '';
   linkImgLogo: string;
   listaEdu: any;
   selectedOption: any;
   listaEstudiosPersonas: any[];
+  userLogged: any = jwtDecode(localStorage.getItem('auth_token'));
 
   constructor(
-    private modalService:ModalService,
+    private modalService: ModalService,
     private personaService: PersonasService,
     private educacionService: EducacionService
-  ) {  }
+  ) {}
 
-  async ngOnInit() {
-    this.educacionService
-      .getEducaciones()
-      .subscribe((resp) => (this.listaEdu = resp));
-
-    this.personaService
-      .getEstudiosPersona(2)
-      .subscribe((res: any[]) => console.log( res));
-    this.personaService
-      .getEstudiosPersona(2)
-      .subscribe((res: any[]) => (this.listaEstudiosPersonas = res));
+  ngOnInit() {
+    this.personaService.getEstudiosPersona(this.userLogged.user);
+    this.personaService.estudiosPersonaEmitter.subscribe((valor) => {
+      this.listaEstudiosPersonas = valor;
+    });
   }
 
   async activeModal(tipoModal) {
     this.modalService.tipoModal.emit(tipoModal);
-    let windowsModalStart =
-      document.querySelector<HTMLElement>('.windowModal');
+    let windowsModalStart = document.querySelector<HTMLElement>('.windowModal');
     let backgroundModalClose = document.querySelector<HTMLElement>(
       '.backgroundModalClose'
     );
@@ -59,10 +61,13 @@ export class EducationAdminComponent implements OnInit {
     }
   }
 
-
-
-
   selectValor(event: any) {
     this.selectedOption = event.value;
+  }
+
+  eliminarEstudioPersona(id: number) {
+    this.personaService.eliminarEstudioPersona(id).subscribe(e=>{
+      this.personaService.getEstudiosPersona(this.userLogged.user);
+    })
   }
 }

@@ -5,6 +5,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import jwtDecode from 'jwt-decode';
 import { Persona } from 'src/app/models/personas';
 import { FireStorageService } from 'src/app/service/fire-storage.service';
+import { ModalService } from 'src/app/service/modal.service';
 import { PersonasService } from 'src/app/service/personas.service';
 
 @Component({
@@ -24,7 +25,10 @@ export class StartModalComponent implements OnInit {
   imgUrlLogo: string = '';
   disabled: boolean = false;
   nombre: string;
+  mensajeFinalizado:string = '';
+
   datosPersona: Persona = {
+    usuariosByIdUsuario:null,
     nombre: '',
     apellido: '',
     profesion: '',
@@ -54,6 +58,7 @@ export class StartModalComponent implements OnInit {
   userLogged: any = jwtDecode(localStorage.getItem('auth_token'));
 
   constructor(
+    private modalService:ModalService,
     private router:Router,
     private fb: FormBuilder,
     private personaService: PersonasService,
@@ -90,12 +95,16 @@ export class StartModalComponent implements OnInit {
           this.imgUrlBannerD = !valor.imgBanner.includes('../../../../assets/img') ? valor.imgBanner : '';
           this.imgUrlBannerM = !valor.imgBannerM.includes('../../../../assets/img') ? valor.imgBannerM : '';
           this.imgUrlLogo = !valor.logo.includes('../../../../assets/img') ? valor.logo : '';
+          this.linkImgPerfil = !valor.imgPerfil.includes('../../../../assets/img') ? valor.imgPerfil : '';
+          this.linkImgDesktop = !valor.imgBanner.includes('../../../../assets/img') ? valor.imgBanner : '';
+          this.linkImgMobile = !valor.imgBannerM.includes('../../../../assets/img') ? valor.imgBannerM : '';
+          this.linkImgLogo = !valor.logo.includes('../../../../assets/img') ? valor.logo : '';
         })
   }
 
   activeModal() {
     let windowsModalStart =
-      document.querySelector<HTMLElement>('.windowsModalStart');
+      document.querySelector<HTMLElement>('.windowModal');
     let backgroundModalClose = document.querySelector<HTMLElement>(
       '.backgroundModalClose'
     );
@@ -103,6 +112,7 @@ export class StartModalComponent implements OnInit {
       if (windowsModalStart.classList.contains('active')) {
         windowsModalStart.classList.remove('active');
         backgroundModalClose.classList.remove('active');
+        this.modalService.tipoModal.emit('')
       } else {
         windowsModalStart.className += ' active';
         backgroundModalClose.className += ' active';
@@ -125,7 +135,10 @@ export class StartModalComponent implements OnInit {
   }
 
   async datosPersonales() {
+    this.mensajeFinalizado ='Guardando persona...';
+    document.querySelector<HTMLElement>('.spinnerEnviar').classList.remove('disabled')
     this.datosPersona = {
+      usuariosByIdUsuario: this.datosPersona.usuariosByIdUsuario,
       nombre: this.formData.value.nombre,
       apellido: this.formData.value.apellido,
       profesion: this.formData.value.profesion,
@@ -140,9 +153,11 @@ export class StartModalComponent implements OnInit {
       linkedin: this.formData.value.linkedin,
       github: this.formData.value.github,
     };
-    console.log(this.datosPersona);
     this.personaService.agregarPersona(this.userLogged.user, this.datosPersona).subscribe(valor=>{
+      document.querySelector<HTMLElement>('.spinnerEnviar').className += ' disabled'
+      this.mensajeFinalizado =  '✔ La persona ha sido agregada con exito!';
       this.personaService.getPersona(this.userLogged.user)
+      this.activeModal();
     })
   }
 

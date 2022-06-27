@@ -35,20 +35,19 @@ export class StartAdminComponent implements OnInit {
     this.personaService.personaEmitter.subscribe((val) => {
       this.personaLoged = val;
       this.arrPersonaProfesion = this.personaLoged.profesion.split('/');
-      document.querySelector('.containerDescriptionStart').innerHTML = this.personaLoged.descripcion;
       this.personaLoged.imgPerfil =
-        (this.personaLoged.imgPerfil == ''|| this.personaLoged.imgPerfil == null)
-          ? '../../../../assets/img/no-user.png'
-          : this.personaLoged.imgPerfil;
+      (this.personaLoged.imgPerfil == ''|| this.personaLoged.imgPerfil == null)
+      ? '../../../../assets/img/no-user.png'
+      : this.personaLoged.imgPerfil;
       this.personaLoged.imgBanner =
       (this.personaLoged.imgBanner == ''|| this.personaLoged.imgBanner == null)
-          ? '../../../../assets/img/bg-black.jpg'
-          : this.personaLoged.imgBanner;
+      ? '../../../../assets/img/bg-black.jpg'
+      : this.personaLoged.imgBanner;
       this.personaLoged.imgBannerM =
       ( this.personaLoged.imgBannerM == ''|| this.personaLoged.imgBannerM == null)
-          ? '../../../../assets/img/bg-black.jpg'
-          : this.personaLoged.imgBannerM;
-          console.log(this.personaLoged)
+      ? '../../../../assets/img/bg-black.jpg'
+      : this.personaLoged.imgBannerM;
+      console.log(this.personaLoged)
     });
   }
 

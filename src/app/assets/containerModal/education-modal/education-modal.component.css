@@ -72,11 +72,7 @@ textarea:focus {
   outline: none;
 }
 .btnSubmit {
-  position: absolute;
-  bottom: -60px;
-  right: 0;
-  left: 0;
-  margin: auto;
+  margin: 0 auto;
   font-weight: 600;
   color: #baff43;
   padding: 10px 0;
@@ -92,4 +88,28 @@ textarea:focus {
   background: rgb(95, 95, 95);
   border: none;
   cursor: not-allowed;
+}
+.containerBtnEnviar{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: -90px;
+  right: 0;
+  left: 0;
+  padding-top: 10px;
+  margin: auto;
+}
+.containerSpinner{
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  
+}
+p{
+  text-align: center;
+  margin: auto 0 auto 10px;
+  font-weight: 500;
+}
+.spinner-border.disabled{
+  display: none;
 }

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faCheck, faPlus } from '@fortawesome/free-solid-svg-icons';
+import jwtDecode from 'jwt-decode';
 import { Educacion, EducacionAgregar } from 'src/app/models/educacion';
 import { EducacionService } from 'src/app/service/educacion.service';
 import { FireStorageService } from 'src/app/service/fire-storage.service';
@@ -23,10 +24,12 @@ export class EducationModalComponent implements OnInit {
   listaEdu: any;
   selectedOption: any;
   listaEstudiosPersonas: any[];
-  disabled:boolean = false;
+  disabled: boolean = false;
+  mensajeFinalizado: string = '';
 
-  @Input() valorModal:string;
+  userLogged: any = jwtDecode(localStorage.getItem('auth_token'));
 
+  @Input() valorModal: string;
 
   constructor(
     private modalService: ModalService,
@@ -51,34 +54,65 @@ export class EducationModalComponent implements OnInit {
     });
   }
 
-  async ngOnInit() {}
-
+  async ngOnInit() {
+    this.educacionService.getEducaciones();
+    this.educacionService.educacionesEmitter.subscribe((valor) => {
+      this.listaEdu = valor;
+    });
+  }
 
   agregarEducacion() {
+    this.mensajeFinalizado = 'Guardando persona...';
+    document
+      .querySelector<HTMLElement>('.spinnerEnviar')
+      .classList.remove('disabled');
     let educacion: Educacion = {
       nombreInstituto: this.formData.value.nombre,
       tituloInstituto: this.formData.value.titulo,
       logo: this.linkImgLogo,
     };
-    this.educacionService.agregarEducacion(educacion);
+    this.educacionService.agregarEducacion(educacion).subscribe((valor) => {
+      document.querySelector<HTMLElement>('.spinnerEnviar').className +=
+        ' disabled';
+      this.mensajeFinalizado = '✔ Educacion creada con exito!';
+      setTimeout(() => {
+        this.activeModal();
+      }, 1000);
+    });
   }
 
-  activarBoton(valor:boolean){
+  activarBoton(valor: boolean) {
     let btnEnviar = document.querySelector<HTMLElement>('.btnSubmit');
-    console.log(btnEnviar)
-      if(valor){
-        this.disabled=true;
-        btnEnviar.classList.remove('disabled');
-        console.log('activado')
-      }else{
-        this.disabled=true;
-        btnEnviar.className += ' disabled';
-        console.log('desactivado 2')
+    console.log(btnEnviar);
+    if (valor) {
+      this.disabled = false;
+      btnEnviar.classList.remove('disabled');
+    } else {
+      this.disabled = true;
+      btnEnviar.className += ' disabled';
+      console.log('desactivado 2');
+    }
+  }
+
+  activeModal() {
+    let windowsModalStart = document.querySelector<HTMLElement>('.windowModal');
+    let backgroundModalClose = document.querySelector<HTMLElement>(
+      '.backgroundModalClose'
+    );
+    if (windowsModalStart && backgroundModalClose) {
+      if (windowsModalStart.classList.contains('active')) {
+        windowsModalStart.classList.remove('active');
+        backgroundModalClose.classList.remove('active');
+        this.modalService.tipoModal.emit('');
+      } else {
+        windowsModalStart.className += ' active';
+        backgroundModalClose.className += ' active';
       }
+    }
   }
 
   mostrarImagen(event: any) {
-    let spinnerImg='../../../../assets/img/spinner.gif';
+    let spinnerImg = '../../../../assets/img/spinner.gif';
     this.activarBoton(false);
     this.imgUrlLogo = spinnerImg;
     const file = (event.target as HTMLInputElement).files[0];
@@ -88,8 +122,8 @@ export class EducationModalComponent implements OnInit {
     reader.onloadend = async () => {
       console.log('antes');
       await this.db
-      .subirImgStorage('logoEducacion', Date.now() + file.name, reader.result)
-      .then((urlImg: string) => {
+        .subirImgStorage('logoEducacion', Date.now() + file.name, reader.result)
+        .then((urlImg: string) => {
           this.imgUrlLogo = reader.result as string;
           this.linkImgLogo = urlImg;
           this.activarBoton(true);
@@ -98,8 +132,12 @@ export class EducationModalComponent implements OnInit {
   }
 
   unirPersonaEdu() {
+    this.mensajeFinalizado = 'Guardando persona...';
+    document
+      .querySelector<HTMLElement>('.spinnerEnviar')
+      .classList.remove('disabled');
     let educacionAgregar: EducacionAgregar = {
-      personas: 2,
+      personas: this.userLogged.user,
       educaciones: this.selectedOption,
       anioInicio: Number(this.formDataAgregar.value.anioInicio),
       anioFinal: Number(
@@ -109,8 +147,21 @@ export class EducationModalComponent implements OnInit {
       ),
     };
 
-    this.personaService.educacionPersona(educacionAgregar);
+    this.personaService
+      .educacionPersona(educacionAgregar)
+      .subscribe((valor) => {
+        document.querySelector<HTMLElement>('.spinnerEnviar').className +=
+          ' disabled';
+        this.mensajeFinalizado = '✔ Educacion creada con exito!';
+        
+        setTimeout(() => {
+          this.activeModal();
+        }, 1000);
+      });
+      this.personaService.getEstudiosPersona(this.userLogged.user)
   }
+
+  
 
   selectValor(event: any) {
     this.selectedOption = event.value;

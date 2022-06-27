@@ -126,8 +126,8 @@
   <div class="containerBtnEnviar">
     <button class="btnSubmit" [disabled]="disabled" (click)="datosPersonales()" >ENVIAR</button>
     <div class="containerSpinner">
-      <div class="spinner-border" role="status"></div>
-      <p>Cargando datos...</p>
+      <div class="spinner-border spinnerEnviar disabled"  role="status"></div>
+      <p [innerHTML]="mensajeFinalizado"></p>
     </div>
   </div>
 </div>

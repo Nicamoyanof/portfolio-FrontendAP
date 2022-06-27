@@ -1,73 +1,29 @@
 <div class="containerSectionProject">
-    <section>
-        <h3>MIS PROYECTOS</h3>
-        <div class="containerItemsProject">
-            <article *ngFor="let proyecto of listaProyectosFinal">
-                <h4>{{proyecto.nombre}}</h4>
-                <figure>
-                    <img src={{proyecto.imgProyecto}} alt="">
-                    <figcaption>
-                        <ul>
-                            <li *ngFor="let habilidad of proyecto.habilidades"><img src={{habilidad.logo}} alt=""> </li>
-                        </ul>
-                        <a href={{proyecto.linkGithub}} target="_blank"> <button> GitHub <fa-icon [icon]="github"></fa-icon> </button></a>
-
-                    </figcaption>
-                </figure>
-            </article>
-            <div class="agregarProyecto" (click)="activeModalProyecto()">
-                <h5>AGREGAR PROYECTO</h5>
-                <span>
-                    <fa-icon [icon]="faPlus"></fa-icon>
-                </span>
-            </div>
-        </div>
-    </section>
-
-    <article class="windowsModalStartProyecto">
-        <h2>AGREGAR ESTUDIO</h2>
-        <span class="closeModal" (click)="activeModalProyecto()">X</span>
-        <form action="" [formGroup]="formData">
-          <label for="">
-            Nombre
-            <input formControlName="nombre" type="text" />
-          </label>
-          <div>
-            <label for="imgProyecto">
-              Imagen
-              <fa-icon
-                *ngIf="imgUrlProyectoSubir==''; else imgUrlProyectoElse"
-                [icon]="faPlus"
-              ></fa-icon>
-              <ng-template #imgUrlProyectoElse>
-                <img class="imgUrlProyectoSubir" [src]="imgUrlProyectoSubir" alt="" />
-              </ng-template>
-            </label>
-            <input (change)="mostrarImagenProyecto( $event ,'logo')" formControlName="logo" type="file" id="imgProyecto" />
-          </div>
-          <label for="">
-              Seleccionar Habilidades
-          <select name="" id="" (change)="selectValor($event.target)">
-            <option>--  Seleccionar habilidad  --</option>
-            <option  *ngFor="let skill of listSkills; let i=index" [value]="i">
-              {{skill.nombre}}
-            </option>
-          </select>
-          <span class="containerTagsSkill" >
-              <p *ngFor="let skill of arraySelectedSkill">{{skill.nombre}} <span>x</span> </p>
-          </span>
-        </label>
-          <label for="">
-            Link Github
-            <input type="text" formControlName="linkGithub" />
-          </label>
-          <input
-            (click)="agregarProyecto()"
-            type="button"
-            class="btnSubmit"
-            value="EDITAR"
-          />
-        </form>
+  <section>
+    <h3>MIS PROYECTOS</h3>
+    <div class="containerItemsProject">
+      <article *ngFor="let proyecto of listaProyectosFinal">
+        <h4>{{ proyecto.nombre }}</h4>
+        <figure>
+          <img src="{{ proyecto.imgProyecto }}" alt="" />
+          <figcaption>
+            <ul>
+              <li *ngFor="let habilidad of proyecto.habilidades">
+                <img src="{{ habilidad.logo }}" alt="" />
+              </li>
+            </ul>
+            <a href="{{ proyecto.linkGithub }}" target="_blank">
+              <button>GitHub <fa-icon [icon]="github"></fa-icon></button
+            ></a>
+          </figcaption>
+        </figure>
       </article>
-
+      <div class="agregarProyecto" (click)="activeModal('agregarProyecto')">
+        <h5>AGREGAR PROYECTO</h5>
+        <span>
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </span>
+      </div>
     </div>
+  </section>
+</div>

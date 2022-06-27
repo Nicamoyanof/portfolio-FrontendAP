@@ -111,8 +111,8 @@ input:focus,
 textarea:focus {
   outline: none;
 }
-.btnSubmit {
-  margin-top: 25px;
+.btnSubmitContact {
+  margin-top: 40px;
   font-weight: 600;
   color: #baff43;
   padding: 10px 0;

@@ -17,31 +17,39 @@ export class StartAdminComponent implements OnInit {
   faPlus = faPlus;
   adminEdit: boolean = false;
 
-  arrPersonaProfesion:any[]=[] ;
-  arrPersonaDescripcion:any[]=[] ;
+  arrPersonaProfesion: any[] = [];
+  arrPersonaDescripcion: any[] = [];
 
-  personaLoged:any;
+  personaLoged: any;
 
-
-  userLogged:any = jwtDecode(localStorage.getItem('auth_token'));
+  userLogged: any = jwtDecode(localStorage.getItem('auth_token'));
 
   constructor(
     private router: Router,
     private personaService: PersonasService,
-    private modalService:ModalService
-  ) {  }
+    private modalService: ModalService
+  ) {}
   ngOnInit(): void {
-    console.log(this.router.url);
     this.isAdminEdit();
-    
-    this.personaService.getPersona(this.userLogged.user).subscribe((res:any)=>{
-      this.personaLoged=res;
-      this.arrPersonaProfesion = this.personaLoged.profesion.split("/");
-     document.querySelector('.containerDescriptionStart').innerHTML=this.personaLoged.descripcion;
-    })
-
-    
-
+    this.personaService.getPersona(this.userLogged.user);
+    this.personaService.personaEmitter.subscribe((val) => {
+      this.personaLoged = val;
+      this.arrPersonaProfesion = this.personaLoged.profesion.split('/');
+      document.querySelector('.containerDescriptionStart').innerHTML = this.personaLoged.descripcion;
+      this.personaLoged.imgPerfil =
+        (this.personaLoged.imgPerfil == ''|| this.personaLoged.imgPerfil == null)
+          ? '../../../../assets/img/no-user.png'
+          : this.personaLoged.imgPerfil;
+      this.personaLoged.imgBanner =
+      (this.personaLoged.imgBanner == ''|| this.personaLoged.imgBanner == null)
+          ? '../../../../assets/img/bg-black.jpg'
+          : this.personaLoged.imgBanner;
+      this.personaLoged.imgBannerM =
+      ( this.personaLoged.imgBannerM == ''|| this.personaLoged.imgBannerM == null)
+          ? '../../../../assets/img/bg-black.jpg'
+          : this.personaLoged.imgBannerM;
+          console.log(this.personaLoged)
+    });
   }
 
   isAdminEdit() {
@@ -55,9 +63,8 @@ export class StartAdminComponent implements OnInit {
   }
 
   activeModal() {
-    this.modalService.abrirModal("start")
-    let windowsModalStart =
-      document.querySelector<HTMLElement>('.windowModal');
+    this.modalService.abrirModal('start');
+    let windowsModalStart = document.querySelector<HTMLElement>('.windowModal');
     let backgroundModalClose = document.querySelector<HTMLElement>(
       '.backgroundModalClose'
     );
@@ -72,12 +79,10 @@ export class StartAdminComponent implements OnInit {
     }
   }
 
-  dividirProfesion(){
-    if(this.personaLoged.profesion!=null){
-
-      this.arrPersonaProfesion =  this.personaLoged.profesion.slice("/")
-      console.log(this.arrPersonaProfesion, 'aca')
+  dividirProfesion() {
+    if (this.personaLoged.profesion != null) {
+      this.arrPersonaProfesion = this.personaLoged.profesion.slice('/');
+      console.log(this.arrPersonaProfesion, 'aca');
     }
   }
-
 }

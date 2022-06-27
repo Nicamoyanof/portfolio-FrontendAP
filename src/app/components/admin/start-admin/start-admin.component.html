@@ -1,4 +1,4 @@
-<div class="containerStart">
+<div class="containerStart" *ngIf="personaLoged != null">
   <img class="bannerStart" src={{personaLoged.imgBannerM}} alt="" />
   <img class="bannerStartDesktop" src={{personaLoged.imgBanner}} alt="" />
   <article>
@@ -14,7 +14,7 @@
       </section>
       <section class="containerDataStart">
         <h1 class="txtTitle">{{arrPersonaProfesion[0]}} <span> {{arrPersonaProfesion[1]}}</span>{{arrPersonaProfesion[2]}}</h1>
-        <p class="containerDescriptionStart">
+        <p class="containerDescriptionStart"></p>
       </section>
     </div>
   </article>

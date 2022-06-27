@@ -1,10 +1,15 @@
-<h2>EDITAR INFO PERSONAL</h2>
-  
-  <form action="" [formGroup]="formData">
+<div *ngIf="valorModal == 'start'">
+  <h2>EDITAR INFO PERSONAL</h2>
+
+  <form [formGroup]="formData">
     <div>
       <label for="">
         Nombre
-        <input formControlName="nombre" type="text" />
+        <input
+          formControlName="nombre"
+          type="text"
+          (change)="datosPersonales()"
+        />
       </label>
       <label for="">
         Apellido
@@ -34,44 +39,74 @@
     <div>
       <label for="imgPerfilInput">
         Imagen Perfil
-        <fa-icon *ngIf="imgUrlPerfil == ''; else imgPerfil" [icon]="faPlus"></fa-icon>
+        <fa-icon
+          *ngIf="imgUrlPerfil == ''; else imgPerfil"
+          [icon]="faPlus"
+        ></fa-icon>
         <ng-template #imgPerfil>
           <img class="imgUrlPerfil" [src]="imgUrlPerfil" alt="" />
         </ng-template>
       </label>
-      <input (change)="mostrarImagen($event, 'perfil')" id="imgPerfilInput" type="file" formControlName="imgPerfil"
-        name="imgPerfilInput" hidden />
+      <input
+        (change)="mostrarImagen($event, 'perfil')"
+        id="imgPerfilInput"
+        type="file"
+        name="imgPerfilInput"
+        hidden
+      />
       <label for="imgBannerDesktopInput">
         Imagen Banner Escitorio
-        <fa-icon *ngIf="imgUrlBannerD == ''; else imgBannerD" [icon]="faPlus"></fa-icon>
+        <fa-icon
+          *ngIf="imgUrlBannerD == ''; else imgBannerD"
+          [icon]="faPlus"
+        ></fa-icon>
         <ng-template #imgBannerD>
           <img class="imgUrlBannerD" [src]="imgUrlBannerD" alt="" />
         </ng-template>
       </label>
 
-      <input (change)="mostrarImagen($event, 'bannerDes')" type="file" formControlName="imgBannerD"
-        name="imgBannerDesktopInput" id="imgBannerDesktopInput" hidden />
+      <input
+        (change)="mostrarImagen($event, 'bannerDes')"
+        type="file"
+        name="imgBannerDesktopInput"
+        id="imgBannerDesktopInput"
+        hidden
+      />
       <label for="imgBannerMobileInput">
         Imagen Banner Celular
-        <fa-icon *ngIf="imgUrlBannerM == ''; else imgBannerM" [icon]="faPlus"></fa-icon>
+        <fa-icon
+          *ngIf="imgUrlBannerM == ''; else imgBannerM"
+          [icon]="faPlus"
+        ></fa-icon>
         <ng-template #imgBannerM>
           <img class="imgUrlBannerM" [src]="imgUrlBannerM" alt="" />
         </ng-template>
       </label>
-      <input (change)="mostrarImagen($event, 'bannerM')" type="file" formControlName="imgBannerM"
-        name="imgBannerMobileInput" id="imgBannerMobileInput" hidden />
+      <input
+        (change)="mostrarImagen($event, 'bannerM')"
+        type="file"
+        name="imgBannerMobileInput"
+        id="imgBannerMobileInput"
+        hidden
+      />
 
-
-        <label for="imgLogo">
-          Imagen Logo
-          <fa-icon *ngIf="imgUrlLogo == ''; else imgUrlLogoElse" [icon]="faPlus"></fa-icon>
-          <ng-template #imgUrlLogoElse>
-            <img class="imgUrlLogo" [src]="imgUrlLogo" alt="" />
-          </ng-template>
-        </label>
-        <input (change)="mostrarImagen($event, 'logo')" type="file" formControlName="logo"
-          name="imgLogo" id="imgLogo" hidden />
-
+      <label for="imgLogo">
+        Imagen Logo
+        <fa-icon
+          *ngIf="imgUrlLogo == ''; else imgUrlLogoElse"
+          [icon]="faPlus"
+        ></fa-icon>
+        <ng-template #imgUrlLogoElse>
+          <img class="imgUrlLogo" [src]="imgUrlLogo" alt="" />
+        </ng-template>
+      </label>
+      <input
+        (change)="mostrarImagen($event, 'logo')"
+        type="file"
+        name="imgLogo"
+        id="imgLogo"
+        hidden
+      />
     </div>
     <label for="">
       Email
@@ -88,4 +123,11 @@
       </label>
     </div>
   </form>
-  
+  <div class="containerBtnEnviar">
+    <button class="btnSubmit" [disabled]="disabled" (click)="datosPersonales()" >ENVIAR</button>
+    <div class="containerSpinner">
+      <div class="spinner-border" role="status"></div>
+      <p>Cargando datos...</p>
+    </div>
+  </div>
+</div>

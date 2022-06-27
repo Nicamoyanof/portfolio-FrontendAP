@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import jwtDecode from 'jwt-decode';
 import { Persona } from 'src/app/models/personas';
@@ -9,29 +10,51 @@ import { PersonasService } from 'src/app/service/personas.service';
 @Component({
   selector: 'app-start-modal',
   templateUrl: './start-modal.component.html',
-  styleUrls: ['./start-modal.component.css']
+  styleUrls: ['./start-modal.component.css'],
 })
 export class StartModalComponent implements OnInit {
   faPlus = faPlus;
   linkImgPerfil: string;
   linkImgDesktop: string;
-  linkImgMobile: string
+  linkImgMobile: string;
   linkImgLogo: string;
   imgUrlPerfil: string = '';
   imgUrlBannerD: string = '';
   imgUrlBannerM: string = '';
   imgUrlLogo: string = '';
+  disabled: boolean = false;
+  nombre: string;
+  datosPersona: Persona = {
+    nombre: '',
+    apellido: '',
+    profesion: '',
+    ciudad: '',
+    pais: '',
+    descripcion: '',
+    imgPerfil: '',
+    imgBanner: '',
+    imgBannerM: '',
+    logo: '',
+    email: '',
+    linkedin: '',
+    github: '',
+  };
 
-  arrPersonaProfesion:any[]=[] ;
-  arrPersonaDescripcion:any[]=[] ;
+  @Output() datosPersonaEmit = new EventEmitter<any>();
 
-  personaLoged:any;
+  @Input() valorModal: string;
+
+  arrPersonaProfesion: any[] = [];
+  arrPersonaDescripcion: any[] = [];
+
+  personaLoged: any;
 
   formData: FormGroup;
 
-  userLogged:any = jwtDecode(localStorage.getItem('auth_token'));
+  userLogged: any = jwtDecode(localStorage.getItem('auth_token'));
 
   constructor(
+    private router:Router,
     private fb: FormBuilder,
     private personaService: PersonasService,
     private db: FireStorageService
@@ -43,16 +66,32 @@ export class StartModalComponent implements OnInit {
       ciudad: ['', []],
       pais: ['', []],
       descripcion: ['', []],
-      imgPerfil: ['', []],
-      imgBanner: ['', []],
-      imgBannerM: ['', []],
-      logo: ['', []],
       email: ['', []],
       linkedin: ['', []],
       github: ['', []],
     });
+
+    Window['myComponente'] = this;
   }
-  ngOnInit(): void {  }
+  async ngOnInit(): Promise<any> {
+    this.personaService.getPersona(this.userLogged.user)
+    this.personaService.personaEmitter.subscribe((valor: Persona) => {
+          this.datosPersona = valor;
+          this.formData.controls['nombre'].setValue(valor.nombre);
+          this.formData.controls['apellido'].setValue(valor.apellido);
+          this.formData.controls['profesion'].setValue(valor.profesion);
+          this.formData.controls['ciudad'].setValue(valor.ciudad);
+          this.formData.controls['pais'].setValue(valor.pais);
+          this.formData.controls['descripcion'].setValue(valor.descripcion);
+          this.formData.controls['email'].setValue(valor.email);
+          this.formData.controls['linkedin'].setValue(valor.linkedin);
+          this.formData.controls['github'].setValue(valor.github);
+          this.imgUrlPerfil = !valor.imgPerfil.includes('../../../../assets/img') ? valor.imgPerfil : '';
+          this.imgUrlBannerD = !valor.imgBanner.includes('../../../../assets/img') ? valor.imgBanner : '';
+          this.imgUrlBannerM = !valor.imgBannerM.includes('../../../../assets/img') ? valor.imgBannerM : '';
+          this.imgUrlLogo = !valor.logo.includes('../../../../assets/img') ? valor.logo : '';
+        })
+  }
 
   activeModal() {
     let windowsModalStart =
@@ -71,8 +110,22 @@ export class StartModalComponent implements OnInit {
     }
   }
 
+  activarBoton(valor: boolean) {
+    let btnEnviar = document.querySelector<HTMLElement>('.btnSubmit');
+    console.log(btnEnviar);
+    if (valor) {
+      this.disabled = false;
+      btnEnviar.classList.remove('disabled');
+      console.log('activado');
+    } else {
+      this.disabled = true;
+      btnEnviar.className += ' disabled';
+      console.log('desactivado 2');
+    }
+  }
+
   async datosPersonales() {
-    let datosPersona: Persona = {
+    this.datosPersona = {
       nombre: this.formData.value.nombre,
       apellido: this.formData.value.apellido,
       profesion: this.formData.value.profesion,
@@ -87,58 +140,66 @@ export class StartModalComponent implements OnInit {
       linkedin: this.formData.value.linkedin,
       github: this.formData.value.github,
     };
-
-    this.personaService.agregarPersona(this.userLogged.user, datosPersona);
+    console.log(this.datosPersona);
+    this.personaService.agregarPersona(this.userLogged.user, this.datosPersona).subscribe(valor=>{
+      this.personaService.getPersona(this.userLogged.user)
+    })
   }
 
   mostrarImagen(event: any, destino: string) {
+    this.activarBoton(false);
+    let spinnerImg = '../../../../assets/img/spinner.gif';
     const file = (event.target as HTMLInputElement).files[0];
-    console.log(file);
     const reader = new FileReader();
     if (destino == 'perfil') {
+      this.imgUrlPerfil = spinnerImg;
       reader.readAsDataURL(file);
       reader.onloadend = async () => {
-        this.imgUrlPerfil = reader.result as string;
         console.log('antes');
         await this.db
           .subirImgStorage('imgPersona', Date.now() + file.name, reader.result)
           .then((urlImg: string) => {
+            this.imgUrlPerfil = reader.result as string;
             this.linkImgPerfil = urlImg;
-            console.log('subido');
+            this.activarBoton(true);
           });
       };
     } else if (destino == 'bannerDes') {
+      this.imgUrlBannerD = spinnerImg;
       reader.readAsDataURL(file);
       reader.onloadend = async () => {
-        this.imgUrlBannerD = reader.result as string;
         await this.db
           .subirImgStorage('imgPersona', Date.now() + file.name, reader.result)
           .then((urlImg: string) => {
+            this.imgUrlBannerD = reader.result as string;
             this.linkImgDesktop = urlImg;
+            this.activarBoton(true);
           });
       };
     } else if (destino == 'logo') {
+      this.imgUrlLogo = spinnerImg;
       reader.readAsDataURL(file);
       reader.onloadend = async () => {
-        this.imgUrlLogo = reader.result as string;
         await this.db
           .subirImgStorage('imgPersona', Date.now() + file.name, reader.result)
           .then((urlImg: string) => {
+            this.imgUrlLogo = reader.result as string;
             this.linkImgLogo = urlImg;
+            this.activarBoton(true);
           });
       };
     } else {
+      this.imgUrlBannerM = spinnerImg;
       reader.readAsDataURL(file);
       reader.onloadend = async () => {
-        this.imgUrlBannerM = reader.result as string;
-
         await this.db
           .subirImgStorage('imgPersona', Date.now() + file.name, reader.result)
           .then((urlImg: string) => {
+            this.imgUrlBannerM = reader.result as string;
             this.linkImgMobile = urlImg;
+            this.activarBoton(true);
           });
       };
     }
   }
-
 }

@@ -1,0 +1,154 @@
+h2 {
+  font-weight: 700;
+  font-size: 22px;
+  text-transform: uppercase;
+  text-align: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+label {
+  font-weight: 600;
+  margin-top: 0.9375rem;
+  display: flex;
+  flex-direction: column;
+}
+input,
+textarea,
+select {
+  padding: 0.3125rem;
+  border: none;
+  background: #222;
+  color: #fff;
+}
+textarea {
+  min-width: 258px;
+  max-width: 258px;
+  min-height: 58px;
+  max-height: 58px;
+}
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  color: #aaa;
+}
+
+form > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+form > div > label {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  cursor: pointer;
+  width: 50%;
+}
+
+form > div > label > fa-icon {
+  width: 50px;
+  height: 50px;
+  font-size: 25px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid;
+}
+label > img {
+  max-width: 100%;
+}
+.imgUrlPerfil {
+  max-width: 160px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+#logo {
+  display: none;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+.btnSubmit {
+  margin-top: 25px;
+  font-weight: 600;
+  color: #baff43;
+  padding: 10px 0;
+}
+
+.crearHabilidad {
+  display: flex;
+  color: #fff;
+  justify-content: center;
+  margin: 80px 0 0 0;
+  font-size: 24px;
+  cursor: pointer;
+}
+.crearHabilidad > fa-icon {
+  margin-right: 15px;
+}
+.crearHabilidad:hover {
+  transform: scale(1.2);
+}
+.btnSubmit {
+  position: absolute;
+  bottom: -60px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  font-weight: 600;
+  color: #baff43;
+  padding: 10px 0;
+  width: 90%;
+  background: #222;
+  border: none;
+  cursor: pointer;
+}
+.btnSubmit.disabled {
+  color: #baff4363;
+  padding: 10px 0;
+  width: 90%;
+  background: rgb(95, 95, 95);
+  border: none;
+  cursor: not-allowed;
+}
+@media (min-width: 768px) {
+  section {
+    padding: 2.5rem 2rem;
+  }
+  .containFigSkills {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: 2.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  section {
+    padding: 4rem 2rem;
+  }
+  h3 {
+    font-size: 30px;
+  }
+  .containFigSkills {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  section {
+    padding: 6rem 2rem;
+    max-width: 1250px;
+    margin: auto;
+  }
+  h3 {
+    font-size: 38px;
+    margin-bottom: 60px;
+  }
+  .containFigSkills {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

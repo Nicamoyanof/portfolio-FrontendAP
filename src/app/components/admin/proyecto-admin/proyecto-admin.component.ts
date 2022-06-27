@@ -6,6 +6,7 @@ import { faCheck, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { PersonaProyecto } from 'src/app/models/personas';
 import { Proyecto, ProyectoCompleto, ProyectoHabilidad } from 'src/app/models/proyecto';
 import { FireStorageService } from 'src/app/service/fire-storage.service';
+import { ModalService } from 'src/app/service/modal.service';
 import { PersonasService } from 'src/app/service/personas.service';
 import { ProyectoService } from 'src/app/service/proyecto.service';
 import { SkillService } from 'src/app/service/skill.service';
@@ -28,7 +29,7 @@ export class ProyectoAdminComponent implements OnInit {
   listaProyectosFinal: any[] = [];
 
   constructor(
-    private router: Router,
+    private modalService:ModalService,
     private fb: FormBuilder,
     private personaService: PersonasService,
     private proyectoService: ProyectoService,
@@ -67,10 +68,10 @@ export class ProyectoAdminComponent implements OnInit {
     });
   }
 
-  activeModalProyecto() {
-    let windowsModalStart = document.querySelector<HTMLElement>(
-      '.windowsModalStartProyecto'
-    );
+  activeModal(tipoModal) {
+    this.modalService.abrirModal(tipoModal);
+    let windowsModalStart =
+      document.querySelector<HTMLElement>('.windowModal');
     let backgroundModalClose = document.querySelector<HTMLElement>(
       '.backgroundModalClose'
     );

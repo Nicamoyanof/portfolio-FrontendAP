@@ -1,1 +1,39 @@
-<p>projects-modal works!</p>
+<div >
+    <h2>AGREGAR ESTUDIO</h2>
+    <form action="" [formGroup]="formData">
+      <label for="">
+        Nombre
+        <input formControlName="nombre" type="text" />
+      </label>
+      <div>
+        <label for="imgProyecto">
+          Imagen
+          <fa-icon
+            *ngIf="imgUrlProyectoSubir==''; else imgUrlProyectoElse"
+            [icon]="faPlus"
+          ></fa-icon>
+          <ng-template #imgUrlProyectoElse>
+            <img class="imgUrlProyectoSubir" [src]="imgUrlProyectoSubir" alt="" />
+          </ng-template>
+        </label>
+        <input (change)="mostrarImagenProyecto( $event ,'logo')"  type="file" id="imgProyecto" />
+      </div>
+      <label for="">
+          Seleccionar Habilidades
+      <select name="" id="" (change)="selectValor($event.target)">
+        <option>--  Seleccionar habilidad  --</option>
+        <option  *ngFor="let skill of listSkills; let i=index" [value]="i">
+          {{skill.nombre}}
+        </option>
+      </select>
+      <span class="containerTagsSkill" >
+          <p *ngFor="let skill of arraySelectedSkill">{{skill.nombre}} <span>x</span> </p>
+      </span>
+    </label>
+      <label for="">
+        Link Github
+        <input type="text" formControlName="linkGithub" />
+      </label>
+    </form>
+    <button [disabled]="disabled" class="btnSubmit">ENVIAR</button>
+  </div>

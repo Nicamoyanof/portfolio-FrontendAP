@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { EducacionAgregar } from '../models/educacion';
 import { Persona, PersonaHabilidad, PersonaProyecto } from '../models/personas';
@@ -8,6 +8,9 @@ import { Persona, PersonaHabilidad, PersonaProyecto } from '../models/personas';
   providedIn: 'root'
 })
 export class PersonasService {
+
+
+  personaEmitter = new EventEmitter();
 
   url = "http://localhost:8080/api"
 
@@ -18,11 +21,7 @@ export class PersonasService {
   }
 
   agregarPersona(id:number,persona:Persona){
-    this.http.put(this.url+ `/persona/${id}` ,  persona, {  responseType: 'text' })
-          .subscribe((resp:any)=>{
-            console.log('agregado')
-          })
-          
+    return this.http.put(this.url+ `/persona/${id}` ,  persona, {  responseType: 'text' })
   }
 
   educacionPersona(personaEducacion:EducacionAgregar){
@@ -33,7 +32,7 @@ export class PersonasService {
   }
 
   getPersona(id:Number){
-    return this.http.get(this.url+`/persona/${id}`)
+    this.http.get(this.url+`/persona/${id}`).subscribe((persona)=>this.personaEmitter.emit(persona))
   }
 
   getEstudiosPersona(id:Number){

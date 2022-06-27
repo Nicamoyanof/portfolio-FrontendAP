@@ -25,8 +25,7 @@ export class EducationAdminComponent implements OnInit {
   constructor(
     private modalService:ModalService,
     private personaService: PersonasService,
-    private educacionService: EducacionService,
-    private db: FireStorageService
+    private educacionService: EducacionService
   ) {  }
 
   async ngOnInit() {
@@ -42,8 +41,8 @@ export class EducationAdminComponent implements OnInit {
       .subscribe((res: any[]) => (this.listaEstudiosPersonas = res));
   }
 
-  activeModal(tipoModal) {
-    this.modalService.abrirModal(tipoModal);
+  async activeModal(tipoModal) {
+    this.modalService.tipoModal.emit(tipoModal);
     let windowsModalStart =
       document.querySelector<HTMLElement>('.windowModal');
     let backgroundModalClose = document.querySelector<HTMLElement>(

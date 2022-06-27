@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faCheck, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Educacion, EducacionAgregar } from 'src/app/models/educacion';
 import { EducacionService } from 'src/app/service/educacion.service';
 import { FireStorageService } from 'src/app/service/fire-storage.service';
+import { ModalService } from 'src/app/service/modal.service';
 import { PersonasService } from 'src/app/service/personas.service';
 
 @Component({
   selector: 'app-education-modal',
   templateUrl: './education-modal.component.html',
-  styleUrls: ['./education-modal.component.css']
+  styleUrls: ['./education-modal.component.css'],
 })
 export class EducationModalComponent implements OnInit {
-
   faPlusEdu = faPlus;
   faCheckEdu = faCheck;
   formData: FormGroup;
@@ -23,9 +23,13 @@ export class EducationModalComponent implements OnInit {
   listaEdu: any;
   selectedOption: any;
   listaEstudiosPersonas: any[];
+  disabled:boolean = false;
+
+  @Input() valorModal:string;
+
 
   constructor(
-    private router: Router,
+    private modalService: ModalService,
     private fb: FormBuilder,
     private personaService: PersonasService,
     private educacionService: EducacionService,
@@ -41,13 +45,13 @@ export class EducationModalComponent implements OnInit {
 
     this.formDataAgregar = this.fb.group({
       persona: '',
-      intituto: '',
+      instituto: '',
       anioInicio: '',
       anioFinal: '',
     });
   }
 
-  async ngOnInit() { }
+  async ngOnInit() {}
 
 
   agregarEducacion() {
@@ -59,19 +63,36 @@ export class EducationModalComponent implements OnInit {
     this.educacionService.agregarEducacion(educacion);
   }
 
+  activarBoton(valor:boolean){
+    let btnEnviar = document.querySelector<HTMLElement>('.btnSubmit');
+    console.log(btnEnviar)
+      if(valor){
+        this.disabled=true;
+        btnEnviar.classList.remove('disabled');
+        console.log('activado')
+      }else{
+        this.disabled=true;
+        btnEnviar.className += ' disabled';
+        console.log('desactivado 2')
+      }
+  }
+
   mostrarImagen(event: any) {
+    let spinnerImg='../../../../assets/img/spinner.gif';
+    this.activarBoton(false);
+    this.imgUrlLogo = spinnerImg;
     const file = (event.target as HTMLInputElement).files[0];
     console.log(file);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = async () => {
-      this.imgUrlLogo = reader.result as string;
       console.log('antes');
       await this.db
-        .subirImgStorage('logoEducacion', Date.now() + file.name, reader.result)
-        .then((urlImg: string) => {
+      .subirImgStorage('logoEducacion', Date.now() + file.name, reader.result)
+      .then((urlImg: string) => {
+          this.imgUrlLogo = reader.result as string;
           this.linkImgLogo = urlImg;
-          console.log('subido');
+          this.activarBoton(true);
         });
     };
   }
@@ -94,5 +115,4 @@ export class EducationModalComponent implements OnInit {
   selectValor(event: any) {
     this.selectedOption = event.value;
   }
-
 }

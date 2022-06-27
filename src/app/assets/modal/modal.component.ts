@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import {  FormGroup } from '@angular/forms';
 import { faCheck, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Educacion, EducacionAgregar } from 'src/app/models/educacion';
-import { EducacionService } from 'src/app/service/educacion.service';
-import { FireStorageService } from 'src/app/service/fire-storage.service';
 import { ModalService } from 'src/app/service/modal.service';
-import { PersonasService } from 'src/app/service/personas.service';
 
 
 @Component({
@@ -25,11 +20,24 @@ export class ModalComponent implements OnInit {
   listaEdu: any;
   selectedOption: any;
   listaEstudiosPersonas: any[];
+  datosEnviar:any;
+
+
+
 
   constructor( private modalService:ModalService) {}
 
   ngOnInit() {
-    this.modalService.tipoModal.subscribe(valor=>{this.valorModal=valor})
+    this.modalService.tipoModal.subscribe(valor=>this.valorModal=valor)
+  }
+
+  guardarDato(e){
+    this.datosEnviar=e;
+    console.log(e)
+  }
+
+  mostrar(){
+    console.log(this.datosEnviar)
   }
 
   activeModal() {
@@ -43,6 +51,7 @@ export class ModalComponent implements OnInit {
       if (windowsModalStart.classList.contains('active')) {
         windowsModalStart.classList.remove('active');
         backgroundModalClose.classList.remove('active');
+        this.modalService.tipoModal.emit('')
       } else {
         windowsModalStart.className += ' active';
         backgroundModalClose.className += ' active';

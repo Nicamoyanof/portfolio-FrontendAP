@@ -7,6 +7,17 @@ h2 {
 form {
   display: flex;
   flex-direction: column;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+form::-webkit-scrollbar {
+  background-color:rgba(0, 0, 0, 0.171);
+  width:5px;
+  border-radius: 100px;
+}
+form::-webkit-scrollbar-thumb {
+  background-color:rgb(54, 54, 54);
+  border-radius: 100px;
 }
 form > div > label {
   display: flex;
@@ -17,7 +28,7 @@ form > div > label {
   width: 100%;
 }
 label > img {
-  max-width: 100%;
+  max-width: 50%;
 }
 
 form > div > label > fa-icon {
@@ -59,4 +70,26 @@ input:focus,
 select:focus,
 textarea:focus {
   outline: none;
+}
+.btnSubmit {
+  position: absolute;
+  bottom: -60px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  font-weight: 600;
+  color: #baff43;
+  padding: 10px 0;
+  width: 90%;
+  background: #222;
+  border: none;
+  cursor: pointer;
+}
+.btnSubmit.disabled {
+  color: #baff4363;
+  padding: 10px 0;
+  width: 90%;
+  background: rgb(95, 95, 95);
+  border: none;
+  cursor: not-allowed;
 }

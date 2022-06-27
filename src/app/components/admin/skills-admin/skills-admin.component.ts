@@ -5,6 +5,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { PersonaHabilidad } from 'src/app/models/personas';
 import { Skill } from 'src/app/models/skill';
 import { FireStorageService } from 'src/app/service/fire-storage.service';
+import { ModalService } from 'src/app/service/modal.service';
 import { PersonasService } from 'src/app/service/personas.service';
 import { SkillService } from 'src/app/service/skill.service';
 
@@ -25,7 +26,7 @@ export class SkillsAdminComponent implements OnInit {
 
 
   constructor(
-    private router: Router,
+    private modalService: ModalService,
     private fb: FormBuilder,
     private personaService: PersonasService,
     private skillService: SkillService,
@@ -50,10 +51,10 @@ export class SkillsAdminComponent implements OnInit {
     this.personaService.getHabilidadesPersona(2).subscribe((res:any[])=>{this.listSkillPersona=res; console.log(res)});
 
   }
-  activeModalSkill() {
-    let windowsModalStart = document.querySelector<HTMLElement>(
-      '.windowsModalStartSkill'
-    );
+  activeModal(tipoModal) {
+    this.modalService.abrirModal(tipoModal);
+    let windowsModalStart =
+      document.querySelector<HTMLElement>('.windowModal');
     let backgroundModalClose = document.querySelector<HTMLElement>(
       '.backgroundModalClose'
     );
@@ -66,9 +67,6 @@ export class SkillsAdminComponent implements OnInit {
         backgroundModalClose.className += ' active';
       }
     }
-
-    
-
   }
 
   agregarSkill() {

@@ -15,65 +15,13 @@
       </div>
       <figcaption>{{skillPersona.habilidadesByIdHabilidad.nombre}}</figcaption>
     </figure>
-    <div class="addHabilidad" (click)="activeModalSkill()">
+    <div class="addHabilidad" (click)="activeModal('agregarHabilidad')">
       <fa-icon [icon]="faPlus"></fa-icon>
     </div>
   </div>
-  <article class="windowsModalStartSkill">
-    <h2>AGREGAR habilidad</h2>
-    <span class="closeModal" (click)="activeModalSkill()">X</span>
-    <form action="" [formGroup]="formAgregarSkill">
-      Habilidad
-      <select name="" id="" (change)="selectValor($event.target)">
-        <option>--  Seleccionar habilidad  --</option>
-        <option  *ngFor="let skill of listSkills" [value]="skill.idHabilidad">
-          {{skill.nombre}}
-        </option>
-      </select>
-      
-      <label for="">
-        Porcentaje de conocimiento
-        <input type="text" formControlName="porcentaje" />
-      </label>
-      <input
-        (click)="agregarSkillPersona()"
-        type="button"
-        class="btnSubmit"
-        value="EDITAR"
-      />
-    </form>
-  </article>
-  <article class="windowsModalStartCrearSkill">
-    <h2>CREAR HABILIDAD</h2>
-    <span class="closeModal" (click)="activeModalCreaSkill()">X</span>
-    <form action="" [formGroup]="formData">
-      <label for="">
-        Nombre
-        <input formControlName="nombre" type="text" />
-      </label>
-      <div>
-        <label for="logo">
-          Imagen
-          <fa-icon
-            *ngIf="imgUrlPerfil == ''; else imgPerfil"
-            [icon]="faPlus"
-          ></fa-icon>
-          <ng-template #imgPerfil>
-            <img class="imgUrlPerfil" [src]="imgUrlPerfil" alt="" />
-          </ng-template>
-        </label>
-        <input (change)="mostrarImagen( $event ,'logo')" formControlName="logo" type="file" id="logo" />
-      </div>
-      <input
-        (click)="agregarSkill()"
-        type="button"
-        class="btnSubmit"
-        value="CREAR"
-      />
-    </form>
-  </article>
+  
   <div class="crearHabilidad">
-    <fa-icon [icon]="faPlus" (click)="activeModalCreaSkill()"></fa-icon>
-    <p (click)="activeModalCreaSkill()">CREAR HABILIDAD</p>
+    <fa-icon [icon]="faPlus" (click)="activeModal('crearHabilidad')"></fa-icon>
+    <p (click)="activeModal('crearHabilidad')">CREAR HABILIDAD</p>
   </div>
 </section>

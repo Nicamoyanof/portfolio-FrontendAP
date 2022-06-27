@@ -21,33 +21,4 @@
       <p>Agregar Educacion</p>
     </span>
   </div>
-
-  <!-- <article class="windowsModalStartEduAgregar">
-    <h2>AGREGAR ESTUDIO</h2>
-    <span class="closeModal" (click)="activeModal('agregarEducacion')">X</span>
-    <form action="" [formGroup]="formDataAgregar">
-      <label for="">
-        SELECCIONAR CARRERA
-        <select formControlName="instituto" (change)="selectValor($event.target)">
-          <ng-container *ngIf="listaEdu != null">
-            <option
-            *ngFor="let educacion of listaEdu"
-              [value]="educacion.idInstituto"
-            >
-              {{ educacion.nombreInstituto + " - " + educacion.tituloInstituto }}
-            </option>
-          </ng-container>
-        </select>
-      </label>
-      <label for="">
-        Año inicio
-        <input formControlName="anioInicio" type="text" />
-      </label>
-      <label for="">
-        Año final
-        <input formControlName="anioFinal" type="text" />
-      </label>
-      <input (click)="unirPersonaEdu()"  type="button" class="btnSubmit" value="EDITAR" />
-    </form>
-  </article> -->
 </div>

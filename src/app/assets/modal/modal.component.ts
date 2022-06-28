@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {  FormGroup } from '@angular/forms';
 import { faCheck, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ModalService } from 'src/app/service/modal.service';
+import { PersonasService } from 'src/app/service/personas.service';
 
 
 @Component({
@@ -21,14 +22,20 @@ export class ModalComponent implements OnInit {
   selectedOption: any;
   listaEstudiosPersonas: any[];
   datosEnviar:any;
+  estudioEliminar:any;
 
 
 
 
-  constructor( private modalService:ModalService) {}
+  constructor( private modalService:ModalService,
+    private personaService:PersonasService) {}
 
   ngOnInit() {
     this.modalService.tipoModal.subscribe(valor=>this.valorModal=valor)
+    this.personaService.estudioSeleccionado.subscribe(e=>{
+      this.estudioEliminar=e;
+      console.log(this.estudioEliminar, 'modal')
+    })
   }
 
   guardarDato(e){

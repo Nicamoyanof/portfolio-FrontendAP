@@ -66,8 +66,8 @@ export class EducationAdminComponent implements OnInit {
   }
 
   eliminarEstudioPersona(id: number) {
-    this.personaService.eliminarEstudioPersona(id).subscribe(e=>{
-      this.personaService.getEstudiosPersona(this.userLogged.user);
-    })
+    this.personaService.estudioSeleccionado.emit(id);
+    this.activeModal('eliminarEducacion');
+    console.log('aca miumso')
   }
 }

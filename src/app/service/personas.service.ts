@@ -10,8 +10,9 @@ import { Persona, PersonaHabilidad, PersonaProyecto } from '../models/personas';
 export class PersonasService {
 
 
-  personaEmitter = new EventEmitter();
+  estudioSeleccionado = new EventEmitter();
   estudiosPersonaEmitter = new EventEmitter();
+  personaEmitter = new EventEmitter();
 
   url = "http://localhost:8080/api"
 

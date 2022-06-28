@@ -113,3 +113,17 @@ p{
 .spinner-border.disabled{
   display: none;
 }
+.containerBtnYesNo{
+  display: flex;
+  margin-top: 34px;
+  margin-bottom: -87px;
+}
+.containerBtnYesNo>button{
+  margin: 5px;
+}
+.containerBtnYesNo>.btnNo:hover{
+  background: rgb(29, 23, 80);
+}
+.containerBtnYesNo>.btnSi:hover{
+  background: rgb(80, 23, 23);
+}

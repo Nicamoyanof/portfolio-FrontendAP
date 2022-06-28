@@ -31,7 +31,13 @@
     </div>
   </form>
   <div class="containerBtnEnviar">
-    <button [disabled]="disabled" class="btnSubmit" (click)="agregarEducacion()">ENVIAR</button>
+    <button
+      [disabled]="disabled"
+      class="btnSubmit"
+      (click)="agregarEducacion()"
+    >
+      ENVIAR
+    </button>
     <div class="containerSpinner">
       <div class="spinner-border spinnerEnviar disabled" role="status"></div>
       <p [innerHTML]="mensajeFinalizado"></p>
@@ -64,10 +70,19 @@
     </label>
   </form>
   <div class="containerBtnEnviar">
-    <button [disabled]="disabled" class="btnSubmit" (click)="unirPersonaEdu()">ENVIAR</button>
+    <button [disabled]="disabled" class="btnSubmit" (click)="unirPersonaEdu()">
+      ENVIAR
+    </button>
     <div class="containerSpinner">
       <div class="spinner-border spinnerEnviar disabled" role="status"></div>
       <p [innerHTML]="mensajeFinalizado"></p>
     </div>
+  </div>
+</div>
+<div *ngIf="valorModal == 'eliminarEducacion'">
+  <h2>Seguro que desea eliminar <br> esta educacion de su lista?</h2>
+  <div class="containerBtnYesNo">
+    <button class="btnSubmit btnNo" >NO</button>
+    <button class="btnSubmit btnSi" (click)="eliminarEstudio()">SI</button>
   </div>
 </div>

@@ -30,6 +30,7 @@ export class EducationModalComponent implements OnInit {
   userLogged: any = jwtDecode(localStorage.getItem('auth_token'));
 
   @Input() valorModal: string;
+  @Input() estudioEliminar: number;
 
   constructor(
     private modalService: ModalService,
@@ -153,15 +154,22 @@ export class EducationModalComponent implements OnInit {
         document.querySelector<HTMLElement>('.spinnerEnviar').className +=
           ' disabled';
         this.mensajeFinalizado = '✔ Educacion creada con exito!';
-        
+
         setTimeout(() => {
           this.activeModal();
         }, 1000);
       });
-      this.personaService.getEstudiosPersona(this.userLogged.user)
+    this.personaService.getEstudiosPersona(this.userLogged.user);
   }
 
-  
+  eliminarEstudio() {
+    this.personaService
+      .eliminarEstudioPersona(this.estudioEliminar)
+      .subscribe((res) => {
+        this.personaService.getEstudiosPersona(this.userLogged.user);
+        this.activeModal();
+      });
+  }
 
   selectValor(event: any) {
     this.selectedOption = event.value;

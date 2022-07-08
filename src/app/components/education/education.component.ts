@@ -14,7 +14,7 @@ export class EducationComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.personasService.getEstudiosPersona(22)
+    this.personasService.getEstudiosPersona(2)
     this.personasService.estudiosPersonaEmitter.subscribe(lista=>{
       this.listEstudios=lista;
       console.log(lista)

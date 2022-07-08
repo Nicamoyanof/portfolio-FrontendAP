@@ -29,7 +29,7 @@ export class ContactComponent implements OnInit {
   }
 
   getPersona(){
-    this.personasService.getPersonaFinal(22).subscribe((persona:Persona)=>{
+    this.personasService.getPersonaFinal(2).subscribe((persona:Persona)=>{
       console.log(persona)
       this.persona = persona;
     })

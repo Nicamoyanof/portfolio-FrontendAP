@@ -13,7 +13,7 @@ export class EducacionService {
 
   url = "http://portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com/api"
 
-  customHeaders = new HttpHeaders({ Authorization: "Bearer " + localStorage.getItem("auth_token")});
+  customHeaders = new HttpHeaders({ Authorization: "Bearer " + localStorage.getItem("auth_token"), origin:"http://portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com"});
   
 
   constructor(private http:HttpClient,
@@ -21,12 +21,12 @@ export class EducacionService {
   }
 
   agregarEducacion(educacion:Educacion){
-    return this.http.post(this.url+'/educacion', educacion, { headers:this.customHeaders ,  responseType: 'text' })
+    return this.http.post('/api/educacion', educacion, { headers:this.customHeaders ,  responseType: 'text' })
   }
 
 
   public getEducaciones() {
-    this.http.get<Educacion[]>(this.url+'/educaciones').subscribe(valor=>this.educacionesEmitter.emit(valor))
+    this.http.get<Educacion[]>('/api/educaciones').subscribe(valor=>this.educacionesEmitter.emit(valor))
   }
   
   

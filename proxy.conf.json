@@ -1,0 +1,8 @@
+
+{
+    "/api": {
+        "target": "http://portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

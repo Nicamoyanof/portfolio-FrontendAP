@@ -9,4 +9,5 @@ export const environment = {
     measurementId: 'G-LLN2HHVBVY',
   },
   production: true,
+  apiUrl: 'http://portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com/api/'
 };

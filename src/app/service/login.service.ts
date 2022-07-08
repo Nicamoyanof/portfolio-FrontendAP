@@ -13,11 +13,11 @@ export class LoginService {
 
   personaLogeada = new EventEmitter();
 
-  url = "http://portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com/api"
+  url = `http://www.portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com/api`
 
   currentUserUserSubject: BehaviorSubject<any>;
   
-  customHeaders = new HttpHeaders({ Authorization: "Bearer " + localStorage.getItem("auth_token")});
+  customHeaders = new HttpHeaders({ Authorization: "Bearer " + localStorage.getItem("auth_token"), 'Access-Control-Allow-Origin': '*'});
 
   constructor(private http:HttpClient,
     private router:Router) { 
@@ -25,7 +25,7 @@ export class LoginService {
   }
 
   login(usuario:Usuario){
-    this.http.post(this.url+'/login', usuario, {  responseType: 'json' })
+    this.http.post('/api/login', usuario, {  responseType: 'json' } )
           .subscribe((resp:any)=>{
             localStorage.setItem('auth_token', resp.token);
             this.router.navigate(['admin'])
@@ -35,7 +35,7 @@ export class LoginService {
 
   getPersonaLogged(usuario:string){
     if(usuario!=null){
-      return this.http.get(this.url+`/usuarioLog/${usuario}`, {headers : this.customHeaders})
+      return this.http.get(`/api/usuarioLog/${usuario}`, {headers : this.customHeaders})
     }
     return null;
   }

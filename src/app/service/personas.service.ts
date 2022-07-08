@@ -16,10 +16,12 @@ export class PersonasService {
   personaEmitter = new EventEmitter();
   personaHabilidad = new EventEmitter();
 
-  customHeaders = new HttpHeaders({ Authorization: "Bearer " + localStorage.getItem("auth_token")});
+  customHeaders = new HttpHeaders({ Authorization: "Bearer " + localStorage.getItem("auth_token"),'Access-Control-Allow-Origin': '*'});
+
+  
 
 
-  url = "http://portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com/api"
+  url = "http://www.portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com/api"
 
   
 
@@ -28,33 +30,33 @@ export class PersonasService {
   }
 
   agregarPersona(id:number,persona:Persona){
-    return this.http.put(this.url+ `/persona/${id}` ,  persona, { headers:this.customHeaders, responseType: 'text' })
+    return this.http.put(`/api/persona/${id}` ,  persona, { headers:this.customHeaders  ,  responseType: 'json'})
   }
 
   educacionPersona(personaEducacion:EducacionAgregar){
-    return this.http.post(this.url+'/persona/estudio', personaEducacion, { headers:this.customHeaders, responseType: 'json' })
+    return this.http.post('/api/persona/estudio', personaEducacion, { headers:this.customHeaders, responseType: 'json' })
   }
 
   getPersona(id:Number){
-    this.http.get(this.url+`/persona/${id}`).subscribe((persona)=>{
+    this.http.get(`/api/persona/${id}`).subscribe((persona)=>{
       console.log('si llego hasta ca')
       this.personaEmitter.emit(persona)})
   }
 
   getPersonaFinal(id:Number){
-    return this.http.get(this.url+`/persona/${id}`)
+    return this.http.get(`/api/persona/${id}`)
   }
 
   getEstudiosPersona(id:Number){
-    this.http.get(this.url+`/persona/${id}/estudios`).subscribe(valor=>{
+    this.http.get(`/api/persona/${id}/estudios`).subscribe(valor=>{
       this.estudiosPersonaEmitter.emit(valor);
     })
   }
   eliminarEstudioPersona(id:number){
-    return this.http.delete(this.url+`/persona/estudio/${id}`, {headers: this.customHeaders})    
+    return this.http.delete(`/api/persona/estudio/${id}`, {headers: this.customHeaders})    
   }
   getEstudioPersona(id:number){
-      this.http.get(this.url+`/persona/estudio/${id}`).subscribe(res=>{
+      this.http.get(`/api/persona/estudio/${id}`).subscribe(res=>{
         this.estudioEditar.emit(res)
       })
   }
@@ -63,25 +65,25 @@ export class PersonasService {
   //SERVICE PERSONAS HABILIDADES
 
   agregarHabilidadPersona(persHabi:PersonaHabilidad){
-    return this.http.post(this.url+'/persona/habilidad', persHabi, { headers:this.customHeaders, responseType: 'text' })
+    return this.http.post('/api/persona/habilidad', persHabi, { headers:this.customHeaders, responseType: 'text' })
   }
   getHabilidadesPersona(id:number){
-    return this.http.get(this.url+`/persona/${id}/habilidades`)
+    return this.http.get(`/api/persona/${id}/habilidades`)
   }
   eliminarHabilidadPersona(id:number){
-    return this.http.delete(this.url+`/persona/habilidad/${id}`);
+    return this.http.delete(`/api/persona/habilidad/${id}`);
   }
 
   //AGREGAR PROYECTO A LA PERSONA
   agregarProyecto(perPro: PersonaProyecto){
-    return this.http.post(this.url+'/persona/proyecto', perPro, { headers:this.customHeaders, responseType: 'text' })
+    return this.http.post('/api/persona/proyecto', perPro, { headers:this.customHeaders, responseType: 'text' })
   } 
   
   getPersonaProyectos(id:number){
-    return this.http.get(this.url+`/persona/${id}/proyectos`)
+    return this.http.get(`/api/persona/${id}/proyectos`)
   }
   eliminarProyectoPersona(id:number){
-    return this.http.delete(this.url+`/persona/proyecto/${id}`,{ headers:this.customHeaders, responseType: 'text' })
+    return this.http.delete(`/api/persona/proyecto/${id}`,{ headers:this.customHeaders, responseType: 'text' })
   }
 
 }

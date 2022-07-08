@@ -27,7 +27,7 @@ export class StartComponent implements OnInit {
   }
 
   getPersona(){
-    this.personasService.getPersonaFinal(22).subscribe((persona:Persona)=>{
+    this.personasService.getPersonaFinal(2).subscribe((persona:Persona)=>{
       this.persona = persona;
       persona.profesion.split('/').forEach(arr=>{
         this.profesion.push(arr);

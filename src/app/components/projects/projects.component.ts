@@ -19,7 +19,7 @@ export class ProjectsComponent implements OnInit {
     private proyectoService:ProyectoService) { }
 
   ngOnInit(): void {
-    this.personaService.getPersonaProyectos(22).subscribe((lista:any[])=>{
+    this.personaService.getPersonaProyectos(2).subscribe((lista:any[])=>{
       lista.forEach(element => {
         this.proyectoService.getHabilidadesProyecto(element.idProyecto).subscribe((habArr:any[])=>{
           let proyectoCompleto:ProyectoCompleto;

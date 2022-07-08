@@ -2,76 +2,19 @@
 <section>
     <h3>MIS PROYECTOS</h3>
     <div class="containerItemsProject">
-        <article>
-            <h4>Pelis-Api</h4>
+        <article *ngFor="let proyecto of listaProyectos">
+            <h4>{{proyecto.nombre}}</h4>
             <figure>
-                <img src="../../../assets/img/peli-api.bmp" alt="">
+                <img src={{proyecto.imgProyecto}} alt="">
                 <figcaption>
                     <ul>
-                        <li><img src="../../../assets/img/react.png" alt=""> </li>
-                        <li><img src="../../../assets/img/nextjs.png" alt=""></li>
-                        <li><img src="../../../assets/img/tailwind-css.svg" alt=""></li>
+                        <li  *ngFor="let habilidad of proyecto.habilidades"><img src={{habilidad.logo}} alt=""> </li>
                     </ul>
-                    <button> GitHub <fa-icon [icon]="github"></fa-icon> </button>
+                    <a routerLink={{proyecto.linkGithub}}> <button> GitHub <fa-icon [icon]="github"></fa-icon> </button></a> 
                 </figcaption>
             </figure>
         </article>
-        <article>
-            <h4>Pelis-Api</h4>
-            <figure>
-                <img src="../../../assets/img/peli-api.bmp" alt="">
-                <figcaption>
-                    <ul>
-                        <li><img src="../../../assets/img/react.png" alt=""> </li>
-                        <li><img src="../../../assets/img/nextjs.png" alt=""></li>
-                        <li><img src="../../../assets/img/tailwind-css.svg" alt=""></li>
-                    </ul>
-                    <button> GitHub <fa-icon [icon]="github"></fa-icon> </button>
-                </figcaption>
-            </figure>
-        </article>
-        <article>
-            <h4>Pelis-Api</h4>
-            <figure>
-                <img src="../../../assets/img/peli-api.bmp" alt="">
-                <figcaption>
-                    <ul>
-                        <li><img src="../../../assets/img/react.png" alt=""> </li>
-                        <li><img src="../../../assets/img/nextjs.png" alt=""></li>
-                        <li><img src="../../../assets/img/tailwind-css.svg" alt=""></li>
-                    </ul>
-                    <button> GitHub <fa-icon [icon]="github"></fa-icon> </button>
-                </figcaption>
-            </figure>
-        </article>
-        <article>
-            <h4>Pelis-Api</h4>
-            <figure>
-                <img src="../../../assets/img/peli-api.bmp" alt="">
-                <figcaption>
-                    <ul>
-                        <li><img src="../../../assets/img/react.png" alt=""> </li>
-                        <li><img src="../../../assets/img/nextjs.png" alt=""></li>
-                        <li><img src="../../../assets/img/tailwind-css.svg" alt=""></li>
-                    </ul>
-                    <button> GitHub <fa-icon [icon]="github"></fa-icon> </button>
-                </figcaption>
-            </figure>
-        </article>
-        <article>
-            <h4>Pelis-Api</h4>
-            <figure>
-                <img src="../../../assets/img/peli-api.bmp" alt="">
-                <figcaption>
-                    <ul>
-                        <li><img src="../../../assets/img/react.png" alt=""> </li>
-                        <li><img src="../../../assets/img/nextjs.png" alt=""></li>
-                        <li><img src="../../../assets/img/tailwind-css.svg" alt=""></li>
-                    </ul>
-                    <button> GitHub <fa-icon [icon]="github"></fa-icon> </button>
-                </figcaption>
-            </figure>
-        </article>
+       
     </div>
 </section>
 </div>

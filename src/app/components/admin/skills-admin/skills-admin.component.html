@@ -3,6 +3,9 @@
   <div class="containFigSkills">
     <figure *ngFor="let skillPersona of listSkillPersona">
       <div class="bg">
+        <span class="eliminarHabilidad" (click)="eliminarHabPersona(skillPersona.idPerHab)">
+          <fa-icon [icon]="faTrash"></fa-icon>
+        </span>
         <div class="circle-right">
           <div class="mask-right" [ngStyle]="{'transform':'rotate(' + (skillPersona.porcentaje>50?180:(skillPersona.porcentaje*180/50)) + 'deg)' }"></div>
         </div>

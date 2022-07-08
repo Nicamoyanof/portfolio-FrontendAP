@@ -1,6 +1,6 @@
 <header>
   <nav>
-    <img class="logoNavBar" src="../../../assets/img/NICA (2).png" alt="">
+    <a routerLink="/">  <img class="logoNavBar" src="../../../assets/img/NICA (2).png" alt=""></a>
     <span class="dropMenu">
       <ul>
         <li> <a href="#inicio"> INICIO</a></li>
@@ -9,7 +9,7 @@
         <li> <a href="#proyectos">PROYECTOS</a> </li>
         <li> <a href="#contacto">CONTACTO</a> </li>
       </ul>
-      <a routerLink="login" *ngIf="usuario ; else elseSession">CERRAR SESION</a>
+      <a *ngIf="usuario ; else elseSession" (click)="cerrarSesion()">CERRAR SESION</a>
       <ng-template #elseSession><a routerLink="login">INICIAR SESION</a></ng-template>
     </span>
     <fa-icon  [icon]="faBars" (click)="activeMenu()"></fa-icon>

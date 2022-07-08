@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import jwtDecode from 'jwt-decode';
 import { PersonaHabilidad } from 'src/app/models/personas';
 import { Skill } from 'src/app/models/skill';
 import { FireStorageService } from 'src/app/service/fire-storage.service';
+import { LoginService } from 'src/app/service/login.service';
 import { ModalService } from 'src/app/service/modal.service';
 import { PersonasService } from 'src/app/service/personas.service';
 import { SkillService } from 'src/app/service/skill.service';
@@ -15,6 +17,7 @@ import { SkillService } from 'src/app/service/skill.service';
   styleUrls: ['./skills-admin.component.css'],
 })
 export class SkillsAdminComponent implements OnInit {
+  faTrash = faTrash
   faPlus = faPlus;
   imgUrlPerfil:string='';
   formData: FormGroup;
@@ -23,14 +26,12 @@ export class SkillsAdminComponent implements OnInit {
   selectedOption:number;
   formAgregarSkill:FormGroup;
   listSkillPersona:any[];
-
-
   constructor(
     private modalService: ModalService,
     private fb: FormBuilder,
     private personaService: PersonasService,
     private skillService: SkillService,
-    private db:FireStorageService,
+    private loginService:LoginService
   ) {
     this.formData = this.fb.group({
       nombre: ['', []],
@@ -48,8 +49,20 @@ export class SkillsAdminComponent implements OnInit {
   ngOnInit(): void {
 
     this.skillService.getAllSkill().subscribe((res:any[])=>this.listSkills=res)
-    this.personaService.getHabilidadesPersona(2).subscribe((res:any[])=>{this.listSkillPersona=res; console.log(res)});
+    this.getHabilidades()
+    this.personaService.personaHabilidad.subscribe(e=>{
+      console.log(e)
+      this.listSkillPersona=e;
+    })
 
+  }
+  getHabilidades(){
+    this.loginService.personaLogeada.subscribe(id=>{
+      this.personaService.getHabilidadesPersona(id).subscribe((res:any[])=>{
+        this.personaService.personaHabilidad.emit(res)
+      });
+    })
+    
   }
   activeModal(tipoModal) {
     this.modalService.abrirModal(tipoModal);
@@ -68,63 +81,10 @@ export class SkillsAdminComponent implements OnInit {
       }
     }
   }
-
-  agregarSkill() {
-    let skill: Skill = {
-      nombre: this.formData.value.nombre,
-      logo: this.linkImgLogo,
-    };
-    this.skillService.agregarSkill(skill);
-  }
-
-  agregarSkillPersona(){
-    let agregarHabilidadPersona:PersonaHabilidad={
-      persona:2,
-      habilidad:Number(this.selectedOption),
-      porcentaje:Number(this.formAgregarSkill.value.porcentaje)
-    }
-      
-    this.personaService.agregarHabilidadPersona(agregarHabilidadPersona);
-  }
-
-  activeModalCreaSkill() {
-    let windowsModalStart = document.querySelector<HTMLElement>(
-      '.windowsModalStartCrearSkill'
-    );
-    let backgroundModalClose = document.querySelector<HTMLElement>(
-      '.backgroundModalClose'
-    );
-    if (windowsModalStart && backgroundModalClose) {
-      if (windowsModalStart.classList.contains('active')) {
-        windowsModalStart.classList.remove('active');
-        backgroundModalClose.classList.remove('active');
-      } else {
-        windowsModalStart.className += ' active';
-        backgroundModalClose.className += ' active';
-      }
-    }
-  }
-
-  mostrarImagen(event: any, destino: string) {
-    const file = (event.target as HTMLInputElement).files[0];
-    console.log(file);
-    const reader = new FileReader();
-
-    reader.readAsDataURL(file);
-    reader.onloadend = async () => {
-      this.imgUrlPerfil = reader.result as string;
-      console.log('antes');
-      await this.db
-        .subirImgStorage('imgPersona', Date.now() + file.name, reader.result)
-        .then((urlImg: string) => {
-          this.linkImgLogo = urlImg;
-          console.log('subido');
-        });
-    };
-  }
-
-  selectValor(event: any) {
-    this.selectedOption = event.value;
+  eliminarHabPersona(id:number){
+    this.personaService.eliminarHabilidadPersona(id).subscribe(e=>{
+      this.getHabilidades();
+    })
   }
 
 }

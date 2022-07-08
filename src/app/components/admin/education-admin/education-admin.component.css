@@ -179,6 +179,7 @@ textarea:focus {
   top: -5px;
   right: -5px;
   cursor: pointer;
+  z-index: 2;
 }
 .eliminarEstudio:hover{
   background: rgb(255, 255, 255);
@@ -198,6 +199,7 @@ textarea:focus {
   top: -5px;
   right: 30px;
   cursor: pointer;
+  z-index: 2;
 }
 .editarEstudio:hover{
   background: rgb(255, 255, 255);
@@ -234,6 +236,8 @@ textarea:focus {
     display: block;
     position: absolute;
     width: 150px;
+    max-height: 150px;
+    object-fit: contain;
     top: 0;
     bottom: 0;
     margin: auto;

@@ -19,6 +19,7 @@ export class EducationModalComponent implements OnInit {
   faCheckEdu = faCheck;
   formData: FormGroup;
   formDataAgregar: FormGroup;
+  formDataEditar:FormGroup;
   imgUrlLogo: string = '';
   linkImgLogo: string;
   listaEdu: any;
@@ -26,8 +27,10 @@ export class EducationModalComponent implements OnInit {
   listaEstudiosPersonas: any[];
   disabled: boolean = false;
   mensajeFinalizado: string = '';
+  estudioSeleccionadoId: any;
+  estudioSeleccionado: any;
 
-  userLogged: any = jwtDecode(localStorage.getItem('auth_token'));
+  @Input() personaLog:number;
 
   @Input() valorModal: string;
   @Input() estudioEliminar: number;
@@ -53,12 +56,27 @@ export class EducationModalComponent implements OnInit {
       anioInicio: '',
       anioFinal: '',
     });
+    this.formDataEditar = this.fb.group({
+      persona: '',
+      instituto: '',
+      anioInicio: '',
+      anioFinal: '',
+    });
   }
 
   async ngOnInit() {
     this.educacionService.getEducaciones();
     this.educacionService.educacionesEmitter.subscribe((valor) => {
       this.listaEdu = valor;
+    });
+    this.personaService.estudioSeleccionado.subscribe((valor: any) => {
+      this.estudioSeleccionadoId = valor;
+      this.personaService.getEstudioPersona(valor);
+      this.personaService.estudioEditar.subscribe((e) => {
+        this.estudioSeleccionado = e;
+        this.formDataEditar.controls['instituto'].setValue(2)
+        this.formDataEditar.controls['anioFinal'].setValue(2)
+      });
     });
   }
 
@@ -138,7 +156,7 @@ export class EducationModalComponent implements OnInit {
       .querySelector<HTMLElement>('.spinnerEnviar')
       .classList.remove('disabled');
     let educacionAgregar: EducacionAgregar = {
-      personas: this.userLogged.user,
+      personas: this.personaLog,
       educaciones: this.selectedOption,
       anioInicio: Number(this.formDataAgregar.value.anioInicio),
       anioFinal: Number(
@@ -155,18 +173,18 @@ export class EducationModalComponent implements OnInit {
           ' disabled';
         this.mensajeFinalizado = '✔ Educacion creada con exito!';
 
+        this.personaService.getEstudiosPersona(this.personaLog);
         setTimeout(() => {
           this.activeModal();
         }, 1000);
       });
-    this.personaService.getEstudiosPersona(this.userLogged.user);
   }
 
   eliminarEstudio() {
     this.personaService
       .eliminarEstudioPersona(this.estudioEliminar)
       .subscribe((res) => {
-        this.personaService.getEstudiosPersona(this.userLogged.user);
+        this.personaService.getEstudiosPersona(this.personaLog);
         this.activeModal();
       });
   }

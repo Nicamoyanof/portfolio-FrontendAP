@@ -5,9 +5,9 @@
       <span class="eliminarEstudio" (click)="eliminarEstudioPersona(estudio.idPersonasEstudios)">
         <fa-icon [icon]="faTrash"></fa-icon>
       </span>
-      <span class="editarEstudio">
+      <!-- <span class="editarEstudio" (click)="editarEstudio(estudio.idPersonasEstudios)">
         <fa-icon [icon]="faPen"></fa-icon>
-      </span>
+      </span> -->
       <h4>{{estudio.educacionesByIdInstituto.tituloInstituto}}</h4>
       <ul>
         <li>- {{estudio.educacionesByIdInstituto.nombreInstituto}}</li>

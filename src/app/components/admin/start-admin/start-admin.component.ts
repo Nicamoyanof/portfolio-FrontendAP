@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { async } from '@firebase/util';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
 import jwtDecode from 'jwt-decode';
+import { LoginService } from 'src/app/service/login.service';
 import { ModalService } from 'src/app/service/modal.service';
 import { PersonasService } from 'src/app/service/personas.service';
 
@@ -22,44 +23,40 @@ export class StartAdminComponent implements OnInit {
 
   personaLoged: any;
 
-  userLogged: any = jwtDecode(localStorage.getItem('auth_token'));
+  userLogged: any;
 
   constructor(
     private router: Router,
     private personaService: PersonasService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private loginService:LoginService
   ) {}
   ngOnInit(): void {
-    this.isAdminEdit();
-    this.personaService.getPersona(this.userLogged.user);
-    this.personaService.personaEmitter.subscribe((val) => {
-      this.personaLoged = val;
-      this.arrPersonaProfesion = this.personaLoged.profesion.split('/');
-      this.personaLoged.imgPerfil =
-      (this.personaLoged.imgPerfil == ''|| this.personaLoged.imgPerfil == null)
-      ? '../../../../assets/img/no-user.png'
-      : this.personaLoged.imgPerfil;
-      this.personaLoged.imgBanner =
-      (this.personaLoged.imgBanner == ''|| this.personaLoged.imgBanner == null)
-      ? '../../../../assets/img/bg-black.jpg'
-      : this.personaLoged.imgBanner;
-      this.personaLoged.imgBannerM =
-      ( this.personaLoged.imgBannerM == ''|| this.personaLoged.imgBannerM == null)
-      ? '../../../../assets/img/bg-black.jpg'
-      : this.personaLoged.imgBannerM;
-      console.log(this.personaLoged)
-    });
+
+    this.loginService.personaLogeada.subscribe(persona=>{
+      this.userLogged=persona;
+      this.personaService.getPersona(persona);
+      this.personaService.personaEmitter.subscribe((val) => {
+        this.personaLoged = val;
+        this.arrPersonaProfesion = this.personaLoged.profesion.split('/');
+        this.personaLoged.imgPerfil =
+        (this.personaLoged.imgPerfil == ''|| this.personaLoged.imgPerfil == null)
+        ? '../../../../assets/img/no-user.png'
+        : this.personaLoged.imgPerfil;
+        this.personaLoged.imgBanner =
+        (this.personaLoged.imgBanner == ''|| this.personaLoged.imgBanner == null)
+        ? '../../../../assets/img/bg-black.jpg'
+        : this.personaLoged.imgBanner;
+        this.personaLoged.imgBannerM =
+        ( this.personaLoged.imgBannerM == ''|| this.personaLoged.imgBannerM == null)
+        ? '../../../../assets/img/bg-black.jpg'
+        : this.personaLoged.imgBannerM;
+        console.log(val, 'aca pibe')
+      });
+    })
+   
   }
 
-  isAdminEdit() {
-    let isLoged = localStorage.getItem('auth_token');
-
-    if (this.router.url == '/admin' && isLoged) {
-      this.adminEdit = true;
-    } else {
-      this.adminEdit = false;
-    }
-  }
 
   activeModal() {
     this.modalService.abrirModal('start');

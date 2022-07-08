@@ -2,11 +2,11 @@
     <h1>INICIAR SESION</h1>
     <label for="">
         Email
-        <input formControlName="email" type="text" name="" id="" placeholder="Email">
+        <input formControlName="email" type="email"  placeholder="Email">
     </label>
     <label for="">
         Contraseña
-        <input  formControlName="pass" type="text" name="" id="" placeholder="Contraseña">
+        <input  formControlName="pass" type="password"   placeholder="Contraseña">
     </label>
-    <button (click)="login()">INICIAR SESION</button>
+    <button (click)="login()" onsubmit="login()">INICIAR SESION</button>
 </form>

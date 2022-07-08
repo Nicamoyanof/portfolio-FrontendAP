@@ -11,6 +11,7 @@ import jwtDecode from 'jwt-decode';
 import { Educacion, EducacionAgregar } from 'src/app/models/educacion';
 import { EducacionService } from 'src/app/service/educacion.service';
 import { FireStorageService } from 'src/app/service/fire-storage.service';
+import { LoginService } from 'src/app/service/login.service';
 import { ModalService } from 'src/app/service/modal.service';
 import { PersonasService } from 'src/app/service/personas.service';
 
@@ -29,22 +30,24 @@ export class EducationAdminComponent implements OnInit {
   listaEdu: any;
   selectedOption: any;
   listaEstudiosPersonas: any[];
-  userLogged: any = jwtDecode(localStorage.getItem('auth_token'));
+  userLogged: any;
 
   constructor(
     private modalService: ModalService,
     private personaService: PersonasService,
-    private educacionService: EducacionService
+    private loginService:LoginService
   ) {}
 
   ngOnInit() {
-    this.personaService.getEstudiosPersona(this.userLogged.user);
+    this.loginService.personaLogeada.subscribe(id=>{
+      this.personaService.getEstudiosPersona(id);
+    })
     this.personaService.estudiosPersonaEmitter.subscribe((valor) => {
       this.listaEstudiosPersonas = valor;
     });
   }
 
-  async activeModal(tipoModal) {
+  async activeModal(tipoModal:any ) {
     this.modalService.tipoModal.emit(tipoModal);
     let windowsModalStart = document.querySelector<HTMLElement>('.windowModal');
     let backgroundModalClose = document.querySelector<HTMLElement>(
@@ -68,6 +71,11 @@ export class EducationAdminComponent implements OnInit {
   eliminarEstudioPersona(id: number) {
     this.personaService.estudioSeleccionado.emit(id);
     this.activeModal('eliminarEducacion');
-    console.log('aca miumso')
   }
+
+  editarEstudio(id:number){
+    this.activeModal('editarEducacion');
+    this.personaService.estudioSeleccionado.emit(id);
+  }
+
 }

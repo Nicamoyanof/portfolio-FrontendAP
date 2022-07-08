@@ -1,24 +1,24 @@
 <section class="mainSectionContact" id="contacto">
   <h3>CONTACTATE</h3>
-  <section>
+  <section *ngIf="persona">
     <h4>Mis redes <span> sociales</span></h4>
     <span class="iconSocial">
       <figure class="containerSocial">
-        <a class="logoSocial" href="mailto:nicamoyanofunes98@gmail.com"
+        <a class="logoSocial" href="{{persona.email}}"
           ><fa-icon [icon]="faAt"></fa-icon
             ></a>
 
         <div class="boxContainer boxMail">
           <div class="triangleBox"></div>
           <figcaption>
-            <a href="mailto:nicamoyanofunes98@gmail.com"> Mi Email</a>
+            <a href="{{persona.email}}"> Mi Email</a>
           </figcaption>
         </div>
       </figure>
       <figure class="containerSocial">
         <a
           class="logoSocial"
-          href="https://www.linkedin.com/in/nicamoyano/"
+          href="{{persona.linkedin}}"
           target="_blank"
           ><fa-icon [icon]="faLinkedin"></fa-icon
             ></a>
@@ -26,7 +26,7 @@
         <div class="boxContainer boxLn">
           <figcaption>
             <a
-              href="https://www.linkedin.com/in/nicamoyano/"
+              href="{{persona.linkedin}}"
               target="_blank"
               >nicamoyano</a
             >
@@ -37,13 +37,13 @@
       <figure class="containerSocial">
         <a
           class="logoSocial"
-          href="https://github.com/Nicamoyanof"
+          href="{{persona.github}}"
           target="_blank"
           ><fa-icon [icon]="faGithub"></fa-icon
             ></a>
         <div class="boxContainer boxGit">
           <figcaption>
-            <a href="https://github.com/Nicamoyanof" target="_blank"
+            <a href="{{persona.github}}" target="_blank"
               >nicamoyanof</a
             >
           </figcaption>

@@ -15,10 +15,14 @@ article {
   border-radius: 10px;
   margin-bottom: 3rem;
 }
-figcaption > a{
-  text-decoration: none;
-
+figcaption > div{
+  display: flex;
+  justify-content: space-evenly;
 }
+figcaption > div > a{
+  text-decoration: none;
+}
+
 figure > img {
   width: 100%;
 }
@@ -70,131 +74,15 @@ button > fa-icon {
   padding-left: 10px;
   font-size: 20px;
 }
+.btnEliminar{
+  border: 1px solid #ff4343;
+  color: #ff4343;
+}
+.btnEliminar:hover {
+  color: #242424;
+  background: #ff4343;
+}
 
-.windowsModalStartProyecto {
-  display: none;
-  background: #baff43;
-  max-width: 700px;
-  padding: 15px 10px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  transform: translateY(30%);
-  z-index: 500;
-  margin: 0 auto;
-}
-.windowsModalStartProyecto.active,
-.backgroundModalClose.active {
-  display: block;
-}
-.closeModal {
-  font-weight: 700;
-  font-size: 25px;
-  position: absolute;
-  top: -17px;
-  right: -10px;
-  background: #222;
-  width: 40px;
-  height: 40px;
-  border-radius: 30px;
-  color: #baff43;
-  text-align: center;
-  cursor: pointer;
-}
-.windowsModalStartProyecto > h2 {
-  font-weight: 700;
-  font-size: 22px;
-  text-transform: uppercase;
-  text-align: center;
-}
-form {
-  display: flex;
-  flex-direction: column;
-}
-label {
-  font-weight: 600;
-  margin-top: 0.9375rem;
-  display: flex;
-  flex-direction: column;
-}
-input,
-textarea,
-select {
-  padding: 0.3125rem;
-  border: none;
-  background: #222;
-  color: #fff;
-}
-/* textarea {
-    min-width: 258px;
-    max-width: 258px;
-    min-height: 58px;
-    max-height: 58px;
-  } */
-input::placeholder,
-textarea::placeholder,
-select::placeholder {
-  color: #aaa;
-}
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-}
-#imgProyecto{
-  display: none;
-}
-.imgUrlProyectoSubir{
-  max-width: 160px;
-  object-fit: cover;
-}
-label>img{
-  max-width: 100%;
-}
-form>div{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-form>div>label{
-  display: flex;
-  flex-direction: column;
-  justify-self: center;
-  align-items: center;
-  cursor: pointer;
-  width: 50%;
-}
-form>div>label>fa-icon{
-  width: 50px;
-  height: 50px;
-  font-size: 25px;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid;
-}
-.containerTagsSkill{
-  margin: 15px 0 ;
-  display: flex;
-  flex-wrap: wrap;
-}
-.containerTagsSkill>p{
-  background: #222;
-  color: #999;
-  padding: 10px 20px 10px 10px;
-  font-size: 15px;
-  border-radius: 8px;
-  font-weight: 500;
-  position: relative;
-  margin: 10px 10px;
-}
-.containerTagsSkill>p>span{
-  position: absolute;
-  top: 0;
-  right: 5px;
-}
 
 .btnSubmit {
   margin-top: 25px;

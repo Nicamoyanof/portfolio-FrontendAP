@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faAt } from '@fortawesome/free-solid-svg-icons';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
+import { Persona } from 'src/app/models/personas';
+import { PersonasService } from 'src/app/service/personas.service';
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/service/login.service';
 
 @Component({
   selector: 'app-contact',
@@ -13,10 +17,22 @@ export class ContactComponent implements OnInit {
   faLinkedin = faLinkedin
   faAt = faAt
   faGithub = faGithub
+  persona:Persona;
+  ln:string;
+  gh:string;
 
-  constructor() { }
+
+  constructor(private personasService:PersonasService,private loginService:LoginService) { }
 
   ngOnInit(): void {
+    this.getPersona();
+  }
+
+  getPersona(){
+    this.personasService.getPersonaFinal(22).subscribe((persona:Persona)=>{
+      console.log(persona)
+      this.persona = persona;
+    })
   }
 
   public sendEmail(e: Event) {

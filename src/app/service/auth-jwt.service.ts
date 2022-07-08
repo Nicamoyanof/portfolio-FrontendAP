@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class AuthJWTService {
 
-  uri = 'http://localhost:8080/api'
+  uri = 'http://portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com/api'
 
   constructor(private http:HttpClient, private router:Router) { }
 

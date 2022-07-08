@@ -2,13 +2,14 @@
   <article class="modalPrueba">
     <span class="closeModal" (click)="activeModal()">X</span>
     <main  [ngSwitch]="valorModal" >
-      <app-start-modal (datosPersonaEmit)="guardarDato($event)" [valorModal]="valorModal" *ngSwitchCase="'start'"></app-start-modal>
-      <app-education-modal [valorModal]="valorModal" *ngSwitchCase="'crearEducacion'"></app-education-modal>
-      <app-education-modal [valorModal]="valorModal" *ngSwitchCase="'agregarEducacion'"></app-education-modal>
-      <app-education-modal [valorModal]="valorModal" [estudioEliminar]="estudioEliminar" *ngSwitchCase="'eliminarEducacion'"></app-education-modal>
+      <app-start-modal [personaLog]="personaLog" (datosPersonaEmit)="guardarDato($event)" [valorModal]="valorModal" *ngSwitchCase="'start'"></app-start-modal>
+      <app-education-modal  [valorModal]="valorModal" *ngSwitchCase="'crearEducacion'"></app-education-modal>
+      <app-education-modal [personaLog]="personaLog" [valorModal]="valorModal" *ngSwitchCase="'agregarEducacion'"></app-education-modal>
+      <app-education-modal [valorModal]="valorModal" *ngSwitchCase="'editarEducacion'"></app-education-modal>
+      <app-education-modal [personaLog]="personaLog" [valorModal]="valorModal" [estudioEliminar]="estudioEliminar" *ngSwitchCase="'eliminarEducacion'"></app-education-modal>
       <app-skill-modal [valorModal]="valorModal" *ngSwitchCase="'crearHabilidad'"></app-skill-modal>
-      <app-skill-modal [valorModal]="valorModal" *ngSwitchCase="'agregarHabilidad'"></app-skill-modal>
-      <app-projects-modal [valorModal]="valorModal" *ngSwitchCase="'agregarProyecto'"></app-projects-modal>
+      <app-skill-modal [personaLog]="personaLog" [valorModal]="valorModal" *ngSwitchCase="'agregarHabilidad'"></app-skill-modal>
+      <app-projects-modal [personaLog]="personaLog" [valorModal]="valorModal" *ngSwitchCase="'agregarProyecto'"></app-projects-modal>
     </main>
     
   </article>

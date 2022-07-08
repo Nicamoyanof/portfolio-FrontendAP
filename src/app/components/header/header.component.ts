@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faBars, faSliders } from '@fortawesome/free-solid-svg-icons';
 import jwt_decode from 'jwt-decode';
 
@@ -12,7 +13,7 @@ export class HeaderComponent implements OnInit {
   faBars = faBars
   usuario:boolean = false;
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
     this.getUser();
@@ -36,6 +37,12 @@ export class HeaderComponent implements OnInit {
     if(isLoged){
       this.usuario = true;
     }
+  }
+
+  cerrarSesion(){
+    localStorage.removeItem('auth_token');
+    this.usuario = false;
+    this.router.navigate([''])
   }
 
 }

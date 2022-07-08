@@ -3,9 +3,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faCheck, faPlus } from '@fortawesome/free-solid-svg-icons';
+import jwtDecode from 'jwt-decode';
 import { PersonaProyecto } from 'src/app/models/personas';
 import { Proyecto, ProyectoCompleto, ProyectoHabilidad } from 'src/app/models/proyecto';
 import { FireStorageService } from 'src/app/service/fire-storage.service';
+import { ModalService } from 'src/app/service/modal.service';
 import { PersonasService } from 'src/app/service/personas.service';
 import { ProyectoService } from 'src/app/service/proyecto.service';
 import { SkillService } from 'src/app/service/skill.service';
@@ -28,9 +30,10 @@ export class ProjectsModalComponent implements OnInit {
   listProjects: any[];
   listaProyectosFinal: any[] = [];
   disabled:boolean = false;
-
+  mensajeFinalizado:string;
 
   @Input() valorModal:string;
+  @Input() personaLog:number;
 
   constructor(
     private router: Router,
@@ -38,7 +41,8 @@ export class ProjectsModalComponent implements OnInit {
     private personaService: PersonasService,
     private proyectoService: ProyectoService,
     private habilidadesService: SkillService,
-    private db: FireStorageService
+    private db: FireStorageService,
+    private modalService:ModalService
   ) {
     this.formData = this.fb.group({
       nombre: ['', []],
@@ -48,30 +52,50 @@ export class ProjectsModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.habilidadesService.getAllSkill().subscribe((e:any)=>{
+      this.listSkills = e;
+    })
   }
 
-  async agregarProyecto() {
+  agregarProyecto() {
+    this.mensajeFinalizado='Guardando proyecto...';
+    document
+      .querySelector<HTMLElement>('.spinnerEnviar')
+      .classList.remove('disabled');
     let idProyecto;
     let proyecto: Proyecto = {
       nombre: this.formData.value.nombre,
       imgProyecto: this.linkImgProyecto,
       linkGithub: this.formData.value.linkGithub,
     };
-    await this.proyectoService.agregarProyecto(proyecto);
-    idProyecto = this.proyectoService.getEmmiter();
-    // .subscribe((res:any)=>{
-    //   idProyecto=res;
-    // })
-
-    for (let i = 0; i < this.arraySelectedSkill.length; i++) {
-      let proHab: ProyectoHabilidad = {
-        habilidades: this.arraySelectedSkill[i].idHabilidad,
-        proyectos: Number(idProyecto != null ? idProyecto : 0),
-      };
-      console.log(proHab, 'ESSS ACA');
-      this.proyectoService.agregarHabilidadProyecto(proHab);
+    console.log(proyecto)
+    this.proyectoService.agregarProyecto(proyecto).subscribe(res=>{
+      idProyecto = res
+      for (let i = 0; i < this.arraySelectedSkill.length; i++) {
+        let proHab: ProyectoHabilidad = {
+          habilidades: this.arraySelectedSkill[i].idHabilidad,
+          proyectos: Number(idProyecto != null ? idProyecto : 0),
+        };
+        this.proyectoService.agregarHabilidadProyecto(proHab);
+      }
+      this.agregarProyectoPersona(idProyecto);
+    })
+  }
+  activeModal() {
+    let windowsModalStart = document.querySelector<HTMLElement>('.windowModal');
+    let backgroundModalClose = document.querySelector<HTMLElement>(
+      '.backgroundModalClose'
+    );
+    if (windowsModalStart && backgroundModalClose) {
+      if (windowsModalStart.classList.contains('active')) {
+        windowsModalStart.classList.remove('active');
+        backgroundModalClose.classList.remove('active');
+        this.modalService.tipoModal.emit('');
+      } else {
+        windowsModalStart.className += ' active';
+        backgroundModalClose.className += ' active';
+      }
     }
-    this.agregarProyectoPersona(idProyecto);
   }
 
   selectValor(event: any) {
@@ -82,7 +106,7 @@ export class ProjectsModalComponent implements OnInit {
     let btnEnviar = document.querySelector<HTMLElement>('.btnSubmit');
     console.log(btnEnviar)
       if(valor){
-        this.disabled=true;
+        this.disabled=false;
         btnEnviar.classList.remove('disabled');
         console.log('activado')
       }else{
@@ -115,11 +139,17 @@ export class ProjectsModalComponent implements OnInit {
 
   agregarProyectoPersona(id: number) {
     let proPersona: PersonaProyecto = {
-      persona: 2,
+      persona: this.personaLog,
       proyecto: id,
     };
 
-    this.personaService.agregarProyecto(proPersona);
+  console.log(proPersona);
+
+    this.personaService.agregarProyecto(proPersona).subscribe(res=>{
+      this.mensajeFinalizado='Proyecto agregado con exito!';
+      document.querySelector<HTMLElement>('.spinnerEnviar').className+=' disabled';
+      this.activeModal();
+    })
   }
 
 }

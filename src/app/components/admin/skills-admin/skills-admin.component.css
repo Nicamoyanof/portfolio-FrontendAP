@@ -266,3 +266,21 @@ select:focus {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+.eliminarHabilidad{
+  background: rgb(255, 25, 25);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 50px;
+    position: absolute;
+    right: 25px;
+    top: 5px;
+    z-index: 10;
+    cursor: pointer;
+}
+.eliminarHabilidad:hover{
+  background: rgb(201, 0, 0);
+}

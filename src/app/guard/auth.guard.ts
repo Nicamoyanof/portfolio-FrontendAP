@@ -2,33 +2,49 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
+import { LoginService } from '../service/login.service';
+import { resolve } from 'dns';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    let isLoged = localStorage.getItem('auth_token');
+  constructor(private loginService: LoginService, private router: Router) {}
 
-    var decoded = jwt_decode(isLoged ? isLoged : '');
-    console.log(decoded);
+  canActivate(): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      try {
+        let token = JSON.parse(
+          JSON.stringify(jwt_decode(localStorage.getItem('auth_token')))
+        );
 
-    if (isLoged) {
-      return true;
-    } else {
-      return false;
-    }
+        this.loginService.getPersonaLogged(token.sub).subscribe((resp) => {
+          try {
+            console.log(resp);
+            if (!resp) {
+              localStorage.removeItem('auth_token')
+              this.router.navigate(['login']);
+              resolve(false);
+            } else {
+              resolve(true);
+            }
+          } catch (error) {
+            localStorage.removeItem('auth_token')
+            this.router.navigate(['login']);
+            resolve(false);
+          }
+        });
+      } catch (error) {
+        localStorage.removeItem('auth_token')
+        this.router.navigate(['login']);
+        resolve(false);
+      }
+    });
   }
 }

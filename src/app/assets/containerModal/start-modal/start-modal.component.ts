@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import jwtDecode from 'jwt-decode';
 import { Persona } from 'src/app/models/personas';
 import { FireStorageService } from 'src/app/service/fire-storage.service';
+import { LoginService } from 'src/app/service/login.service';
 import { ModalService } from 'src/app/service/modal.service';
 import { PersonasService } from 'src/app/service/personas.service';
 
@@ -25,10 +25,11 @@ export class StartModalComponent implements OnInit {
   imgUrlLogo: string = '';
   disabled: boolean = false;
   nombre: string;
-  mensajeFinalizado:string = '';
+  mensajeFinalizado: string = '';
+  idPersonaLog: number;
 
   datosPersona: Persona = {
-    usuariosByIdUsuario:null,
+    usuariosByIdUsuario: null,
     nombre: '',
     apellido: '',
     profesion: '',
@@ -48,6 +49,8 @@ export class StartModalComponent implements OnInit {
 
   @Input() valorModal: string;
 
+  @Input() personaLog:any;
+
   arrPersonaProfesion: any[] = [];
   arrPersonaDescripcion: any[] = [];
 
@@ -55,14 +58,13 @@ export class StartModalComponent implements OnInit {
 
   formData: FormGroup;
 
-  userLogged: any = jwtDecode(localStorage.getItem('auth_token'));
-
   constructor(
-    private modalService:ModalService,
-    private router:Router,
+    private modalService: ModalService,
+    private router: Router,
     private fb: FormBuilder,
     private personaService: PersonasService,
-    private db: FireStorageService
+    private db: FireStorageService,
+    private loginService: LoginService
   ) {
     this.formData = this.fb.group({
       nombre: ['', []],
@@ -78,33 +80,56 @@ export class StartModalComponent implements OnInit {
 
     Window['myComponente'] = this;
   }
-  async ngOnInit(): Promise<any> {
-    this.personaService.getPersona(this.userLogged.user)
-    this.personaService.personaEmitter.subscribe((valor: Persona) => {
-          this.datosPersona = valor;
-          this.formData.controls['nombre'].setValue(valor.nombre);
-          this.formData.controls['apellido'].setValue(valor.apellido);
-          this.formData.controls['profesion'].setValue(valor.profesion);
-          this.formData.controls['ciudad'].setValue(valor.ciudad);
-          this.formData.controls['pais'].setValue(valor.pais);
-          this.formData.controls['descripcion'].setValue(valor.descripcion);
-          this.formData.controls['email'].setValue(valor.email);
-          this.formData.controls['linkedin'].setValue(valor.linkedin);
-          this.formData.controls['github'].setValue(valor.github);
-          this.imgUrlPerfil = !valor.imgPerfil.includes('../../../../assets/img') ? valor.imgPerfil : '';
-          this.imgUrlBannerD = !valor.imgBanner.includes('../../../../assets/img') ? valor.imgBanner : '';
-          this.imgUrlBannerM = !valor.imgBannerM.includes('../../../../assets/img') ? valor.imgBannerM : '';
-          this.imgUrlLogo = !valor.logo.includes('../../../../assets/img') ? valor.logo : '';
-          this.linkImgPerfil = !valor.imgPerfil.includes('../../../../assets/img') ? valor.imgPerfil : '';
-          this.linkImgDesktop = !valor.imgBanner.includes('../../../../assets/img') ? valor.imgBanner : '';
-          this.linkImgMobile = !valor.imgBannerM.includes('../../../../assets/img') ? valor.imgBannerM : '';
-          this.linkImgLogo = !valor.logo.includes('../../../../assets/img') ? valor.logo : '';
-        })
+  ngOnInit(): any {
+
+      this.personaService.getPersona(this.personaLog);
+      this.idPersonaLog = this.personaLog;
+      this.personaService.personaEmitter.subscribe((valor: Persona) => {
+        this.datosPersona = valor;
+        this.formData.controls['nombre'].setValue(valor.nombre);
+        this.formData.controls['apellido'].setValue(valor.apellido);
+        this.formData.controls['profesion'].setValue(valor.profesion);
+        this.formData.controls['ciudad'].setValue(valor.ciudad);
+        this.formData.controls['pais'].setValue(valor.pais);
+        this.formData.controls['descripcion'].setValue(valor.descripcion);
+        this.formData.controls['email'].setValue(valor.email);
+        this.formData.controls['linkedin'].setValue(valor.linkedin);
+        this.formData.controls['github'].setValue(valor.github);
+        this.imgUrlPerfil = !valor.imgPerfil.includes('../../../../assets/img')
+          ? valor.imgPerfil
+          : '';
+        this.imgUrlBannerD = !valor.imgBanner.includes('../../../../assets/img')
+          ? valor.imgBanner
+          : '';
+        this.imgUrlBannerM = !valor.imgBannerM.includes(
+          '../../../../assets/img'
+        )
+          ? valor.imgBannerM
+          : '';
+        this.imgUrlLogo = !valor.logo.includes('../../../../assets/img')
+          ? valor.logo
+          : '';
+        this.linkImgPerfil = !valor.imgPerfil.includes('../../../../assets/img')
+          ? valor.imgPerfil
+          : '';
+        this.linkImgDesktop = !valor.imgBanner.includes(
+          '../../../../assets/img'
+        )
+          ? valor.imgBanner
+          : '';
+        this.linkImgMobile = !valor.imgBannerM.includes(
+          '../../../../assets/img'
+        )
+          ? valor.imgBannerM
+          : '';
+        this.linkImgLogo = !valor.logo.includes('../../../../assets/img')
+          ? valor.logo
+          : '';
+      });
   }
 
   activeModal() {
-    let windowsModalStart =
-      document.querySelector<HTMLElement>('.windowModal');
+    let windowsModalStart = document.querySelector<HTMLElement>('.windowModal');
     let backgroundModalClose = document.querySelector<HTMLElement>(
       '.backgroundModalClose'
     );
@@ -112,7 +137,7 @@ export class StartModalComponent implements OnInit {
       if (windowsModalStart.classList.contains('active')) {
         windowsModalStart.classList.remove('active');
         backgroundModalClose.classList.remove('active');
-        this.modalService.tipoModal.emit('')
+        this.modalService.tipoModal.emit('');
       } else {
         windowsModalStart.className += ' active';
         backgroundModalClose.className += ' active';
@@ -135,8 +160,10 @@ export class StartModalComponent implements OnInit {
   }
 
   async datosPersonales() {
-    this.mensajeFinalizado ='Guardando persona...';
-    document.querySelector<HTMLElement>('.spinnerEnviar').classList.remove('disabled')
+    this.mensajeFinalizado = 'Guardando persona...';
+    document
+      .querySelector<HTMLElement>('.spinnerEnviar')
+      .classList.remove('disabled');
     this.datosPersona = {
       usuariosByIdUsuario: this.datosPersona.usuariosByIdUsuario,
       nombre: this.formData.value.nombre,
@@ -153,12 +180,15 @@ export class StartModalComponent implements OnInit {
       linkedin: this.formData.value.linkedin,
       github: this.formData.value.github,
     };
-    this.personaService.agregarPersona(this.userLogged.user, this.datosPersona).subscribe(valor=>{
-      document.querySelector<HTMLElement>('.spinnerEnviar').className += ' disabled'
-      this.mensajeFinalizado =  '✔ La persona ha sido agregada con exito!';
-      this.personaService.getPersona(this.userLogged.user)
-      this.activeModal();
-    })
+    this.personaService
+      .agregarPersona(this.idPersonaLog, this.datosPersona)
+      .subscribe((valor) => {
+        document.querySelector<HTMLElement>('.spinnerEnviar').className +=
+          ' disabled';
+        this.mensajeFinalizado = '✔ La persona ha sido agregada con exito!';
+        this.personaService.getPersona(this.idPersonaLog);
+        this.activeModal();
+      });
   }
 
   mostrarImagen(event: any, destino: string) {

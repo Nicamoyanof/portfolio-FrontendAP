@@ -12,9 +12,16 @@
                 <img src="{{ habilidad.logo }}" alt="" />
               </li>
             </ul>
-            <a href="{{ proyecto.linkGithub }}" target="_blank">
-              <button>GitHub <fa-icon [icon]="github"></fa-icon></button
-            ></a>
+            <div>
+              <a href="{{ proyecto.linkGithub }}" target="_blank">
+                <button>GitHub <fa-icon [icon]="github"></fa-icon></button
+              ></a>
+              <a >
+                <button class="btnEliminar" (click)="eliminarProyecto(proyecto.idProyecto)">
+                  Eliminar <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+              </a>
+            </div>
           </figcaption>
         </figure>
       </article>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {  FormGroup } from '@angular/forms';
 import { faCheck, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { LoginService } from 'src/app/service/login.service';
 import { ModalService } from 'src/app/service/modal.service';
 import { PersonasService } from 'src/app/service/personas.service';
 
@@ -23,12 +24,14 @@ export class ModalComponent implements OnInit {
   listaEstudiosPersonas: any[];
   datosEnviar:any;
   estudioEliminar:any;
+  personaLog:any;
 
 
 
 
   constructor( private modalService:ModalService,
-    private personaService:PersonasService) {}
+    private personaService:PersonasService,
+    private loginServices:LoginService) {}
 
   ngOnInit() {
     this.modalService.tipoModal.subscribe(valor=>this.valorModal=valor)
@@ -36,6 +39,11 @@ export class ModalComponent implements OnInit {
       this.estudioEliminar=e;
       console.log(this.estudioEliminar, 'modal')
     })
+
+    this.loginServices.personaLogeada.subscribe(id=>{
+      this.personaLog=id;
+    })
+
   }
 
   guardarDato(e){

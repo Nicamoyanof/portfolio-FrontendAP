@@ -9,6 +9,7 @@ export class ProyectoHabilidad{
 }
 
 export class ProyectoCompleto{
+    'idProyecto':number;
     'nombre':string;
     'imgProyecto':string;
     'linkGithub':string;

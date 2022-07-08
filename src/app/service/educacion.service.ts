@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -11,8 +11,9 @@ export class EducacionService {
 
   educacionesEmitter = new EventEmitter();
 
-  url = "http://localhost:8080/api"
+  url = "http://portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com/api"
 
+  customHeaders = new HttpHeaders({ Authorization: "Bearer " + localStorage.getItem("auth_token")});
   
 
   constructor(private http:HttpClient,
@@ -20,7 +21,7 @@ export class EducacionService {
   }
 
   agregarEducacion(educacion:Educacion){
-    return this.http.post(this.url+'/educacion', educacion, {  responseType: 'text' })
+    return this.http.post(this.url+'/educacion', educacion, { headers:this.customHeaders ,  responseType: 'text' })
   }
 
 

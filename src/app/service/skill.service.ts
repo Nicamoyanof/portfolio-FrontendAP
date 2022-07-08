@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Skill } from '../models/skill';
 
@@ -7,15 +7,15 @@ import { Skill } from '../models/skill';
 })
 export class SkillService {
 
-  url = "http://localhost:8080/api"
+
+  customHeaders = new HttpHeaders({ Authorization: "Bearer " + localStorage.getItem("auth_token")});
+
+  url = "http://portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com/api"
 
   constructor(private http:HttpClient) { }
 
   agregarSkill(skill:Skill){
-    this.http.post(this.url+'/habilidad', skill, {  responseType: 'text' })
-          .subscribe((resp:any)=>{
-            console.log('agregado')
-          })
+    return this.http.post(this.url+'/habilidad', skill, { headers:this.customHeaders, responseType: 'text' })
   }
 
   getAllSkill(){

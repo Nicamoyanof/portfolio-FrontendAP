@@ -1,39 +1,51 @@
-<div >
-    <h2>AGREGAR ESTUDIO</h2>
-    <form action="" [formGroup]="formData">
-      <label for="">
-        Nombre
-        <input formControlName="nombre" type="text" />
+<div>
+  <h2>AGREGAR PROYECTO</h2>
+  <form action="" [formGroup]="formData">
+    <label for="">
+      Nombre
+      <input formControlName="nombre" type="text" />
+    </label>
+    <div>
+      <label for="imgProyecto">
+        Imagen
+        <fa-icon
+          *ngIf="imgUrlProyectoSubir == ''; else imgUrlProyectoElse"
+          [icon]="faPlus"
+        ></fa-icon>
+        <ng-template #imgUrlProyectoElse>
+          <img class="imgUrlProyectoSubir" [src]="imgUrlProyectoSubir" alt="" />
+        </ng-template>
       </label>
-      <div>
-        <label for="imgProyecto">
-          Imagen
-          <fa-icon
-            *ngIf="imgUrlProyectoSubir==''; else imgUrlProyectoElse"
-            [icon]="faPlus"
-          ></fa-icon>
-          <ng-template #imgUrlProyectoElse>
-            <img class="imgUrlProyectoSubir" [src]="imgUrlProyectoSubir" alt="" />
-          </ng-template>
-        </label>
-        <input (change)="mostrarImagenProyecto( $event ,'logo')"  type="file" id="imgProyecto" />
-      </div>
-      <label for="">
-          Seleccionar Habilidades
+      <input
+        (change)="mostrarImagenProyecto($event, 'logo')"
+        type="file"
+        id="imgProyecto"
+      />
+    </div>
+    <label for="">
+      Seleccionar Habilidades
       <select name="" id="" (change)="selectValor($event.target)">
-        <option>--  Seleccionar habilidad  --</option>
-        <option  *ngFor="let skill of listSkills; let i=index" [value]="i">
-          {{skill.nombre}}
+        <option>-- Seleccionar habilidad --</option>
+        <option *ngFor="let skill of listSkills; let i = index" [value]="i">
+          {{ skill.nombre }}
         </option>
       </select>
-      <span class="containerTagsSkill" >
-          <p *ngFor="let skill of arraySelectedSkill">{{skill.nombre}} <span>x</span> </p>
+      <span class="containerTagsSkill">
+        <p *ngFor="let skill of arraySelectedSkill">
+          {{ skill.nombre }} <span>x</span>
+        </p>
       </span>
     </label>
-      <label for="">
-        Link Github
-        <input type="text" formControlName="linkGithub" />
-      </label>
-    </form>
-    <button [disabled]="disabled" class="btnSubmit">ENVIAR</button>
+    <label for="">
+      Link Github
+      <input type="text" formControlName="linkGithub" />
+    </label>
+  </form>
+  <div class="containerBtnEnviar">
+    <button [disabled]="disabled" class="btnSubmit" (click)="agregarProyecto()">ENVIAR</button>
+    <div class="containerSpinner">
+      <div class="spinner-border spinnerEnviar disabled" role="status"></div>
+      <p [innerHTML]="mensajeFinalizado"></p>
+    </div>
   </div>
+</div>

@@ -1,8 +1,8 @@
-<div class="containerStart" *ngIf="personaLoged != null">
+<div class="containerStart" *ngIf="personaLoged">
   <img class="bannerStart" src={{personaLoged.imgBannerM}} alt="" />
-  <img class="bannerStartDesktop" src={{personaLoged.imgBanner}} alt="" />
+  <img class="bannerStartDesktop" src={{personaLoged.imgBanner}} alt="" onerror="this.onerror=null;this.src='../../../../assets/img/bg-black.jpg'" />
   <article>
-    <span (click)="activeModal()" class="editarInfo" *ngIf="adminEdit">
+    <span (click)="activeModal()" class="editarInfo">
       <fa-icon [icon]="faPen"></fa-icon>
     </span>
     <img class="imgProfile" src={{personaLoged.imgPerfil}} alt="" />

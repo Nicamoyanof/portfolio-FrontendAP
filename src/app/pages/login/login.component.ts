@@ -14,20 +14,10 @@ export class LoginComponent implements OnInit {
   iniciarSesion:FormGroup;
   constructor(private fb:FormBuilder,
     private loginService:LoginService) {
-    this.loginForm = fb.group({
+    this.loginForm = this.fb.group({
       email:['',[]],
       pass:['',[]]
     });
-
-    this.loginForm = fb.group({
-      email:['',[]],
-      pass:['',[]], 
-      deviceINf:fb.group({
-        deviceId:["178678868768"],
-        deviceType:["DEVICE_TYPE_ANDROID"],
-        notificationToken:["67657575eececc34"]
-      })
-    })
    }
 
 
@@ -39,6 +29,7 @@ export class LoginComponent implements OnInit {
       email:this.loginForm.value.email,
       pass:this.loginForm.value.pass
     }
+    console.log(usuario)
     this.loginService.login(usuario)
     
   }

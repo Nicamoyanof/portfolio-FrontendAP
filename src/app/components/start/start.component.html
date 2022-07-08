@@ -1,23 +1,19 @@
-<div class="containerStart" id="inicio">
-    <img class="bannerStart" src="../../../assets/img/DESARROLLADOR FULL STACK (1).png" alt="">
-    <img class="bannerStartDesktop" src="../../../assets/img/DESARROLLADOR FULL STACK.png" alt="">
+<div class="containerStart" id="inicio" >
+    <img class="bannerStart" src="{{persona.imgBannerM}}" alt="">
+    <img class="bannerStartDesktop" src="{{persona.imgBanner}}" alt="">
     <article>
-        <img class="imgProfile"  src="../../../assets/img/Diseño sin título.png" alt="">
+        <img class="imgProfile"  src="{{persona.imgPerfil}}" alt="">
         <img class="imgProfileDesktop"  src="../../../assets/img/Diseño sin título.png" alt="">
         <div class="containerInfoStart">
             <section class="containerShortData">
-                <h2>NICANOR MOYANO FUNES <span class="editarInfo" *ngIf="adminEdit"> <fa-icon [icon]="faPen"></fa-icon></span> </h2>
+                <h2>{{persona.nombre + ' ' + persona.apellido}} <span class="editarInfo" *ngIf="adminEdit"> <fa-icon [icon]="faPen"></fa-icon></span> </h2>
                 <p>
-                    Córdoba, Argentina.
+                    {{persona.ciudad + ', ' + persona.pais }}.
                 </p>
             </section>
             <section class="containerDataStart">
-                <h1 class="txtTitle">DESARROLLADOR <span> FULL STACK Jr</span>.</h1>
-                <p>
-                   <span> 👦 </span>  ¡Hola! Soy Nica, un aficionado por la programacion. <br> <br>
-                    <span> 📕 </span>   Estudio Programacion en la UTN y participe del bootcamp Argentina Programa <br> <br>
-                    <span> 💻 </span>   Soy una persona dispuesta a aprender nuevas tecnologias y  afianzar mis conocimientos
-                </p>
+                <h1 class="txtTitle">{{profesion[0]}} <span>{{profesion[1]}}</span>{{profesion[2]}}</h1>
+                <p [innerHTML]="persona.descripcion"></p>
             </section>
         </div>
     </article>

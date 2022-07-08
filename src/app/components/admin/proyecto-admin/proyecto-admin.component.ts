@@ -2,10 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faCheck, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import jwtDecode from 'jwt-decode';
 import { PersonaProyecto } from 'src/app/models/personas';
-import { Proyecto, ProyectoCompleto, ProyectoHabilidad } from 'src/app/models/proyecto';
+import {
+  Proyecto,
+  ProyectoCompleto,
+  ProyectoHabilidad,
+} from 'src/app/models/proyecto';
 import { FireStorageService } from 'src/app/service/fire-storage.service';
+import { LoginService } from 'src/app/service/login.service';
 import { ModalService } from 'src/app/service/modal.service';
 import { PersonasService } from 'src/app/service/personas.service';
 import { ProyectoService } from 'src/app/service/proyecto.service';
@@ -18,6 +24,7 @@ import { SkillService } from 'src/app/service/skill.service';
 })
 export class ProyectoAdminComponent implements OnInit {
   github = faGithub;
+  faTrash = faTrash;
   faPlus = faPlus;
   faCheck = faCheck;
   formData: FormGroup;
@@ -27,14 +34,14 @@ export class ProyectoAdminComponent implements OnInit {
   linkImgProyecto: string;
   listProjects: any[];
   listaProyectosFinal: any[] = [];
+  userEliminar:any;
 
   constructor(
-    private modalService:ModalService,
+    private modalService: ModalService,
     private fb: FormBuilder,
     private personaService: PersonasService,
     private proyectoService: ProyectoService,
-    private habilidadesService: SkillService,
-    private db: FireStorageService
+    private loginService: LoginService
   ) {
     this.formData = this.fb.group({
       nombre: ['', []],
@@ -44,34 +51,40 @@ export class ProyectoAdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.habilidadesService
-      .getAllSkill()
-      .subscribe((res: any[]) => (this.listSkills = res));
-
-    this.personaService.getPersonaProyectos(2).subscribe((res: any) => {
-      this.listProjects = res;
-      for (let i = 0; i < res.length; i++) {
-
-        let proyecto:ProyectoCompleto ={
-          nombre:res[i].nombre,
-          imgProyecto:res[i].imgProyecto,
-          linkGithub:res[i].linkGithub,
-          habilidades:[]
-        } 
-
-        this.proyectoService
-          .getHabilidadesProyecto(res[i].idProyecto)
-          .subscribe((res:any[]) => proyecto.habilidades=res);
-
-        this.listaProyectosFinal.push(proyecto);
-      }
+    this.loginService.personaLogeada.subscribe((id) => {
+      this.userEliminar=id;
+      this.personaService.getPersonaProyectos(id).subscribe((res: any) => {
+        console.log('se ejecuto ')
+        this.getPersonasProyectos(res);
+      });
     });
+  }
+
+  getPersonasProyectos(res: any) {
+    this.listProjects = res;
+    console.log(res);
+    for (let i = 0; i < res.length; i++) {
+      let proyecto: ProyectoCompleto = {
+        idProyecto: res[i].idProyecto,
+        nombre: res[i].nombre,
+        imgProyecto: res[i].imgProyecto,
+        linkGithub: res[i].linkGithub,
+        habilidades: [],
+      };
+
+      this.proyectoService
+        .getHabilidadesProyecto(res[i].idProyecto)
+        .subscribe((e: any[]) => {
+          proyecto.habilidades = e;
+        });
+      this.listaProyectosFinal.push(proyecto);
+    }
+    console.log(this.listaProyectosFinal, 'ebusef');
   }
 
   activeModal(tipoModal) {
     this.modalService.abrirModal(tipoModal);
-    let windowsModalStart =
-      document.querySelector<HTMLElement>('.windowModal');
+    let windowsModalStart = document.querySelector<HTMLElement>('.windowModal');
     let backgroundModalClose = document.querySelector<HTMLElement>(
       '.backgroundModalClose'
     );
@@ -85,59 +98,21 @@ export class ProyectoAdminComponent implements OnInit {
       }
     }
   }
-  async agregarProyecto() {
-    let idProyecto;
-    let proyecto: Proyecto = {
-      nombre: this.formData.value.nombre,
-      imgProyecto: this.linkImgProyecto,
-      linkGithub: this.formData.value.linkGithub,
-    };
-    await this.proyectoService.agregarProyecto(proyecto);
-    idProyecto = this.proyectoService.getEmmiter();
-    // .subscribe((res:any)=>{
-    //   idProyecto=res;
-    // })
-
-    for (let i = 0; i < this.arraySelectedSkill.length; i++) {
-      let proHab: ProyectoHabilidad = {
-        habilidades: this.arraySelectedSkill[i].idHabilidad,
-        proyectos: Number(idProyecto != null ? idProyecto : 0),
-      };
-      console.log(proHab, 'ESSS ACA');
-      this.proyectoService.agregarHabilidadProyecto(proHab);
-    }
-    this.agregarProyectoPersona(idProyecto);
-  }
-
-  selectValor(event: any) {
-    this.arraySelectedSkill.push(this.listSkills[event.value]);
-    console.log(this.arraySelectedSkill);
-  }
-
-  mostrarImagenProyecto(event: any, destino: string) {
-    const file = (event.target as HTMLInputElement).files[0];
-    console.log(file);
-    const reader = new FileReader();
-
-    reader.readAsDataURL(file);
-    reader.onloadend = async () => {
-      this.imgUrlProyectoSubir = reader.result as string;
-      console.log('antes');
-      await this.db
-        .subirImgStorage('imgPersona', Date.now() + file.name, reader.result)
-        .then((urlImg: string) => {
-          this.linkImgProyecto = urlImg;
-          console.log('subido');
+  eliminarProyecto(id: number) {
+    this.proyectoService.eliminarProyectoHabilidades(id).subscribe((e) => {
+      this.personaService.eliminarProyectoPersona(id).subscribe((res) => {
+        this.proyectoService.eliminarProyecto(id).subscribe((eliminar) => {
+          this.personaService
+            .getPersonaProyectos(this.userEliminar)
+            .subscribe((perPro) => {
+              this.personaService
+                .getPersonaProyectos(this.userEliminar)
+                .subscribe((res: any) => {
+                  this.getPersonasProyectos(res);
+                });
+            });
         });
-    };
-  }
-
-  agregarProyectoPersona(id: number) {
-    let proPersona: PersonaProyecto = {
-      persona: 2,
-      proyecto: id,
-    };
-
-    this.personaService.agregarProyecto(proPersona);
+      });
+    });
   }
 }

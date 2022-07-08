@@ -1,30 +1,27 @@
 <div class="containerSectionEdu" id="educacion">
   <section class="sectionEducation">
-  <h3>EDUCACION</h3>
-  <article>        
-      <h4>TECNICATURA EN PROGRAMACION</h4>
-    <ul>
-        <li>
-            - UTN FRC
+    <h3>EDUCACION</h3>
+    <article *ngFor="let estudio of listEstudios">
+      <h4>{{ estudio.educacionesByIdInstituto.tituloInstituto }}</h4>
+      <ul>
+        <li>- {{ estudio.educacionesByIdInstituto.nombreInstituto }}</li>
+        <li
+          *ngIf="
+            estudio.anioFinal <= estudio.anioInicio ;
+            else mismoAnio
+          "
+        >
+          - {{ estudio.anioInicio }}
         </li>
-        <li>
-           -  (2022 - )
-        </li>
-    </ul>
-    <img class="imgLogoDesktop" src="../../../assets/img/utn.png" alt="">
-  </article>
-  <article>
-      <h4>Argentina Programa</h4>
-    <ul>
-        <li>
-           -  INTI
-        </li>
-        <li>
-          -   2022
-        </li>
-    </ul>
-    <img class="imgLogoDesktop" src="../../../assets/img/argprog.png" alt="">
-  </article>
-</section>
+        <ng-template #mismoAnio>
+          <li>- ({{ estudio.anioInicio }} - {{ estudio.anioFinal }})</li>
+        </ng-template>
+      </ul>
+      <img
+        class="imgLogoDesktop"
+        src="{{ estudio.educacionesByIdInstituto.logo }}"
+        alt=""
+      />
+    </article>
+  </section>
 </div>
-

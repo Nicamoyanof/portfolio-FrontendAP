@@ -14,7 +14,13 @@
       <input type="text" formControlName="porcentaje" />
     </label>
   </form>
-  <button class="btnSubmit">ENVIAR</button>
+  <div class="containerBtnEnviar">
+    <button [disabled]="disabled" class="btnSubmit" (click)="agregarSkillPersona()">AGREGAR</button>
+    <div class="containerSpinner">
+      <div class="spinner-border spinnerEnviar disabled" role="status"></div>
+      <p [innerHTML]="mensajeFinalizado"></p>
+    </div>
+  </div>
 </div>
 <ng-template #crearHabilidad>
   <h2>CREAR HABILIDAD</h2>
@@ -42,5 +48,12 @@
       />
     </div>
   </form>
-  <button [disabled]="disabled" class="btnSubmit">ENVIAR</button>
+  
+  <div class="containerBtnEnviar">
+    <button [disabled]="disabled" class="btnSubmit" (click)="agregarSkill()">CREAR</button>
+    <div class="containerSpinner">
+      <div class="spinner-border spinnerEnviar disabled" role="status"></div>
+      <p [innerHTML]="mensajeFinalizado"></p>
+    </div>
+  </div>
 </ng-template>

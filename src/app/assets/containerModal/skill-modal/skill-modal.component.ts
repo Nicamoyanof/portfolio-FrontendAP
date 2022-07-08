@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faL, faPlus } from '@fortawesome/free-solid-svg-icons';
+import jwtDecode from 'jwt-decode';
 import { PersonaHabilidad } from 'src/app/models/personas';
 import { Skill } from 'src/app/models/skill';
 import { FireStorageService } from 'src/app/service/fire-storage.service';
@@ -12,26 +13,28 @@ import { SkillService } from 'src/app/service/skill.service';
 @Component({
   selector: 'app-skill-modal',
   templateUrl: './skill-modal.component.html',
-  styleUrls: ['./skill-modal.component.css']
+  styleUrls: ['./skill-modal.component.css'],
 })
 export class SkillModalComponent implements OnInit {
-
   faPlus = faPlus;
-  imgUrlPerfil:string='';
+  imgUrlPerfil: string = '';
   formData: FormGroup;
-  linkImgLogo:string;
-  listSkills:any[];
-  selectedOption:number;
-  formAgregarSkill:FormGroup;
-  listSkillPersona:any[];
-  disabled:boolean = false;
-  @Input() valorModal:string;
+  linkImgLogo: string;
+  listSkills: any[];
+  selectedOption: number;
+  formAgregarSkill: FormGroup;
+  listSkillPersona: any[];
+  disabled: boolean = false;
+  mensajeFinalizado: string;
+  @Input() personaLog: number;
+
+  @Input() valorModal: string;
 
   constructor(
     private fb: FormBuilder,
     private personaService: PersonasService,
     private skillService: SkillService,
-    private db:FireStorageService,
+    private db: FireStorageService
   ) {
     this.formData = this.fb.group({
       nombre: ['', []],
@@ -40,17 +43,22 @@ export class SkillModalComponent implements OnInit {
     });
 
     this.formAgregarSkill = fb.group({
-      persona:'',
-      habilidad:'',
-      porcentaje:''
-    })
+      persona: '',
+      habilidad: '',
+      porcentaje: '',
+    });
   }
 
   ngOnInit(): void {
-    this.skillService.getAllSkill().subscribe((res:any[])=>this.listSkills=res)
-    this.personaService.getHabilidadesPersona(2).subscribe((res:any[])=>{this.listSkillPersona=res; console.log(res)});
-
+    this.getAllSkill();
   }
+
+  getAllSkill() {
+    this.skillService
+      .getAllSkill()
+      .subscribe((res: any[]) => (this.listSkills = res));
+  }
+
   activeModalSkill() {
     let windowsModalStart = document.querySelector<HTMLElement>(
       '.windowsModalStartSkill'
@@ -67,27 +75,43 @@ export class SkillModalComponent implements OnInit {
         backgroundModalClose.className += ' active';
       }
     }
-
-    
-
   }
 
   agregarSkill() {
+    this.mensajeFinalizado = 'Guardando persona...';
+    document
+      .querySelector<HTMLElement>('.spinnerEnviar')
+      .classList.remove('disabled');
     let skill: Skill = {
       nombre: this.formData.value.nombre,
       logo: this.linkImgLogo,
     };
-    this.skillService.agregarSkill(skill);
+    this.skillService.agregarSkill(skill).subscribe((e) => {
+      this.mensajeFinalizado = 'Se creo la habilidad';
+      document.querySelector<HTMLElement>('.spinnerEnviar').className+=' disabled';
+    });
+    this.getAllSkill();
   }
 
-  agregarSkillPersona(){
-    let agregarHabilidadPersona:PersonaHabilidad={
-      persona:2,
-      habilidad:Number(this.selectedOption),
-      porcentaje:Number(this.formAgregarSkill.value.porcentaje)
-    }
-      
-    this.personaService.agregarHabilidadPersona(agregarHabilidadPersona);
+  agregarSkillPersona() {
+    this.mensajeFinalizado = 'Guardando persona...';
+    document
+      .querySelector<HTMLElement>('.spinnerEnviar')
+      .classList.remove('disabled');
+    let agregarHabilidadPersona: PersonaHabilidad = {
+      persona: this.personaLog,
+      habilidad: Number(this.selectedOption),
+      porcentaje: Number(this.formAgregarSkill.value.porcentaje),
+    };
+
+    this.personaService.agregarHabilidadPersona(agregarHabilidadPersona).subscribe(e=>{
+      this.mensajeFinalizado = 'Se agrego la habilidad con exito!';
+      document.querySelector<HTMLElement>('.spinnerEnviar').className+=' disabled';
+      this.personaService.getHabilidadesPersona(this.personaLog).subscribe(e=>{
+        this.personaService.personaHabilidad.emit(e)
+      })
+    })
+    
   }
 
   activeModalCreaSkill() {
@@ -107,22 +131,22 @@ export class SkillModalComponent implements OnInit {
       }
     }
   }
-  activarBoton(valor:boolean){
+  activarBoton(valor: boolean) {
     let btnEnviar = document.querySelector<HTMLElement>('.btnSubmit');
-    console.log(btnEnviar)
-      if(valor){
-        this.disabled=true;
-        btnEnviar.classList.remove('disabled');
-        console.log('activado')
-      }else{
-        this.disabled=true;
-        btnEnviar.className += ' disabled';
-        console.log('desactivado 2')
-      }
+    console.log(btnEnviar);
+    if (valor) {
+      this.disabled = false;
+      btnEnviar.classList.remove('disabled');
+      console.log('activado');
+    } else {
+      this.disabled = true;
+      btnEnviar.className += ' disabled';
+      console.log('desactivado 2');
+    }
   }
   mostrarImagen(event: any, destino: string) {
-    let spinnerImg='../../../../assets/img/spinner.gif';
-    this.activarBoton(false)
+    let spinnerImg = '../../../../assets/img/spinner.gif';
+    this.activarBoton(false);
     this.imgUrlPerfil = spinnerImg;
     const file = (event.target as HTMLInputElement).files[0];
     console.log(file);
@@ -132,11 +156,11 @@ export class SkillModalComponent implements OnInit {
     reader.onloadend = async () => {
       console.log('antes');
       await this.db
-      .subirImgStorage('imgPersona', Date.now() + file.name, reader.result)
-      .then((urlImg: string) => {
-        this.imgUrlPerfil = reader.result as string;
-        this.linkImgLogo = urlImg;
-        this.activarBoton(true)
+        .subirImgStorage('imgPersona', Date.now() + file.name, reader.result)
+        .then((urlImg: string) => {
+          this.imgUrlPerfil = reader.result as string;
+          this.linkImgLogo = urlImg;
+          this.activarBoton(true);
         });
     };
   }
@@ -144,5 +168,4 @@ export class SkillModalComponent implements OnInit {
   selectValor(event: any) {
     this.selectedOption = event.value;
   }
-
 }

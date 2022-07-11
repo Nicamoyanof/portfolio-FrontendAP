@@ -15,14 +15,13 @@ export class StartComponent implements OnInit {
   persona:Persona;
   profesion:string[] = [];
   descripcion:any;
+  mobile:boolean;
   
   adminEdit:boolean=false;
 
   constructor(private router:Router, private personasService:PersonasService) { }
 
   ngOnInit(): void {
-    console.log(this.router.url)
-    this.isAdminEdit();
     this.getPersona();
   }
 
@@ -36,16 +35,7 @@ export class StartComponent implements OnInit {
     })
   }
 
-  isAdminEdit(){
-
-    let isLoged = localStorage.getItem('auth_token');
-
-    if(this.router.url=='/admin' && isLoged ){
-      this.adminEdit=true;
-    }else{
-      this.adminEdit=false;
-    }
-  }
+  
 
     
 }

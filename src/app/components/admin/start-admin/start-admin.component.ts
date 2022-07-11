@@ -51,7 +51,6 @@ export class StartAdminComponent implements OnInit {
         ( this.personaLoged.imgBannerM == ''|| this.personaLoged.imgBannerM == null)
         ? '../../../../assets/img/bg-black.jpg'
         : this.personaLoged.imgBannerM;
-        console.log(val, 'aca pibe')
       });
     })
    
@@ -78,7 +77,6 @@ export class StartAdminComponent implements OnInit {
   dividirProfesion() {
     if (this.personaLoged.profesion != null) {
       this.arrPersonaProfesion = this.personaLoged.profesion.slice('/');
-      console.log(this.arrPersonaProfesion, 'aca');
     }
   }
 }

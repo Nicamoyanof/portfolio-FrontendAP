@@ -1,7 +1,24 @@
-<app-header></app-header>
-<app-start></app-start>
-<app-education></app-education>
-<app-skills></app-skills>
-<app-projects></app-projects>
-<app-contact></app-contact>
-<app-footer></app-footer>
+<div class="containerHome">
+  <app-header></app-header>
+  <app-start></app-start>
+  <app-education></app-education>
+  <app-skills></app-skills>
+  <app-projects></app-projects>
+  <app-contact></app-contact>
+  <app-footer></app-footer>
+  <a
+    class="cvAnchor"
+    href="../../../assets/Files/gráfico diseñador currículum (5).pdf"
+    download="MOYANO FUNES, NICANOR"
+  >
+    <div class="cv">
+      <fa-icon [icon]="faFile"> </fa-icon>
+      <p>CV</p>
+    </div>
+  </a>
+</div>
+<div class="containerLoadHome" *ngIf="!homeCargado" >
+  <div class="pointerLoadL"></div>
+  <div class="pointerLoadC"></div>
+  <div class="pointerLoadR"></div>
+</div>

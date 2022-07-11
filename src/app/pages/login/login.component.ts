@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
       email:this.loginForm.value.email,
       pass:this.loginForm.value.pass
     }
-    console.log(usuario)
     this.loginService.login(usuario)
     
   }

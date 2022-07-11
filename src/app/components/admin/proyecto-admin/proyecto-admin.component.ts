@@ -54,32 +54,30 @@ export class ProyectoAdminComponent implements OnInit {
     this.loginService.personaLogeada.subscribe((id) => {
       this.userEliminar=id;
       this.personaService.getPersonaProyectos(id).subscribe((res: any) => {
-        console.log('se ejecuto ')
         this.getPersonasProyectos(res);
       });
     });
   }
 
   getPersonasProyectos(res: any) {
-    this.listProjects = res;
-    console.log(res);
+    this.listProjects = res.proyectosByIdProyecto;
     for (let i = 0; i < res.length; i++) {
       let proyecto: ProyectoCompleto = {
-        idProyecto: res[i].idProyecto,
-        nombre: res[i].nombre,
-        imgProyecto: res[i].imgProyecto,
-        linkGithub: res[i].linkGithub,
+        idProyecto: res[i].proyectosByIdProyecto.idProyecto,
+        nombre: res[i].proyectosByIdProyecto.nombre,
+        imgProyecto: res[i].proyectosByIdProyecto.imgProyecto,
+        linkGithub: res[i].proyectosByIdProyecto.linkGithub,
+        url:res[i].proyectosByIdProyecto.urlProyecto,
         habilidades: [],
       };
 
       this.proyectoService
-        .getHabilidadesProyecto(res[i].idProyecto)
+        .getHabilidadesProyecto(res[i].proyectosByIdProyecto.idProyecto)
         .subscribe((e: any[]) => {
           proyecto.habilidades = e;
         });
       this.listaProyectosFinal.push(proyecto);
     }
-    console.log(this.listaProyectosFinal, 'ebusef');
   }
 
   activeModal(tipoModal) {

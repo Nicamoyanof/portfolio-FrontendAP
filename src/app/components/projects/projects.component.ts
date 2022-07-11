@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { Proyecto, ProyectoCompleto } from 'src/app/models/proyecto';
 import { PersonasService } from 'src/app/service/personas.service';
 import { ProyectoService } from 'src/app/service/proyecto.service';
@@ -11,6 +12,7 @@ import { ProyectoService } from 'src/app/service/proyecto.service';
 })
 export class ProjectsComponent implements OnInit {
 
+  faArrow=faArrowUpRightFromSquare
   github=faGithub
   listaProyectos:ProyectoCompleto[] = [];
 
@@ -21,13 +23,14 @@ export class ProjectsComponent implements OnInit {
   ngOnInit(): void {
     this.personaService.getPersonaProyectos(2).subscribe((lista:any[])=>{
       lista.forEach(element => {
-        this.proyectoService.getHabilidadesProyecto(element.idProyecto).subscribe((habArr:any[])=>{
+        this.proyectoService.getHabilidadesProyecto(element.proyectosByIdProyecto.idProyecto).subscribe((habArr:any[])=>{
           let proyectoCompleto:ProyectoCompleto;
           proyectoCompleto = {
-            idProyecto:element.idProyecto,
-            imgProyecto:element.imgProyecto,
-            nombre:element.nombre,
-            linkGithub:element.linkGithub,
+            idProyecto:element.proyectosByIdProyecto.idProyecto,
+            imgProyecto:element.proyectosByIdProyecto.imgProyecto,
+            nombre:element.proyectosByIdProyecto.nombre,
+            linkGithub:element.proyectosByIdProyecto.linkGithub,
+            url:element.proyectosByIdProyecto.url,
             habilidades:habArr
           }
 

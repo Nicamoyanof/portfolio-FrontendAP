@@ -30,7 +30,6 @@ export class ContactComponent implements OnInit {
 
   getPersona(){
     this.personasService.getPersonaFinal(2).subscribe((persona:Persona)=>{
-      console.log(persona)
       this.persona = persona;
     })
   }
@@ -47,11 +46,9 @@ export class ContactComponent implements OnInit {
 
     emailjs.sendForm('service_jd1x3qu', 'template_cb45zim', e.target as HTMLFormElement, 'ZURdf0lRO4v_QFvHE')
       .then((result: EmailJSResponseStatus) => {
-        console.log(result.text);
         spinner?spinner.style.display = "none":null
         checkMsg?checkMsg.style.display = "flex":null
       }, (error) => {
-        console.log(error.text);
         spinner?spinner.style.display = "none":null
         errorMsg?errorMsg.style.display = "flex":null
       });

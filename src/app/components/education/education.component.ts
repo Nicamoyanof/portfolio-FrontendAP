@@ -17,7 +17,6 @@ export class EducationComponent implements OnInit {
     this.personasService.getEstudiosPersona(2)
     this.personasService.estudiosPersonaEmitter.subscribe(lista=>{
       this.listEstudios=lista;
-      console.log(lista)
     })
 
   }

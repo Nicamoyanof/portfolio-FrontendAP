@@ -102,14 +102,12 @@ export class EducationModalComponent implements OnInit {
 
   activarBoton(valor: boolean) {
     let btnEnviar = document.querySelector<HTMLElement>('.btnSubmit');
-    console.log(btnEnviar);
     if (valor) {
       this.disabled = false;
       btnEnviar.classList.remove('disabled');
     } else {
       this.disabled = true;
       btnEnviar.className += ' disabled';
-      console.log('desactivado 2');
     }
   }
 
@@ -135,11 +133,9 @@ export class EducationModalComponent implements OnInit {
     this.activarBoton(false);
     this.imgUrlLogo = spinnerImg;
     const file = (event.target as HTMLInputElement).files[0];
-    console.log(file);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = async () => {
-      console.log('antes');
       await this.db
         .subirImgStorage('logoEducacion', Date.now() + file.name, reader.result)
         .then((urlImg: string) => {

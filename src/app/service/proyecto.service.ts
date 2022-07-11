@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment.prod';
 import { Proyecto, ProyectoHabilidad } from '../models/proyecto';
 
 @Injectable({
@@ -8,17 +9,18 @@ import { Proyecto, ProyectoHabilidad } from '../models/proyecto';
 export class ProyectoService {
 
   valorIdProyecto:EventEmitter<any> = new EventEmitter();
-  customHeaders = new HttpHeaders({ Authorization: "Bearer " + localStorage.getItem("auth_token"), origin:"http://portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com"});
+  customHeaders = new HttpHeaders({ Authorization: "Bearer " + localStorage.getItem("auth_token")});
 
-  url = "http://portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com/api"
+
+  API_URL = environment.urlBackend
 
   constructor(private http:HttpClient) { }
 
   agregarProyecto(proyecto:Proyecto){
-    return this.http.post('/api/proyecto', proyecto, { headers:this.customHeaders, responseType: 'text' })          
+    return this.http.post( this.API_URL + '/proyecto', proyecto, { headers:this.customHeaders, responseType: 'text' })          
   }
   eliminarProyecto(id:number){
-    return  this.http.delete( `/api/proyecto/${id}` , { headers:this.customHeaders, responseType: 'text' })          
+    return  this.http.delete( this.API_URL + `/proyecto/${id}` , { headers:this.customHeaders, responseType: 'text' })          
   }
 
   getEmmiter(){
@@ -27,16 +29,16 @@ export class ProyectoService {
 
   
   agregarHabilidadProyecto(proHab:ProyectoHabilidad){
-    this.http.post('/api/proyecto/habilidad', proHab, { headers:this.customHeaders, responseType: 'text' })
+    this.http.post( this.API_URL + '/proyecto/habilidad', proHab, { headers:this.customHeaders, responseType: 'text' })
           .subscribe((resp:any)=>{return resp})
   }
  
   getHabilidadesProyecto(idProyecto:number){
-    return this.http.get(`/api/proyecto/${idProyecto}/habilidades`)
+    return this.http.get (this.API_URL +`/proyecto/${idProyecto}/habilidades`)
   }
 
   eliminarProyectoHabilidades(id:number){
-    return this.http.delete(`/api/proyecto/${id}/habilidades`,{headers:this.customHeaders})
+    return this.http.delete (this.API_URL +`/proyecto/${id}/habilidades`,{headers:this.customHeaders})
   }
 
 }

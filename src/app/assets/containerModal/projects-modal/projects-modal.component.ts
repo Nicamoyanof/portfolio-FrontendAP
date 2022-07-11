@@ -48,6 +48,7 @@ export class ProjectsModalComponent implements OnInit {
       nombre: ['', []],
       imgProyecto: ['', []],
       linkGithub: ['', []],
+      urlProyecto:['', []]
     });
   }
 
@@ -67,8 +68,8 @@ export class ProjectsModalComponent implements OnInit {
       nombre: this.formData.value.nombre,
       imgProyecto: this.linkImgProyecto,
       linkGithub: this.formData.value.linkGithub,
+      url:this.formData.value.urlProyecto
     };
-    console.log(proyecto)
     this.proyectoService.agregarProyecto(proyecto).subscribe(res=>{
       idProyecto = res
       for (let i = 0; i < this.arraySelectedSkill.length; i++) {
@@ -100,19 +101,15 @@ export class ProjectsModalComponent implements OnInit {
 
   selectValor(event: any) {
     this.arraySelectedSkill.push(this.listSkills[event.value]);
-    console.log(this.arraySelectedSkill);
   }
   activarBoton(valor:boolean){
     let btnEnviar = document.querySelector<HTMLElement>('.btnSubmit');
-    console.log(btnEnviar)
       if(valor){
         this.disabled=false;
         btnEnviar.classList.remove('disabled');
-        console.log('activado')
       }else{
         this.disabled=true;
         btnEnviar.className += ' disabled';
-        console.log('desactivado 2')
       }
   }
 
@@ -125,13 +122,11 @@ export class ProjectsModalComponent implements OnInit {
 
     reader.readAsDataURL(file);
     reader.onloadend = async () => {
-      console.log('antes');
       await this.db
       .subirImgStorage('imgPersona', Date.now() + file.name, reader.result)
       .then((urlImg: string) => {
           this.imgUrlProyectoSubir = reader.result as string;
           this.linkImgProyecto = urlImg;
-          console.log('subido');
           this.activarBoton(true);
         });
     };
@@ -143,7 +138,6 @@ export class ProjectsModalComponent implements OnInit {
       proyecto: id,
     };
 
-  console.log(proPersona);
 
     this.personaService.agregarProyecto(proPersona).subscribe(res=>{
       this.mensajeFinalizado='Proyecto agregado con exito!';

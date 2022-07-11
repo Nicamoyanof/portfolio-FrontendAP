@@ -1,20 +1,30 @@
-<div class="containerStart" id="inicio" >
-    <img class="bannerStart" src="{{persona.imgBannerM}}" alt="">
-    <img class="bannerStartDesktop" src="{{persona.imgBanner}}" alt="">
-    <article>
-        <img class="imgProfile"  src="{{persona.imgPerfil}}" alt="">
-        <img class="imgProfileDesktop"  src="../../../assets/img/Diseño sin título.png" alt="">
-        <div class="containerInfoStart">
-            <section class="containerShortData">
-                <h2>{{persona.nombre + ' ' + persona.apellido}} <span class="editarInfo" *ngIf="adminEdit"> <fa-icon [icon]="faPen"></fa-icon></span> </h2>
-                <p>
-                    {{persona.ciudad + ', ' + persona.pais }}.
-                </p>
-            </section>
-            <section class="containerDataStart">
-                <h1 class="txtTitle">{{profesion[0]}} <span>{{profesion[1]}}</span>{{profesion[2]}}</h1>
-                <p [innerHTML]="persona.descripcion"></p>
-            </section>
-        </div>
-    </article>
+<div class="containerStart" id="inicio" *ngIf="persona" >
+  <img class="bannerStart" src="{{ persona.imgBannerM }}" alt="" />
+  <img class="bannerStartDesktop" src="{{ persona.imgBanner }}" alt="" />
+  <article>
+    <img class="imgProfile" src="{{ persona.imgPerfil }}" alt="" />
+    <img
+      class="imgProfileDesktop"
+      src="../../../assets/img/Diseño sin título.png"
+      alt=""
+    />
+    <div class="containerInfoStart">
+      <section class="containerShortData">
+        <h2>
+          {{ persona.nombre + " " + persona.apellido }}
+          <span class="editarInfo" *ngIf="adminEdit">
+            <fa-icon [icon]="faPen"></fa-icon
+          ></span>
+        </h2>
+        <p>{{ persona.ciudad + ", " + persona.pais }}.</p>
+      </section>
+      <section class="containerDataStart">
+        <h1 class="txtTitle">
+          {{ profesion[0] }} <span>{{ profesion[1] }}</span
+          >{{ profesion[2] }}
+        </h1>
+        <p [innerHTML]="persona.descripcion"></p>
+      </section>
+    </div>
+  </article>
 </div>

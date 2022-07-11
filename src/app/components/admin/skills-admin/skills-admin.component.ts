@@ -51,7 +51,6 @@ export class SkillsAdminComponent implements OnInit {
     this.skillService.getAllSkill().subscribe((res:any[])=>this.listSkills=res)
     this.getHabilidades()
     this.personaService.personaHabilidad.subscribe(e=>{
-      console.log(e)
       this.listSkillPersona=e;
     })
 

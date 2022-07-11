@@ -1,0 +1,151 @@
+.containerHome {
+  display: none;
+}
+.containerHome.loaded {
+  display: block;
+}
+
+.cvAnchor {
+  text-decoration: none;
+}
+
+.cv {
+  background: #aefc27;
+  box-shadow: 1px 1px 15px #000;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: cvMovimiento 1s 10;
+}
+.cv > fa-icon {
+  position: relative;
+  color: #222;
+  font-size: 24px;
+}
+.cv > p {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  color: #fff;
+}
+.containerLoadHome{
+  width: 100vw;
+  height: 100vh;
+  background: #222;
+}
+.pointerLoadC {
+  width: 25px;
+  height: 25px;
+  background: #ff00c8;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 50px;
+  box-shadow: 3px 2px 3px #6d205c;
+  animation: salto 0.5s infinite;
+  animation-delay: 0.15s
+}
+.pointerLoadL {
+  content: " ";
+  width: 25px;
+  height: 25px;
+  background: #ff00c8;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -100px;
+  right: 0;
+  margin: auto;
+  border-radius: 50px;
+  box-shadow: 3px 2px 3px #6d205c;
+  animation: salto 0.5s infinite;
+  
+}
+.pointerLoadR {
+  content: " ";
+  width: 25px;
+  height: 25px;
+  background: #ff00c8;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100px;
+  right: 0;
+  margin: auto;
+  border-radius: 50px;
+  box-shadow: 3px 2px 3px #6d205c;
+  animation: salto 0.5s infinite;
+  animation-delay: 0.3s
+}
+
+@media (min-width: 768px) {
+  .cv {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+  }
+  .cv > fa-icon {
+    font-size: 34px;
+  }
+  .cv > p {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1250px) {
+  .cv {
+    width: 80px;
+    height: 80px;
+    border-radius: 80px;
+    bottom: 50px;
+    left: 50px;
+  }
+  .cv > fa-icon {
+    font-size: 40px;
+  }
+  .cv > p {
+    font-size: 18px;
+  }
+}
+
+@keyframes cvMovimiento {
+  0% {
+    bottom: 10px;
+  }
+  30% {
+    bottom: 30px;
+  }
+  100% {
+    bottom: 10px;
+  }
+}
+
+@keyframes salto {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: -30px;
+  }
+  100% {
+    top: 0;
+  }
+}

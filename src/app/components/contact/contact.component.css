@@ -98,7 +98,7 @@ textarea {
   color: #fff;
 }
 textarea {
-  min-width: 258px;
+  min-width: 100%;
   max-width: 258px;
   min-height: 58px;
   max-height: 58px;
@@ -162,7 +162,7 @@ textarea:focus {
 }
 @media (min-width: 375px) {
   textarea {
-    min-width: 315px;
+    min-width: 100%;
     max-width: 315px;
     min-height: 115px;
     max-height: 115px;
@@ -170,7 +170,7 @@ textarea:focus {
 }
 @media (min-width: 425px) {
   textarea {
-    min-width: 365px;
+    min-width: 100%;
     max-width: 365px;
     min-height: 115px;
     max-height: 115px;
@@ -183,7 +183,7 @@ textarea:focus {
     padding: 25px 50px;
   }
   textarea {
-    min-width: 618px;
+    min-width: 100%;
     max-width: 618px;
     min-height: 115px;
     max-height: 115px;

@@ -2,6 +2,7 @@ export class Proyecto{
     'nombre':string;
     'imgProyecto':string;
     'linkGithub':string;
+    'url':string;
 }
 export class ProyectoHabilidad{
     'proyectos':number;
@@ -13,5 +14,6 @@ export class ProyectoCompleto{
     'nombre':string;
     'imgProyecto':string;
     'linkGithub':string;
+    'url':string;
     'habilidades': any[];
 }

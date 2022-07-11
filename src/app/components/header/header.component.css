@@ -52,7 +52,7 @@ span{
     transition: 1s;
 }
 span.active{
-    height: 230px;
+    height: 190px;
 }
 ul{
     margin-top: 15px;

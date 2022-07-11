@@ -147,15 +147,12 @@ export class StartModalComponent implements OnInit {
 
   activarBoton(valor: boolean) {
     let btnEnviar = document.querySelector<HTMLElement>('.btnSubmit');
-    console.log(btnEnviar);
     if (valor) {
       this.disabled = false;
       btnEnviar.classList.remove('disabled');
-      console.log('activado');
     } else {
       this.disabled = true;
       btnEnviar.className += ' disabled';
-      console.log('desactivado 2');
     }
   }
 
@@ -200,7 +197,6 @@ export class StartModalComponent implements OnInit {
       this.imgUrlPerfil = spinnerImg;
       reader.readAsDataURL(file);
       reader.onloadend = async () => {
-        console.log('antes');
         await this.db
           .subirImgStorage('imgPersona', Date.now() + file.name, reader.result)
           .then((urlImg: string) => {

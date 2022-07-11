@@ -37,7 +37,6 @@ export class ModalComponent implements OnInit {
     this.modalService.tipoModal.subscribe(valor=>this.valorModal=valor)
     this.personaService.estudioSeleccionado.subscribe(e=>{
       this.estudioEliminar=e;
-      console.log(this.estudioEliminar, 'modal')
     })
 
     this.loginServices.personaLogeada.subscribe(id=>{
@@ -48,15 +47,9 @@ export class ModalComponent implements OnInit {
 
   guardarDato(e){
     this.datosEnviar=e;
-    console.log(e)
-  }
-
-  mostrar(){
-    console.log(this.datosEnviar)
   }
 
   activeModal() {
-    console.log(this.valorModal)
     let windowsModalStart =
       document.querySelector<HTMLElement>('.windowModal');
     let backgroundModalClose = document.querySelector<HTMLElement>(

@@ -18,30 +18,22 @@ export class AuthGuard implements CanActivate {
   constructor(private loginService: LoginService, private router: Router) {}
 
   canActivate(): Promise<boolean> {
+    let token = jwt_decode(localStorage.getItem('auth_token'));
+
     return new Promise<boolean>((resolve) => {
       try {
-        let token = JSON.parse(
-          JSON.stringify(jwt_decode(localStorage.getItem('auth_token')))
-        );
-
-        this.loginService.getPersonaLogged(token.sub).subscribe((resp) => {
-          try {
-            console.log(resp);
-            if (!resp) {
-              localStorage.removeItem('auth_token')
-              this.router.navigate(['login']);
-              resolve(false);
-            } else {
-              resolve(true);
-            }
-          } catch (error) {
-            localStorage.removeItem('auth_token')
+        let JSONToken = JSON.parse(JSON.stringify(token));
+        this.loginService.usuarioAcceso().subscribe((resp) => {
+          if (resp == 'OK') {
+            resolve(true);
+          } else {
+            localStorage.removeItem('auth_token');
             this.router.navigate(['login']);
             resolve(false);
           }
         });
       } catch (error) {
-        localStorage.removeItem('auth_token')
+        localStorage.removeItem('auth_token');
         this.router.navigate(['login']);
         resolve(false);
       }

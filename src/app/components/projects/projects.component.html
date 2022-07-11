@@ -1,20 +1,29 @@
 <div class="containerSectionProject" id="proyectos">
-<section>
+  <section>
     <h3>MIS PROYECTOS</h3>
     <div class="containerItemsProject">
-        <article *ngFor="let proyecto of listaProyectos">
-            <h4>{{proyecto.nombre}}</h4>
-            <figure>
-                <img src={{proyecto.imgProyecto}} alt="">
-                <figcaption>
-                    <ul>
-                        <li  *ngFor="let habilidad of proyecto.habilidades"><img src={{habilidad.logo}} alt=""> </li>
-                    </ul>
-                    <a routerLink={{proyecto.linkGithub}}> <button> GitHub <fa-icon [icon]="github"></fa-icon> </button></a> 
-                </figcaption>
-            </figure>
-        </article>
-       
+      <article *ngFor="let proyecto of listaProyectos">
+        <a href="{{ proyecto.url }}"  target="_blank">
+          <h4>
+            {{ proyecto.nombre }}
+            <fa-icon [icon]="faArrow"></fa-icon></h4
+        ></a>
+        <figure>
+          <a href="{{ proyecto.url }}" target="_blank">
+            <img src="{{ proyecto.imgProyecto }}" alt=""
+          /></a>
+          <figcaption>
+            <ul>
+              <li *ngFor="let habilidad of proyecto.habilidades">
+                <img src="{{ habilidad.logo }}" alt="" />
+              </li>
+            </ul>
+            <a href="{{ proyecto.linkGithub }}" target="_blank">
+              <button>GitHub <fa-icon [icon]="github"></fa-icon></button
+            ></a>
+          </figcaption>
+        </figure>
+      </article>
     </div>
-</section>
+  </section>
 </div>

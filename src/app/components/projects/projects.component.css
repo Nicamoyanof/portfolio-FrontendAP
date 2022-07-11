@@ -18,7 +18,7 @@ article {
   border-radius: 10px;
   margin-bottom: 3rem;
 }
-figure > img {
+figure > a>img {
   width: 100%;
 }
 figcaption {
@@ -47,6 +47,14 @@ h4 {
   text-transform: uppercase;
   background: linear-gradient(319deg, rgb(63 0 155) 34%, rgb(110 0 101) 63%);
   border-radius: 10px 10px 0 0;
+  position: relative;
+}
+a{
+  text-decoration: none;
+}
+h4>fa-icon{
+  position: absolute;
+  right: 5px;
 }
 button {
   padding: 7px 15px;

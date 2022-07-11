@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 import { Educacion } from '../models/educacion';
 
 @Injectable({
@@ -11,9 +12,10 @@ export class EducacionService {
 
   educacionesEmitter = new EventEmitter();
 
-  url = "http://portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com/api"
+  API_URL = environment.urlBackend
 
-  customHeaders = new HttpHeaders({ Authorization: "Bearer " + localStorage.getItem("auth_token"), origin:"http://portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com"});
+
+  customHeaders = new HttpHeaders({ Authorization: "Bearer " + localStorage.getItem("auth_token")});
   
 
   constructor(private http:HttpClient,
@@ -21,12 +23,12 @@ export class EducacionService {
   }
 
   agregarEducacion(educacion:Educacion){
-    return this.http.post('/api/educacion', educacion, { headers:this.customHeaders ,  responseType: 'text' })
+    return this.http.post((this.API_URL)+'/educacion', educacion, { headers:this.customHeaders ,  responseType: 'text' })
   }
 
 
   public getEducaciones() {
-    this.http.get<Educacion[]>('/api/educaciones').subscribe(valor=>this.educacionesEmitter.emit(valor))
+    this.http.get<Educacion[]>((this.API_URL)+'/educaciones').subscribe(valor=>this.educacionesEmitter.emit(valor))
   }
   
   

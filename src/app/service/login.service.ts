@@ -4,6 +4,7 @@ import {  Router } from '@angular/router';
 import { text } from '@fortawesome/fontawesome-svg-core';
 import jwtDecode from 'jwt-decode';
 import { BehaviorSubject, map, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 import { Usuario } from '../models/usuario';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class LoginService {
 
   personaLogeada = new EventEmitter();
 
-  url = `http://www.portfolioback-env.eba-bdveaatv.us-east-1.elasticbeanstalk.com/api`
+  API_URL = environment.urlBackend
 
   currentUserUserSubject: BehaviorSubject<any>;
   
@@ -25,7 +26,7 @@ export class LoginService {
   }
 
   login(usuario:Usuario){
-    this.http.post('/api/login', usuario, {  responseType: 'json' } )
+    this.http.post(this.API_URL + `/login`, usuario, {  responseType: 'json' } )
           .subscribe((resp:any)=>{
             localStorage.setItem('auth_token', resp.token);
             this.router.navigate(['admin'])
@@ -35,9 +36,13 @@ export class LoginService {
 
   getPersonaLogged(usuario:string){
     if(usuario!=null){
-      return this.http.get(`/api/usuarioLog/${usuario}`, {headers : this.customHeaders})
+      return this.http.get(this.API_URL + `/usuarioLog/${usuario}`, {headers : this.customHeaders})
     }
     return null;
+  }
+
+  usuarioAcceso(){
+    return this.http.get(this.API_URL + `/access`, {headers : this.customHeaders})
   }
 
 

@@ -13,9 +13,9 @@ export class SkillsComponent implements OnInit {
   constructor(private personaService:PersonasService) { }
 
   ngOnInit(): void {
-    this.personaService.getHabilidadesPersona(22).subscribe(listHab=>{
+    this.personaService.getHabilidadesPersona(2).subscribe(listHab=>{
       this.habilidadesPorPersona=listHab;
-      console.log(listHab)
+      this.personaService.homeCargado.emit(true)
     })
   }
 
